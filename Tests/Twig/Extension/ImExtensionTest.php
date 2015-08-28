@@ -1,19 +1,10 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Leapt\ImBundle\Tests\Twig\Extension;
 
-namespace Snowcap\ImBundle\Tests\Twig\Extension;
-
-use Snowcap\ImBundle\Manager;
-use Snowcap\ImBundle\Twig\Extension\ImExtension;
-use Snowcap\ImBundle\Wrapper;
+use Leapt\ImBundle\Manager;
+use Leapt\ImBundle\Twig\Extension\ImExtension;
+use Leapt\ImBundle\Wrapper;
 
 /**
  * Wrapper tester class

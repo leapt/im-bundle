@@ -1,18 +1,9 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Leapt\ImBundle\Twig\Extension;
 
-namespace Snowcap\ImBundle\Twig\Extension;
-
-use Snowcap\ImBundle\Manager;
-use Snowcap\ImBundle\Twig\TokenParser\Imresize as Twig_TokenParser_Imresize;
+use Leapt\ImBundle\Manager;
+use Leapt\ImBundle\Twig\TokenParser\Imresize as Twig_TokenParser_Imresize;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -133,6 +124,6 @@ class ImExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'snowcap_im';
+        return 'leapt_im';
     }
 }

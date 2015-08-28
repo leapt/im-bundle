@@ -1,5 +1,5 @@
-Snowcap IM Bundle
-=================
+Leapt IM Bundle
+===============
 
 Introduction
 ------------

@@ -1,19 +1,9 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Leapt\ImBundle\Tests;
 
-namespace Snowcap\ImBundle\Tests;
-
-use Snowcap\ImBundle\Manager;
-use Snowcap\ImBundle\Wrapper;
-
+use Leapt\ImBundle\Manager;
+use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -53,7 +43,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \Snowcap\ImBundle\Manager
+     * @return \Leapt\ImBundle\Manager
      */
     public function test__construct()
     {
@@ -61,7 +51,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             'list' => array('resize' => '100x100')
         );
 
-        $wrapper = new Wrapper('\Snowcap\ImBundle\Tests\Mock\Process');
+        $wrapper = new Wrapper('\Leapt\ImBundle\Tests\Mock\Process');
         $manager = new Manager($wrapper, $this->rootDir, $this->webPath, $this->cachePath, $formats);
 
         $this->assertEquals($wrapper, $this->getManagerPrivateValue('wrapper', $manager));
@@ -177,7 +167,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      * @param Manager $manager
      *
      * @depends test__construct
-     * @expectedException \Snowcap\ImBundle\Exception\InvalidArgumentException
+     * @expectedException \Leapt\ImBundle\Exception\InvalidArgumentException
      */
     public function testConvertFormatException(Manager $manager)
     {
@@ -217,7 +207,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      * @param Manager $manager
      *
      * @depends test__construct
-     * @expectedException \Snowcap\ImBundle\Exception\NotFoundException
+     * @expectedException \Leapt\ImBundle\Exception\NotFoundException
      */
     public function testCheckImageException(Manager $manager)
     {

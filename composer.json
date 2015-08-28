@@ -1,9 +1,9 @@
 {
-    "name": "snowcap/im-bundle",
+    "name": "leapt/im-bundle",
     "type": "symfony-bundle",
     "description": "Imagemagick wrapper for Symfony2",
     "keywords": ["image", "thumbnail", "imagemagick", "symfony"],
-    "homepage": "https://github.com/snowcap/SnowcapImBundle",
+    "homepage": "https://github.com/leapt/im-bundle",
     "license": "MIT",
     "authors": [
         {
@@ -34,15 +34,9 @@
         "phpunit/phpunit": "~4.7@dev"
     },
     "suggest": {
-        "snowcap/core-bundle": "ImBundle provides a form type extension for the Snowcap CoreBundle ImageType"
+        "leapt/core-bundle": "ImBundle provides a form type extension for the Leapt CoreBundle ImageType"
     },
     "autoload": {
-        "psr-0": { "Snowcap\\ImBundle": "" }
-    },
-    "target-dir": "Snowcap/ImBundle",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.7-dev"
-        }
+        "psr-4": { "Leapt\\ImBundle\\": "" }
     }
 }

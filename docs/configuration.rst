@@ -5,7 +5,7 @@ app/config/config.yml
 
 .. code-block:: yaml
 
-  snowcap_im:
+  leapt_im:
 
     # the directory where your imagemagick binaries are (optional). Default: /usr/bin/
     binary_path: '/opt/local/bin/'

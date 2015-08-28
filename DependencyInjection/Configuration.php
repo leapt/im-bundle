@@ -1,15 +1,6 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Snowcap\ImBundle\DependencyInjection;
+namespace Leapt\ImBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -31,7 +22,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
-        $rootNode = $treeBuilder->root('snowcap_im');
+        $rootNode = $treeBuilder->root('leapt_im');
 
         $rootNode
             ->children()

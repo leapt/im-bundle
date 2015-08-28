@@ -1,15 +1,6 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Snowcap\ImBundle\Twig\Node;
+namespace Leapt\ImBundle\Twig\Node;
 
 use Twig_Node;
 use Twig_NodeInterface;
@@ -46,6 +37,6 @@ class Imresize extends Twig_Node
             ->addDebugInfo($this)
             ->write("ob_start();\n")
             ->subcompile($this->getNode('body'))
-            ->write("echo \$this->env->getExtension('snowcap_im')->convert(ob_get_clean());\n");
+            ->write("echo \$this->env->getExtension('leapt_im')->convert(ob_get_clean());\n");
     }
 }

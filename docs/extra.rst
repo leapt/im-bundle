@@ -27,13 +27,13 @@ area@               Resize image to have specified area in pixels. Aspect ratio 
 Form type
 ---------
 
-ImBundle comes with a form type extension for the SnowcapCoreBundle Image form type. It allows you to specify a format for the image preview displayed next to the field.
+ImBundle comes with a form type extension for the LeaptCoreBundle Image form type. It allows you to specify a format for the image preview displayed next to the field.
 
 .. code-block:: php
 
   $builder->add(
       'picture',
-      'snowcap_core_image',
+      'leapt_core_image',
       array(
           'file_path' => 'picturePath',
           'im_format' => '200x200',

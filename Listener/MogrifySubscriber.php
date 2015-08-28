@@ -1,15 +1,6 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Snowcap\ImBundle\Listener;
+namespace Leapt\ImBundle\Listener;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
@@ -17,8 +8,7 @@ use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
-use Snowcap\ImBundle\Manager as ImManager;
-
+use Leapt\ImBundle\Manager as ImManager;
 
 /**
  * Event listener for Doctrine entities to evualuate and execute ImBundle annotations
@@ -33,7 +23,7 @@ class MogrifySubscriber implements EventSubscriber
     private $rootDir;
 
     /**
-     * @var \Snowcap\ImBundle\Manager
+     * @var \Leapt\ImBundle\Manager
      */
     private $imManager;
 
@@ -73,8 +63,8 @@ class MogrifySubscriber implements EventSubscriber
                 ) {
                     continue;
                 }
-                /** @var $annotation \Snowcap\ImBundle\Doctrine\Mapping\Mogrify */
-                if ($annotation = $reader->getPropertyAnnotation($property, 'Snowcap\\ImBundle\\Doctrine\\Mapping\\Mogrify')) {
+                /** @var $annotation \Leapt\ImBundle\Doctrine\Mapping\Mogrify */
+                if ($annotation = $reader->getPropertyAnnotation($property, 'Leapt\\ImBundle\\Doctrine\\Mapping\\Mogrify')) {
                     $field = $property->getName();
                     $this->config[$meta->getTableName()]['fields'][$field] = array(
                         'property' => $property,

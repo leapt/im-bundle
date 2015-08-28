@@ -1,21 +1,11 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Leapt\ImBundle\Tests;
 
-namespace Snowcap\ImBundle\Tests;
-
+use Leapt\ImBundle\Exception\InvalidArgumentException;
+use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamWrapper;
-
-use Snowcap\ImBundle\Exception\InvalidArgumentException;
-use Snowcap\ImBundle\Wrapper;
 
 /**
  * Wrapper tester class
@@ -35,7 +25,7 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->wrapper = new Wrapper('\Snowcap\ImBundle\Tests\Mock\Process');
+        $this->wrapper = new Wrapper('\Leapt\ImBundle\Tests\Mock\Process');
         $this->root = vfsStream::setup('exampleDir');
     }
 

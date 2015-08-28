@@ -1,18 +1,9 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Leapt\ImBundle;
 
-namespace Snowcap\ImBundle;
-
-use Snowcap\ImBundle\Exception\InvalidArgumentException;
-use Snowcap\ImBundle\Exception\RuntimeException;
+use Leapt\ImBundle\Exception\InvalidArgumentException;
+use Leapt\ImBundle\Exception\RuntimeException;
 
 /**
  * Im wrapper

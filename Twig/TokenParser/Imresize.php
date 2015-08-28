@@ -1,21 +1,12 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Snowcap\ImBundle\Twig\TokenParser;
+namespace Leapt\ImBundle\Twig\TokenParser;
 
 use \Twig_TokenParser;
 use \Twig_Token;
 use \Twig_NodeInterface;
 
-use \Snowcap\ImBundle\Twig\Node\Imresize as Twig_Node_Imresize;
+use \Leapt\ImBundle\Twig\Node\Imresize as Twig_Node_Imresize;
 
 /**
  * Create and use image cache regarding the HTML width and height attributes

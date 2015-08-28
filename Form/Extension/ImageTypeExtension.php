@@ -1,22 +1,12 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Leapt\ImBundle\Form\Extension;
 
-namespace Snowcap\ImBundle\Form\Extension;
-
+use Leapt\ImBundle\Manager;
 use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Snowcap\ImBundle\Manager;
 
 /**
  * Form type to show a preview of the image
@@ -41,7 +31,7 @@ class ImageTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-        return 'snowcap_core_image';
+        return 'leapt_core_image';
     }
 
     /**

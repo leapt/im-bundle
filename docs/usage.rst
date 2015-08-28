@@ -39,7 +39,7 @@ From a controller
 
 .. code-block:: php
 
-  $im = $this->get("snowcap_im.manager");
+  $im = $this->get('leapt_im.manager');
 
   // to create a cached file
   $im->convert($format, $path);
@@ -55,13 +55,13 @@ If you need to alter an uploaded image, you can add annotations on the file publ
 .. code-block:: php
 
   // ...
-  use Snowcap\ImBundle\Doctrine\Mapping as SnowcapIm;
+  use Leapt\ImBundle\Doctrine\Mapping as LeaptIm;
   // ...
 
     /**
      *
      * @Assert\File(maxSize="6000000")
-     * @SnowcapIm\Mogrify(params={"thumbnail"="100x100>"})
+     * @LeaptIm\Mogrify(params={"thumbnail"="100x100>"})
      */
     public $file;
 
@@ -79,7 +79,7 @@ You can clear the cache with the following command-line task
 
 .. code-block:: console
 
-  ./app/console snowcap:im:clear [age]
+  ./app/console leapt:im:clear [age]
 
 Where the age argument - optional - will only clear cache older than the [age] days
 

@@ -1,21 +1,11 @@
 <?php
 
-/*
- * This file is part of the Snowcap ImBundle package.
- *
- * (c) Snowcap <shoot@snowcap.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Snowcap\ImBundle\Command;
+namespace Leapt\ImBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
@@ -27,14 +17,14 @@ class ClearCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('snowcap:im:clear')
+            ->setName('leapt:im:clear')
             ->setDescription('Clear IM cache')
             ->addArgument('age', InputArgument::OPTIONAL, 'Clear only files older than (days)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cacheDir = $this->getContainer()->get('snowcap_im.manager')->getCacheDirectory();
+        $cacheDir = $this->getContainer()->get('leapt_im.manager')->getCacheDirectory();
 
         /** @var $filesystem \Symfony\Component\Filesystem\Filesystem */
         $filesystem = $this->getContainer()->get('filesystem');
