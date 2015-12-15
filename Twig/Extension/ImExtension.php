@@ -43,9 +43,9 @@ class ImExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return [
-            new \Twig_SimpleFilter('imresize', [$this, 'imResize'], ['pre_escape' => 'html', 'is_safe' => ['html']])
-        ];
+        return array(
+            new \Twig_SimpleFilter('imresize', array($this, 'imResize'), array('pre_escape' => 'html', 'is_safe' => array('html')))
+        );
     }
 
     /**
@@ -54,9 +54,9 @@ class ImExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return [
-            new \Twig_SimpleFunction('imresize', [$this, 'imResize'], ['pre_escape' => 'html', 'is_safe' => ['html']])
-        ];
+        return array(
+            new \Twig_SimpleFunction('imresize', array($this, 'imResize'), array('pre_escape' => 'html', 'is_safe' => array('html')))
+        );
     }
 
     /**
