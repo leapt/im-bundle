@@ -2,6 +2,7 @@
 
 namespace Leapt\ImBundle\Form\Extension;
 
+use Leapt\CoreBundle\Form\Type\ImageType;
 use Leapt\ImBundle\Manager;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
@@ -31,7 +32,7 @@ class ImageTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-        return 'leapt_core_image';
+        return ImageType::class;
     }
 
     /**
@@ -41,9 +42,9 @@ class ImageTypeExtension extends AbstractTypeExtension
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'im_format' => null,
-        ));
+        ]);
     }
 
     /**

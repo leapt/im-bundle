@@ -5,25 +5,26 @@ parameters:
 services:
     leapt_im.wrapper:
         class: %leapt_im.wrapper_class%
-        arguments: ['\Symfony\Component\Process\Process', %leapt_im.binary_path%, %leapt_im.timeout%]
+        arguments: [ '\Symfony\Component\Process\Process', %leapt_im.binary_path%, %leapt_im.timeout% ]
+
     leapt_im.manager:
         class: %leapt_im.manager_class%
-        arguments: [@leapt_im.wrapper, %kernel.root_dir%, %leapt_im.web_path%, %leapt_im.cache_path%, %leapt_im.formats%]
+        arguments: [ "@leapt_im.wrapper", %kernel.root_dir%, %leapt_im.web_path%, %leapt_im.cache_path%, %leapt_im.formats% ]
 
     leapt_im.twig:
         class: Leapt\ImBundle\Twig\Extension\ImExtension
-        arguments: [@leapt_im.manager]
+        arguments: [ "@leapt_im.manager" ]
         tags:
             -  { name: twig.extension }
 
     leapt_im.mogrify_subscriber:
         class: Leapt\ImBundle\Listener\MogrifySubscriber
-        arguments: [%kernel.root_dir%, @leapt_im.manager]
+        arguments: [ %kernel.root_dir%, "@leapt_im.manager" ]
         tags:
             - { name: doctrine.event_subscriber}
 
     leapt_im.form_extension:
         class: Leapt\ImBundle\Form\Extension\ImageTypeExtension
-        arguments: [@leapt_im.manager]
+        arguments: [ "@leapt_im.manager" ]
         tags:
-            -  { name: form.type_extension, alias: leapt_core_image }
+            -  { name: form.type_extension, extended_type: Leapt\CoreBundle\Form\Type\ImageType }
