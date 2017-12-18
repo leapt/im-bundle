@@ -2,9 +2,9 @@
 
 namespace Leapt\ImBundle\Twig\TokenParser;
 
-use \Twig_TokenParser;
+use \Twig_Node;
 use \Twig_Token;
-use \Twig_NodeInterface;
+use \Twig_TokenParser;
 
 use \Leapt\ImBundle\Twig\Node\Imresize as Twig_Node_Imresize;
 
@@ -30,7 +30,7 @@ class Imresize extends Twig_TokenParser
      *
      * @param Twig_Token $token A Twig_Token instance
      *
-     * @return Twig_NodeInterface A Twig_NodeInterface instance
+     * @return Twig_Node A Twig_Node instance
      */
     public function parse(Twig_Token $token)
     {
