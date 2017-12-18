@@ -26,7 +26,8 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4",
-        "symfony/framework-bundle": ">=2.7"
+        "symfony/framework-bundle": "~2.7|~3.0|^4.0",
+        "symfony/process": "^2.7|^3.0|^4.0"
     },
     "require-dev": {
         "symfony/symfony": ">=2.7",
@@ -37,6 +38,8 @@
         "leapt/core-bundle": "ImBundle provides a form type extension for the Leapt CoreBundle ImageType"
     },
     "autoload": {
-        "psr-4": { "Leapt\\ImBundle\\": "" }
+        "psr-4": {
+            "Leapt\\ImBundle\\": ""
+        }
     }
 }

@@ -1,30 +1,34 @@
-parameters:
-    leapt_im.wrapper_class: Leapt\ImBundle\Wrapper
-    leapt_im.manager_class: Leapt\ImBundle\Manager
-
 services:
-    leapt_im.wrapper:
-        class: "%leapt_im.wrapper_class%"
-        arguments: [ '\Symfony\Component\Process\Process', "%leapt_im.binary_path%", "%leapt_im.timeout%" ]
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
 
-    leapt_im.manager:
-        class: "%leapt_im.manager_class%"
-        arguments: [ "@leapt_im.wrapper", "%kernel.root_dir%", "%leapt_im.web_path%", "%leapt_im.cache_path%", "%leapt_im.formats%" ]
+    Leapt\ImBundle\:
+        resource: '../../*'
+        exclude: '../../Tests'
 
-    leapt_im.twig:
-        class: Leapt\ImBundle\Twig\Extension\ImExtension
-        arguments: [ "@leapt_im.manager" ]
+    Leapt\ImBundle\Wrapper:
+        $processClass: '\Symfony\Component\Process\Process'
+        $binaryPath: '%leapt_im.binary_path%'
+        $timeout: '%leapt_im.timeout%'
+
+    Leapt\ImBundle\Manager:
+        $rootDir: '%kernel.root_dir%'
+        $webPath: '%leapt_im.web_path%'
+        $cachePath: '%leapt_im.cache_path%'
+        $formats: '%leapt_im.formats%'
+
+    Leapt\ImBundle\Listener\MogrifySubscriber:
+        arguments:
+            $rootDir: '%kernel.root_dir%'
         tags:
-            -  { name: twig.extension }
+            - { name: doctrine.event_subscriber }
 
-    leapt_im.mogrify_subscriber:
-        class: Leapt\ImBundle\Listener\MogrifySubscriber
-        arguments: [ "%kernel.root_dir%", "@leapt_im.manager" ]
-        tags:
-            - { name: doctrine.event_subscriber}
+    Leapt\ImBundle\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
 
-    leapt_im.form_extension:
-        class: Leapt\ImBundle\Form\Extension\ImageTypeExtension
-        arguments: [ "@leapt_im.manager" ]
+    Leapt\ImBundle\Form\Extension\ImageTypeExtension:
         tags:
             -  { name: form.type_extension, extended_type: Leapt\CoreBundle\Form\Type\ImageType }

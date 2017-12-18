@@ -2,6 +2,7 @@
 
 namespace Leapt\ImBundle\Command;
 
+use Leapt\ImBundle\Manager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,17 +15,30 @@ use Symfony\Component\Process\Process;
  */
 class ClearCommand extends ContainerAwareCommand
 {
+    /**
+     * @var Manager
+     */
+    private $imManager;
+
+    public function __construct(Manager $imManager)
+    {
+        $this->imManager = $imManager;
+
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this
             ->setName('leapt:im:clear')
             ->setDescription('Clear IM cache')
-            ->addArgument('age', InputArgument::OPTIONAL, 'Clear only files older than (days)');
+            ->addArgument('age', InputArgument::OPTIONAL, 'Clear only files older than (days)')
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cacheDir = $this->getContainer()->get('leapt_im.manager')->getCacheDirectory();
+        $cacheDir = $this->imManager->getCacheDirectory();
 
         /** @var $filesystem \Symfony\Component\Filesystem\Filesystem */
         $filesystem = $this->getContainer()->get('filesystem');

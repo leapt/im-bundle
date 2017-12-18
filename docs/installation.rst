@@ -31,7 +31,7 @@ app/AppKernel.php
 Add routing
 -----------
 
-app/config/routing.yml
+config/routes/leapt_im.yaml
 
 .. code-block:: yaml
 

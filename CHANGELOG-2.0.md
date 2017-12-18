@@ -1,4 +1,4 @@
-2.0.0 (June 9, 2015)
----------------------
+2.0.0
+-----
 
-* [BC] Remove deprecated code for Symfony 2.7    
+* Compatibility with Symfony 4

@@ -27,17 +27,15 @@ area@               Resize image to have specified area in pixels. Aspect ratio 
 Form type
 ---------
 
-ImBundle comes with a form type extension for the LeaptCoreBundle Image form type. It allows you to specify a format for the image preview displayed next to the field.
+ImBundle comes with a form type extension for the LeaptCoreBundle Image form type. It allows you to specify a format
+for the image preview displayed next to the field.
 
 .. code-block:: php
 
-  $builder->add(
-      'picture',
-      'leapt_core_image',
-      array(
-          'file_path' => 'picturePath',
-          'im_format' => '200x200',
-      )
+  $builder->add('picture', ImageType::class,[
+      'file_path' => 'picturePath',
+      'im_format' => '200x200',
   );
 
-The code above will display an image preview resized to 200x200px next to the image field, very interesting for an admin for example.
+The code above will display an image preview resized to 200x200px next to the image field,
+very interesting for an admin for example.

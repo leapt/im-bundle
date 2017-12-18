@@ -3,6 +3,7 @@
 namespace Leapt\ImBundle\Controller;
 
 use Leapt\ImBundle\Exception\RuntimeException;
+use Leapt\ImBundle\Manager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,17 +16,15 @@ class DefaultController extends Controller
     /**
      * Main action: renders the image cache and returns it to the browser
      *
+     * @param Manager $im
      * @param Request $request
      * @param string $format A format name defined in config or a string [width]x[height]
      * @param string $path The path of the source file (@see Manager::downloadExternalImage for more info on external/remote images)
      *
      * @return Response
      */
-    public function indexAction(Request $request, $format, $path)
+    public function indexAction(Manager $im, Request $request, $format, $path)
     {
-        /** @var $im \Leapt\ImBundle\Manager */
-        $im = $this->get("leapt_im.manager");
-
         if (strpos($path, "http/") === 0 || strpos($path, "https/") === 0) {
             $newPath = $im->downloadExternalImage($format, $path);
             $im->mogrify($format, $newPath);

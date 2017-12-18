@@ -79,7 +79,7 @@ You can clear the cache with the following command-line task
 
 .. code-block:: console
 
-  ./app/console leapt:im:clear [age]
+  ./bin/console leapt:im:clear [age]
 
 Where the age argument - optional - will only clear cache older than the [age] days
 

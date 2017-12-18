@@ -22,7 +22,7 @@ class ImageTypeExtension extends AbstractTypeExtension
     /**
      * @param Manager $imManager
      */
-    public function __construct($imManager)
+    public function __construct(Manager $imManager)
     {
         $this->imManager = $imManager;
     }
@@ -37,8 +37,6 @@ class ImageTypeExtension extends AbstractTypeExtension
 
     /**
      * @param OptionsResolver $resolver
-     *
-     * @return array
      */
     public function configureOptions(OptionsResolver $resolver)
     {
