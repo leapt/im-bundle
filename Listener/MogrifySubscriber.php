@@ -4,18 +4,17 @@ namespace Leapt\ImBundle\Listener;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Leapt\ImBundle\Manager as ImManager;
 
 /**
- * Event listener for Doctrine entities to evualuate and execute ImBundle annotations
+ * Event listener for Doctrine entities to evualuate and execute ImBundle annotations.
  */
 class MogrifySubscriber implements EventSubscriber
 {
-    private $config = array();
+    private $config = [];
 
     /**
      * @var string
@@ -37,42 +36,9 @@ class MogrifySubscriber implements EventSubscriber
         $this->imManager = $imManager;
     }
 
-    /**
-     * Returns an array of events this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public function getSubscribedEvents()
     {
-        return array('loadClassMetadata', 'prePersist', 'preFlush');
-    }
-
-    /**
-     * @param LoadClassMetadataEventArgs $eventArgs
-     */
-    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
-    {
-        $reader = new AnnotationReader();
-        $meta = $eventArgs->getClassMetadata();
-        $reflexionClass = $meta->getReflectionClass();
-        if (null !== $reflexionClass) {
-            foreach ($reflexionClass->getProperties() as $property) {
-                if ($meta->isMappedSuperclass && !$property->isPrivate() ||
-                    $meta->isInheritedField($property->name) ||
-                    isset($meta->associationMappings[$property->name]['inherited'])
-                ) {
-                    continue;
-                }
-                /** @var $annotation \Leapt\ImBundle\Doctrine\Mapping\Mogrify */
-                if ($annotation = $reader->getPropertyAnnotation($property, 'Leapt\\ImBundle\\Doctrine\\Mapping\\Mogrify')) {
-                    $field = $property->getName();
-                    $this->config[$meta->getTableName()]['fields'][$field] = array(
-                        'property' => $property,
-                        'params'   => $annotation->params,
-                    );
-                }
-            }
-        }
+        return ['prePersist', 'preFlush'];
     }
 
     /**
@@ -112,13 +78,42 @@ class MogrifySubscriber implements EventSubscriber
      */
     private function getFiles($entity, EntityManager $entityManager)
     {
-        $classMetaData = $entityManager->getClassMetaData(get_class($entity));
-        $tableName = $classMetaData->getTableName();
+        $class = get_class($entity);
+        $this->checkClassConfig($entity, $entityManager);
 
-        if (array_key_exists($tableName, $this->config)) {
-            return $this->config[$tableName]['fields'];
+        if (array_key_exists($class, $this->config)) {
+            return $this->config[$class]['fields'];
         } else {
-            return array();
+            return [];
+        }
+    }
+
+    private function checkClassConfig($entity, EntityManager $entityManager)
+    {
+        $class = get_class($entity);
+
+        if (!array_key_exists($class, $this->config)) {
+            $reader = new AnnotationReader();
+            $meta = $entityManager->getClassMetaData($class);
+            $reflexionClass = $meta->getReflectionClass();
+            if (null !== $reflexionClass) {
+                foreach ($reflexionClass->getProperties() as $property) {
+                    if ($meta->isMappedSuperclass && !$property->isPrivate() ||
+                        $meta->isInheritedField($property->name) ||
+                        isset($meta->associationMappings[$property->name]['inherited'])
+                    ) {
+                        continue;
+                    }
+                    /** @var $annotation \Leapt\ImBundle\Doctrine\Mapping\Mogrify */
+                    if ($annotation = $reader->getPropertyAnnotation($property, 'Leapt\\ImBundle\\Doctrine\\Mapping\\Mogrify')) {
+                        $field = $property->getName();
+                        $this->config[$class]['fields'][$field] = [
+                            'property' => $property,
+                            'params'   => $annotation->params,
+                        ];
+                    }
+                }
+            }
         }
     }
 
