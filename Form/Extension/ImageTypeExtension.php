@@ -38,7 +38,7 @@ class ImageTypeExtension extends AbstractTypeExtension
     /**
      * @return array
      */
-    public function getExtendedTypes()
+    public static function getExtendedTypes()
     {
         return [ImageType::class];
     }
