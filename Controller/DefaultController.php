@@ -4,14 +4,14 @@ namespace Leapt\ImBundle\Controller;
 
 use Leapt\ImBundle\Exception\RuntimeException;
 use Leapt\ImBundle\Manager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controls calls to resized images
  */
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
     /**
      * Main action: renders the image cache and returns it to the browser
@@ -41,7 +41,7 @@ class DefaultController extends Controller
                 $contentType = 'image/' . $extension;
             }
 
-            return new Response($im->getCacheContent($format, $path), 200, array('Content-Type' => $contentType));
+            return new Response($im->getCacheContent($format, $path), 200, ['Content-Type' => $contentType]);
         }
     }
 }

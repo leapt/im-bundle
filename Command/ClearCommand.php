@@ -3,17 +3,18 @@
 namespace Leapt\ImBundle\Command;
 
 use Leapt\ImBundle\Manager;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
 /**
  * Command line task to clear (remove) generated files
  */
-class ClearCommand extends ContainerAwareCommand
+class ClearCommand extends Command
 {
     /**
      * @var Manager
@@ -39,9 +40,7 @@ class ClearCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $cacheDir = $this->imManager->getCacheDirectory();
-
-        /** @var $filesystem \Symfony\Component\Filesystem\Filesystem */
-        $filesystem = $this->getContainer()->get('filesystem');
+        $filesystem = new Filesystem();
 
         $age = $input->getArgument('age');
         if ($age) {

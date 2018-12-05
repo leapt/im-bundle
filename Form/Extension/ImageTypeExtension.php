@@ -36,6 +36,14 @@ class ImageTypeExtension extends AbstractTypeExtension
     }
 
     /**
+     * @return array
+     */
+    public function getExtendedTypes()
+    {
+        return [ImageType::class];
+    }
+
+    /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
