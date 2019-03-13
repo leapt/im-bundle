@@ -29,6 +29,7 @@
         "doctrine/annotations": "^1.5",
         "doctrine/orm": "^2.5",
         "leapt/core-bundle": "^2.0",
+        "symfony/css-selector": "^3.3|^4.0",
         "symfony/console": "^3.3|^4.0",
         "symfony/dom-crawler": "^3.3|^4.0",
         "symfony/filesystem": "^3.3|^4.0",

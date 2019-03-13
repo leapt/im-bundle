@@ -3,6 +3,7 @@
 
 * Fixed deprecations with Twig >= 2.7.x by using namespaced classes
 * Modified CHANGELOG file names to match update paths
+* Added missing symfony/css-selector dependency
 
 2.1.1
 -----
