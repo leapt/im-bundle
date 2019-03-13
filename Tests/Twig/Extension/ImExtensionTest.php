@@ -5,11 +5,12 @@ namespace Leapt\ImBundle\Tests\Twig\Extension;
 use Leapt\ImBundle\Manager;
 use Leapt\ImBundle\Twig\Extension\ImExtension;
 use Leapt\ImBundle\Wrapper;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Wrapper tester class
  */
-class ImExtensionTest extends \PHPUnit_Framework_TestCase
+class ImExtensionTest extends TestCase
 {
     /** @var ImExtension */
     private $imExtension;

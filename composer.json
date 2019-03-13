@@ -41,7 +41,7 @@
     },
     "require-dev": {
         "mikey179/vfsStream": "v1.0.0",
-        "phpunit/phpunit": "~4.7@dev"
+        "phpunit/phpunit": "^7.5.6"
     },
     "suggest": {
         "leapt/core-bundle": "ImBundle provides a form type extension for the Leapt CoreBundle ImageType"

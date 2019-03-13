@@ -5,11 +5,12 @@ namespace Leapt\ImBundle\Tests;
 use Leapt\ImBundle\Manager;
 use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Manager tester class
  */
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends TestCase
 {
     /**
      * @var string

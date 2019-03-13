@@ -27,15 +27,19 @@ class Process extends BaseProcess
 
     /**
      * Run the process
-     * @param null $callback
-     * @return int|void
+     * @param callable|null $callback
+     * @return int
      */
-    public function run($callback = null)
+    public function run(callable $callback = null, array $env = []): int
     {
         if ($this->cmd === 'mogrify "somefailingstructure') {
             $this->success = false;
+
+            return 255;
         } else {
             $this->success = true;
+
+            return 0;
         }
     }
 

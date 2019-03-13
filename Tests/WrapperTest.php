@@ -6,11 +6,12 @@ use Leapt\ImBundle\Exception\InvalidArgumentException;
 use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamWrapper;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Wrapper tester class
  */
-class WrapperTest extends \PHPUnit_Framework_TestCase
+class WrapperTest extends TestCase
 {
     /** @var Wrapper */
     private $wrapper;
