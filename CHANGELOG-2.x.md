@@ -1,3 +1,14 @@
+2.1.2
+-----
+
+* Fixed deprecations with Twig >= 2.7.x by using namespaced classes
+* Modified CHANGELOG file names to match update paths
+
+2.1.1
+-----
+
+* Make ImageTypeExtension::getExtendedTypes() static
+
 2.1.0
 -----
 
