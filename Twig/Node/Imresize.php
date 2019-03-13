@@ -2,8 +2,8 @@
 
 namespace Leapt\ImBundle\Twig\Node;
 
-use Twig_Compiler;
-use Twig_Node;
+use Twig\Compiler;
+use Twig\Node\Node;
 
 /**
  * Represents a img tag node
@@ -13,24 +13,14 @@ use Twig_Node;
  *
  * @codeCoverageIgnore
  */
-class Imresize extends Twig_Node
+class Imresize extends Node
 {
-    /**
-     * @param Twig_Node          $body   @see Twig_NodeInterface::__construct
-     * @param array              $lineno @see Twig_NodeInterface::__construct
-     * @param string             $tag    @see Twig_NodeInterface::__construct
-     */
-    public function __construct(Twig_Node $body, $lineno, $tag = 'imresize')
+    public function __construct(Node $body, $lineno, $tag = 'imresize')
     {
         parent::__construct(array('body' => $body), array(), $lineno, $tag);
     }
 
-    /**
-     * Compiles the node to PHP.
-     *
-     * @param Twig_Compiler $compiler A Twig_Compiler instance
-     */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)

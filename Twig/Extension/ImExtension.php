@@ -3,17 +3,16 @@
 namespace Leapt\ImBundle\Twig\Extension;
 
 use Leapt\ImBundle\Manager;
-use Leapt\ImBundle\Twig\TokenParser\Imresize as Twig_TokenParser_Imresize;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Leapt\ImBundle\Twig\TokenParser\Imresize as ImResizeTokenParser;
 use Symfony\Component\DomCrawler\Crawler;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
-/**
- * Registering twig extensions
- */
-class ImExtension extends \Twig_Extension
+class ImExtension extends AbstractExtension
 {
     /**
-     * @var ContainerInterface
+     * @var Manager
      */
     private $manager;
 
@@ -32,9 +31,9 @@ class ImExtension extends \Twig_Extension
      */
     public function getTokenParsers()
     {
-        return array(
-            new Twig_TokenParser_Imresize(),
-        );
+        return [
+            new ImResizeTokenParser(),
+        ];
     }
 
     /**
@@ -44,7 +43,7 @@ class ImExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('imresize', [$this, 'imResize'], ['pre_escape' => 'html', 'is_safe' => ['html']])
+            new TwigFilter('imresize', [$this, 'imResize'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
         ];
     }
 
@@ -55,7 +54,7 @@ class ImExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('imresize', [$this, 'imResize'], ['pre_escape' => 'html', 'is_safe' => ['html']])
+            new TwigFunction('imresize', [$this, 'imResize'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
         ];
     }
 

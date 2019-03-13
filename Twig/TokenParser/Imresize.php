@@ -2,11 +2,9 @@
 
 namespace Leapt\ImBundle\Twig\TokenParser;
 
-use \Twig_Node;
-use \Twig_Token;
-use \Twig_TokenParser;
-
-use \Leapt\ImBundle\Twig\Node\Imresize as Twig_Node_Imresize;
+use Leapt\ImBundle\Twig\Node\Imresize as ImresizeNode;
+use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
 
 /**
  * Create and use image cache regarding the HTML width and height attributes
@@ -23,32 +21,32 @@ use \Leapt\ImBundle\Twig\Node\Imresize as Twig_Node_Imresize;
  * @codeCoverageIgnore
  *
  */
-class Imresize extends Twig_TokenParser
+class Imresize extends AbstractTokenParser
 {
     /**
      * Parses a token and returns a node.
      *
-     * @param Twig_Token $token A Twig_Token instance
+     * @param Token $token A Token instance
      *
-     * @return Twig_Node A Twig_Node instance
+     * @return Node A Node instance
      */
-    public function parse(Twig_Token $token)
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
 
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
         $body = $this->parser->subparse(array($this, 'decideImresizeEnd'), true);
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
-        return new Twig_Node_Imresize($body, $lineno, $this->getTag());
+        return new ImresizeNode($body, $lineno, $this->getTag());
     }
 
     /**
-     * @param Twig_Token $token
+     * @param Token $token
      *
      * @return bool
      */
-    public function decideImresizeEnd(Twig_Token $token)
+    public function decideImresizeEnd(Token $token)
     {
         return $token->test('endimresize');
     }
