@@ -1,3 +1,8 @@
+2.1.3
+-----
+
+* Added support for Symfony 5.0 & Twig 3
+
 2.1.2
 -----
 
