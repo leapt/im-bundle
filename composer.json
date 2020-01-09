@@ -53,7 +53,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Leapt\\ImBundle\\": ""
+            "Leapt\\ImBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Leapt\\ImBundle\\Tests\\": "tests/"
         }
     }
 }
