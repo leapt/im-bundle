@@ -37,7 +37,7 @@ class ClearCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $cacheDir = $this->imManager->getCacheDirectory();
         $filesystem = new Filesystem();
@@ -68,5 +68,7 @@ class ClearCommand extends Command
 
             $filesystem->remove($cacheDir);
         }
+
+        return 0;
     }
 }
