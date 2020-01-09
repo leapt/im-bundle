@@ -6,32 +6,28 @@ Requirements
 
 * You need to have the ImageMagick binaries available (convert & mogrify)
 * You need to have a cache folder in your web dir, writeable by the webserver
-* Symfony >= 2.7
+* Symfony >= 4.4
 
 Add the bundle in your project
 ------------------------------
 
-.. code-block:: json
+.. code-block:: bash
 
-  {
-      "require": {
-          "leapt/im-bundle": "~1.0"
-      }
-  }
+  composer require leapt/im-bundle
 
 Activate the bundle
 -------------------
 
-app/AppKernel.php
+config/bundles.php (if not automatically added by Symfony Flex)
 
 .. code-block:: php
 
-    new Leapt\ImBundle\LeaptImBundle(),
+    Leapt\ImBundle\LeaptImBundle::class => ['all' => true],
 
 Add routing
 -----------
 
-config/routes/leapt_im.yaml
+config/routes/leapt_im.yaml (if not automatically added by Symfony Flex)
 
 .. code-block:: yaml
 

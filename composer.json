@@ -50,9 +50,6 @@
         "cs:fix": "php-cs-fixer fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi"
     },
-    "suggest": {
-        "leapt/core-bundle": "ImBundle provides a form type extension for the Leapt CoreBundle ImageType"
-    },
     "autoload": {
         "psr-4": {
             "Leapt\\ImBundle\\": "src/"
