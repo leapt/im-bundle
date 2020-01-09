@@ -10,8 +10,8 @@ config/packages/leapt_im.yaml
     # the directory where your imagemagick binaries are (optional). Default: /usr/bin/
     binary_path: '/opt/local/bin/'
 
-    # the public directory of your web application relative to the kernel root_path (optional). Default: ../public
-    web_path: '../public'
+    # the public directory of your web application relative to the project dir (optional). Default: public
+    public_path: 'public'
 
     # the directory where the cached image are stored from your public directory (optional). Default: cache/im
     cache_path: 'images/cache'

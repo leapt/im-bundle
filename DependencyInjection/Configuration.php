@@ -21,12 +21,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('leapt_im');
-        if (method_exists($treeBuilder, 'getRootNode')) {
-            $rootNode = $treeBuilder->getRootNode();
-        } else {
-            // BC layer for symfony/config 4.1 and older
-            $rootNode = $treeBuilder->root('leapt_im');
-        }
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
@@ -38,9 +33,9 @@ class Configuration implements ConfigurationInterface
                     ->info('Relative path to the images cache folder (relative to web path).')
                     ->defaultValue('cache/im')
                 ->end()
-                ->scalarNode('web_path')
-                    ->info('Relative path to the public folder (relative to root directory).')
-                    ->defaultValue('../public')
+                ->scalarNode('public_path')
+                    ->info('Relative path to the public folder (relative to project directory).')
+                    ->defaultValue('public')
                 ->end()
                 ->integerNode('timeout')
                     ->info('Sets the process timeout (max. runtime).')

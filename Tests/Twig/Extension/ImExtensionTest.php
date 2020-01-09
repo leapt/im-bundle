@@ -15,7 +15,7 @@ class ImExtensionTest extends TestCase
     /** @var ImExtension */
     private $imExtension;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->imExtension = new ImExtension(new Manager(new Wrapper('\Symfony\Component\Process\Process'), 'app/', '../web/', 'cache/im'));
     }

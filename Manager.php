@@ -24,12 +24,12 @@ class Manager
     /**
      * @var string
      */
-    protected $rootDir;
+    protected $projectDir;
 
     /**
      * @var string
      */
-    protected $webPath;
+    protected $publicPath;
 
     /**
      * @var string
@@ -38,17 +38,17 @@ class Manager
 
     /**
      * @param Wrapper $wrapper The ImBundle Wrapper instance
-     * @param string $rootDir Symfony Kernel root directory
-     * @param string $webPath Relative path to the web folder (relative to root directory)
-     * @param string $cachePath Relative path to the images cache folder (relative to web path)
+     * @param string $projectDir Symfony project root directory
+     * @param string $publicPath Relative path to the public folder (relative to project directory)
+     * @param string $cachePath Relative path to the images cache folder (relative to public path)
      * @param array $formats Formats definition
      */
-    public function __construct(Wrapper $wrapper, $rootDir, $webPath, $cachePath, $formats = array())
+    public function __construct(Wrapper $wrapper, $projectDir, $publicPath, $cachePath, $formats = array())
     {
         $this->wrapper = $wrapper;
         $this->formats = $formats;
-        $this->setRootDir($rootDir);
-        $this->setWebPath($webPath);
+        $this->setProjectDir($projectDir);
+        $this->setPublicPath($publicPath);
         $this->setCachePath($cachePath);
     }
 
@@ -66,33 +66,33 @@ class Manager
     /**
      * @return string
      */
-    public function getRootDir()
+    public function getProjectDir()
     {
-        return $this->rootDir;
+        return $this->projectDir;
     }
 
     /**
-     * @param string $rootDir
+     * @param string $projectDir
      */
-    public function setRootDir($rootDir)
+    public function setProjectDir($projectDir)
     {
-        $this->rootDir = rtrim($rootDir, '/');
+        $this->projectDir = rtrim($projectDir, '/');
     }
 
     /**
      * @return string
      */
-    public function getWebPath()
+    public function getPublicPath()
     {
-        return $this->webPath;
+        return $this->publicPath;
     }
 
     /**
-     * @param string $webPath
+     * @param string $publicPath
      */
-    public function setWebPath($webPath)
+    public function setPublicPath($publicPath)
     {
-        $this->webPath = trim($webPath, '/');
+        $this->publicPath = trim($publicPath, '/');
     }
 
     /**
@@ -100,7 +100,7 @@ class Manager
      */
     public function getWebDirectory()
     {
-        return $this->getRootDir() . '/' . $this->getWebPath();
+        return $this->getProjectDir() . '/' . $this->getPublicPath();
     }
 
     /**
@@ -124,7 +124,7 @@ class Manager
      */
     public function getCacheDirectory()
     {
-        return $this->getRootDir() . '/' . $this->getWebPath() . '/' . $this->getCachePath();
+        return $this->getProjectDir() . '/' . $this->getPublicPath() . '/' . $this->getCachePath();
     }
 
     /**

@@ -17,22 +17,12 @@ class MogrifySubscriber implements EventSubscriber
     private $config = [];
 
     /**
-     * @var string
-     */
-    private $rootDir;
-
-    /**
      * @var \Leapt\ImBundle\Manager
      */
     private $imManager;
 
-    /**
-     * @param string    $rootDir   The dir to generate files
-     * @param ImManager $imManager The ImBundle mamager instance
-     */
-    public function __construct($rootDir, ImManager $imManager)
+    public function __construct(ImManager $imManager)
     {
-        $this->rootDir = $rootDir;
         $this->imManager = $imManager;
     }
 

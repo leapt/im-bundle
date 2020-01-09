@@ -28,7 +28,7 @@ class LeaptImExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('leapt_im.formats', $config['formats']);
-        $container->setParameter('leapt_im.web_path', $config['web_path']);
+        $container->setParameter('leapt_im.public_path', $config['public_path']);
         $container->setParameter('leapt_im.cache_path', $config['cache_path']);
         $container->setParameter('leapt_im.timeout', $config['timeout']);
         $container->setParameter('leapt_im.binary_path', $config['binary_path']);

@@ -3,6 +3,7 @@
 namespace Leapt\ImBundle\Tests;
 
 use Leapt\ImBundle\Exception\InvalidArgumentException;
+use Leapt\ImBundle\Exception\RuntimeException;
 use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamWrapper;
@@ -24,7 +25,7 @@ class WrapperTest extends TestCase
     /**
      * Pre tasks
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->wrapper = new Wrapper('\Leapt\ImBundle\Tests\Mock\Process');
         $this->root = vfsStream::setup('exampleDir');
@@ -73,12 +74,11 @@ class WrapperTest extends TestCase
     /**
      * @param array $attributes
      *
-     * @expectedException InvalidArgumentException
-     *
      * @dataProvider providerPrepareAttributesException
      */
     public function testPrepareAttributesException($attributes)
     {
+        $this->expectException(InvalidArgumentException::class);
         $method = new \ReflectionMethod($this->wrapper, 'prepareAttributes');
         $method->setAccessible(true);
 
@@ -131,12 +131,12 @@ class WrapperTest extends TestCase
      * @param array  $attributes @see Wrapper::buildCommand
      * @param string $outputfile @see Wrapper::buildCommand
      *
-     * @expectedException InvalidArgumentException
-     *
      * @dataProvider providerBuildCommandException
      */
     public function testBuildCommandException($command, $inputfile, $attributes, $outputfile)
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $method = new \ReflectionMethod($this->wrapper, 'buildCommand');
         $method->setAccessible(true);
 
@@ -162,19 +162,17 @@ class WrapperTest extends TestCase
         $this->assertEquals('output', $this->wrapper->rawRun('mogrify -resize 120x somefile'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testRawRunInvalidException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->wrapper->rawRun('crap');
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testRawRunRuntimeException()
     {
+        $this->expectException(\RuntimeException::class);
+
         $this->wrapper->rawRun('mogrify "somefailingstructure');
     }
 
@@ -205,12 +203,12 @@ class WrapperTest extends TestCase
     /**
      * @param string $commandString
      *
-     * @expectedException \InvalidArgumentException
-     *
      * @dataProvider providerValidateCommandException
      */
     public function testValidateCommandException($commandString)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $method = new \ReflectionMethod($this->wrapper, 'validateCommand');
         $method->setAccessible(true);
 
@@ -239,11 +237,10 @@ class WrapperTest extends TestCase
         $this->assertTrue($this->root->hasChild('mypath'));
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testCheckDirectoryException()
     {
+        $this->expectException(RuntimeException::class);
+
         $method = new \ReflectionMethod($this->wrapper, 'checkDirectory');
         $method->setAccessible(true);
 

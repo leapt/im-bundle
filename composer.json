@@ -25,23 +25,23 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.5",
+        "php": "^7.2",
         "doctrine/annotations": "^1.5",
         "doctrine/orm": "^2.5",
-        "leapt/core-bundle": "^2.0",
-        "symfony/css-selector": "^3.3|^4.0|^5.0",
-        "symfony/console": "^3.3|^4.0|^5.0",
-        "symfony/dom-crawler": "^3.3|^4.0|^5.0",
-        "symfony/filesystem": "^3.3|^4.0|^5.0",
-        "symfony/finder": "^3.3|^4.0|^5.0",
-        "symfony/form": "^3.3|^4.0|^5.0",
-        "symfony/framework-bundle": "^3.3|^4.0|^5.0",
-        "symfony/process": "^3.3|^4.0|^5.0",
+        "leapt/core-bundle": "^2.4",
+        "symfony/css-selector": "^4.0|^5.0",
+        "symfony/console": "^4.0|^5.0",
+        "symfony/dom-crawler": "^4.0|^5.0",
+        "symfony/filesystem": "^4.0|^5.0",
+        "symfony/finder": "^4.0|^5.0",
+        "symfony/form": "^4.0|^5.0",
+        "symfony/framework-bundle": "^4.0|^5.0",
+        "symfony/process": "^4.0|^5.0",
         "twig/twig": "^2.4|^3.0"
     },
     "require-dev": {
         "mikey179/vfsstream": "v1.0.0",
-        "phpunit/phpunit": "^7.5.6"
+        "phpunit/phpunit": "^8.5"
     },
     "suggest": {
         "leapt/core-bundle": "ImBundle provides a form type extension for the Leapt CoreBundle ImageType"

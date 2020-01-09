@@ -14,14 +14,12 @@ services:
         $timeout: '%leapt_im.timeout%'
 
     Leapt\ImBundle\Manager:
-        $rootDir: '%kernel.root_dir%'
-        $webPath: '%leapt_im.web_path%'
+        $projectDir: '%kernel.project_dir%'
+        $publicPath: '%leapt_im.public_path%'
         $cachePath: '%leapt_im.cache_path%'
         $formats: '%leapt_im.formats%'
 
     Leapt\ImBundle\Listener\MogrifySubscriber:
-        arguments:
-            $rootDir: '%kernel.root_dir%'
         tags:
             - { name: doctrine.event_subscriber }
 

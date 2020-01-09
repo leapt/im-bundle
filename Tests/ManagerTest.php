@@ -2,6 +2,8 @@
 
 namespace Leapt\ImBundle\Tests;
 
+use Leapt\ImBundle\Exception\InvalidArgumentException;
+use Leapt\ImBundle\Exception\NotFoundException;
 use Leapt\ImBundle\Manager;
 use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
@@ -15,12 +17,12 @@ class ManagerTest extends TestCase
     /**
      * @var string
      */
-    private $rootDir;
+    private $projectDir;
 
     /**
      * @var string
      */
-    private $webPath;
+    private $publicPath;
 
     /**
      * @var string
@@ -35,11 +37,11 @@ class ManagerTest extends TestCase
     /**
      * Initializing the vfsStream stream wrapper
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->root = vfsStream::setup("/root");
-        $this->rootDir = "vfs://app";
-        $this->webPath = "../web";
+        $this->projectDir = "vfs://app";
+        $this->publicPath = "../public";
         $this->cachePath = "cache/im";
     }
 
@@ -53,14 +55,14 @@ class ManagerTest extends TestCase
         );
 
         $wrapper = new Wrapper('\Leapt\ImBundle\Tests\Mock\Process');
-        $manager = new Manager($wrapper, $this->rootDir, $this->webPath, $this->cachePath, $formats);
+        $manager = new Manager($wrapper, $this->projectDir, $this->publicPath, $this->cachePath, $formats);
 
         $this->assertEquals($wrapper, $this->getManagerPrivateValue('wrapper', $manager));
         $this->assertEquals($formats, $this->getManagerPrivateValue('formats', $manager));
-        $this->assertEquals($this->rootDir, $manager->getRootDir());
-        $this->assertEquals($this->webPath, $manager->getWebPath());
+        $this->assertEquals($this->projectDir, $manager->getProjectDir());
+        $this->assertEquals($this->publicPath, $manager->getPublicPath());
         $this->assertEquals($this->cachePath, $manager->getCachePath());
-        $this->assertEquals($this->rootDir . '/'. trim($this->webPath, '/') . '/' . $this->cachePath, $manager->getCacheDirectory());
+        $this->assertEquals($this->projectDir . '/'. trim($this->publicPath, '/') . '/' . $this->cachePath, $manager->getCacheDirectory());
 
         return $manager;
     }
@@ -75,7 +77,7 @@ class ManagerTest extends TestCase
         $manager->setCachePath('somepath');
 
         $this->assertEquals('somepath', $manager->getCachePath());
-        $this->assertEquals($this->rootDir . '/../web/somepath', $manager->getCacheDirectory());
+        $this->assertEquals($this->projectDir . '/../public/somepath', $manager->getCacheDirectory());
 
         $manager->setCachePath($this->cachePath);
     }
@@ -94,7 +96,7 @@ class ManagerTest extends TestCase
 
         $structure = array(
             "app" => array(),
-            "web" => array(
+            "public" => array(
                 "cache" => array(
                     "im" => array(
                         $format => array($filepath => 'somecontent')
@@ -117,7 +119,7 @@ class ManagerTest extends TestCase
     {
         $structure = array(
             "app" => array(),
-            "web" => array(
+            "public" => array(
                 "cache" => array(
                     "im" => array(
                         'format' => array('somefile' => 'somecontent')
@@ -168,10 +170,11 @@ class ManagerTest extends TestCase
      * @param Manager $manager
      *
      * @depends test__construct
-     * @expectedException \Leapt\ImBundle\Exception\InvalidArgumentException
      */
     public function testConvertFormatException(Manager $manager)
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $method = new \ReflectionMethod($manager, 'convertFormat');
         $method->setAccessible(true);
 
@@ -187,7 +190,7 @@ class ManagerTest extends TestCase
     {
         $structure = array(
             "app" => array(),
-            "web" => array(
+            "public" => array(
                 "uploads" => array(
                     'somefile' => 'somecontent'
                 )
@@ -200,7 +203,7 @@ class ManagerTest extends TestCase
         $method->setAccessible(true);
 
         $method->invoke($manager, 'uploads/somefile');
-        $method->invoke($manager, 'vfs://web/uploads/somefile');
+        $method->invoke($manager, 'vfs://public/uploads/somefile');
         $this->assertTrue(true);
     }
 
@@ -208,10 +211,11 @@ class ManagerTest extends TestCase
      * @param Manager $manager
      *
      * @depends test__construct
-     * @expectedException \Leapt\ImBundle\Exception\NotFoundException
      */
     public function testCheckImageException(Manager $manager)
     {
+        $this->expectException(NotFoundException::class);
+
         $method = new \ReflectionMethod($manager, 'checkImage');
         $method->setAccessible(true);
 
