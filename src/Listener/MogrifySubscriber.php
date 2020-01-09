@@ -55,12 +55,7 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
-    /**
-     * @param $entity
-     *
-     * @return array
-     */
-    private function getFiles($entity, EntityManager $entityManager)
+    private function getFiles($entity, EntityManager $entityManager): array
     {
         $class = \get_class($entity);
         $this->checkClassConfig($entity, $entityManager);
@@ -101,17 +96,13 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
-    /**
-     * @param $entity
-     * @param $file
-     */
     private function mogrify($entity, $file)
     {
         $propertyName = $file['property']->name;
 
         $getter = 'get' . ucfirst($propertyName);
         if (method_exists($entity, $getter)) {
-            /** @var $uploadedFile \Symfony\Component\HttpFoundation\File\UploadedFile */
+            /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile */
             $uploadedFile = $entity->$getter();
             if (null !== $uploadedFile) {
                 $this->imManager->mogrify($file['params'], $uploadedFile->getPathName());

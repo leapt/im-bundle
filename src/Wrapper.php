@@ -74,7 +74,7 @@ class Wrapper
     {
         $this->validateCommand($commandString);
 
-        /** @var $process \Symfony\Component\Process\Process */
+        /** @var \Symfony\Component\Process\Process $process */
         $process = new $this->processClass($commandString);
         $process->setTimeout($this->timeout);
         $process->run();

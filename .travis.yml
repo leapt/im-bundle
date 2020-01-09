@@ -14,8 +14,9 @@ before_script:
   - php composer.phar install
 
 script:
-  - composer cs:dry
   - vendor/bin/phpunit
+  - composer cs:dry
+  - composer phpstan
 
 notifications:
   email:

@@ -42,11 +42,13 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16.1",
         "mikey179/vfsstream": "v1.0.0",
+        "phpstan/phpstan": "^0.12.4",
         "phpunit/phpunit": "^8.5"
     },
     "scripts": {
         "cs:dry": "php-cs-fixer fix --diff --diff-format=udiff --dry-run --no-interaction --ansi",
-        "cs:fix": "php-cs-fixer fix --ansi"
+        "cs:fix": "php-cs-fixer fix --ansi",
+        "phpstan": "vendor/bin/phpstan analyse --ansi"
     },
     "suggest": {
         "leapt/core-bundle": "ImBundle provides a form type extension for the Leapt CoreBundle ImageType"

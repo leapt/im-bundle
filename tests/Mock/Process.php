@@ -12,14 +12,7 @@ class Process extends BaseProcess
     private $cmd;
     private $success;
 
-    /**
-     * @param string $cmd
-     * @param null   $cwd
-     * @param array  $env
-     * @param null   $input
-     * @param int    $timeout
-     */
-    public function __construct($cmd, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = [])
+    public function __construct(string $cmd)
     {
         $this->cmd = $cmd;
     }
