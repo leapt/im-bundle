@@ -5,6 +5,10 @@ php:
   - 7.3
   - 7.4
 
+before_install:
+  # Disable PHP deprecation notices
+  - echo 'error_reporting = E_ALL & ~E_DEPRECATED' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install
