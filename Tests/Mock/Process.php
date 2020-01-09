@@ -2,10 +2,10 @@
 
 namespace Leapt\ImBundle\Tests\Mock;
 
-use \Symfony\Component\Process\Process as BaseProcess;
+use Symfony\Component\Process\Process as BaseProcess;
 
 /**
- * Mock object for the process class
+ * Mock object for the process class.
  */
 class Process extends BaseProcess
 {
@@ -14,33 +14,29 @@ class Process extends BaseProcess
 
     /**
      * @param string $cmd
-     * @param null $cwd
-     * @param array $env
-     * @param null $input
-     * @param int $timeout
-     * @param array $options
+     * @param null   $cwd
+     * @param array  $env
+     * @param null   $input
+     * @param int    $timeout
      */
-    public function __construct($cmd, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = array())
+    public function __construct($cmd, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = [])
     {
         $this->cmd = $cmd;
     }
 
     /**
-     * Run the process
-     * @param callable|null $callback
-     * @return int
+     * Run the process.
      */
     public function run(callable $callback = null, array $env = []): int
     {
-        if ($this->cmd === 'mogrify "somefailingstructure') {
+        if ('mogrify "somefailingstructure' === $this->cmd) {
             $this->success = false;
 
             return 255;
-        } else {
-            $this->success = true;
-
-            return 0;
         }
+        $this->success = true;
+
+        return 0;
     }
 
     /**
@@ -56,7 +52,7 @@ class Process extends BaseProcess
      */
     public function getOutput()
     {
-        return "output";
+        return 'output';
     }
 
     /**
@@ -64,6 +60,6 @@ class Process extends BaseProcess
      */
     public function getErrorOutput()
     {
-        return "errormsg";
+        return 'errormsg';
     }
 }

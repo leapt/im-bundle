@@ -17,7 +17,6 @@ class ImExtension extends AbstractExtension
     private $manager;
 
     /**
-     * @param Manager $manager
      * @codeCoverageIgnore
      */
     public function __construct(Manager $manager)
@@ -59,7 +58,7 @@ class ImExtension extends AbstractExtension
     }
 
     /**
-     * Called by the compile method to replace the image sources with image cache sources
+     * Called by the compile method to replace the image sources with image cache sources.
      *
      * @param string $html
      *
@@ -69,19 +68,18 @@ class ImExtension extends AbstractExtension
     {
         preg_match_all('|<img ([^>]+)>|', $html, $matches);
 
-        foreach($matches[0] as $img)
-        {
+        foreach ($matches[0] as $img) {
             $crawler = new Crawler();
             $crawler->addContent($img);
-            $imgTag = $crawler->filter("img");
+            $imgTag = $crawler->filter('img');
 
             $src = $imgTag->attr('src');
             $width = $imgTag->attr('width');
             $height = $imgTag->attr('height');
 
             if (!empty($width) || !empty($height)) {
-                $format = $width . "x" . $height;
-                $updatedTagString = preg_replace("| src=[\"']" . $src . "[\"']|", " src=\"" . $this->imResize($src, $format) . "\"", $img);
+                $format = $width . 'x' . $height;
+                $updatedTagString = preg_replace("| src=[\"']" . $src . "[\"']|", ' src="' . $this->imResize($src, $format) . '"', $img);
                 $html = str_replace($img, $updatedTagString, $html);
             }
         }
@@ -90,7 +88,7 @@ class ImExtension extends AbstractExtension
     }
 
     /**
-     * Returns the cached path, after executing the asset twig function
+     * Returns the cached path, after executing the asset twig function.
      *
      * @param string $path   Path of the source file
      * @param string $format Imbundle format string
@@ -102,13 +100,13 @@ class ImExtension extends AbstractExtension
         // Remove extra whitespaces
         $path = trim($path);
 
-        $separator = "";
+        $separator = '';
         // Transform absolute url to custom url like : http/ or https/ or simply /
-        if (strpos($path, "http://") === 0 || strpos($path, "https://") === 0 || strpos($path, "//") === 0) {
-            $path = str_replace(array("://", "//"), "/", $path);
-        } elseif (strpos($path, "/") === 0) {
+        if (0 === strpos($path, 'http://') || 0 === strpos($path, 'https://') || 0 === strpos($path, '//')) {
+            $path = str_replace(['://', '//'], '/', $path);
+        } elseif (0 === strpos($path, '/')) {
             // If the path started with a slash, we will add it at the start of the path result
-            $separator = "/";
+            $separator = '/';
         }
 
         // Remove the first slash, as we add it manually

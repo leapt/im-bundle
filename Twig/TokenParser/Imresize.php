@@ -7,7 +7,7 @@ use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
 /**
- * Create and use image cache regarding the HTML width and height attributes
+ * Create and use image cache regarding the HTML width and height attributes.
  *
  * <pre>
  * {% imresize %}
@@ -19,7 +19,6 @@ use Twig\TokenParser\AbstractTokenParser;
  * </pre>
  *
  * @codeCoverageIgnore
- *
  */
 class Imresize extends AbstractTokenParser
 {
@@ -35,15 +34,13 @@ class Imresize extends AbstractTokenParser
         $lineno = $token->getLine();
 
         $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
-        $body = $this->parser->subparse(array($this, 'decideImresizeEnd'), true);
+        $body = $this->parser->subparse([$this, 'decideImresizeEnd'], true);
         $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
         return new ImresizeNode($body, $lineno, $this->getTag());
     }
 
     /**
-     * @param Token $token
-     *
      * @return bool
      */
     public function decideImresizeEnd(Token $token)

@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Form type to show a preview of the image
+ * Form type to show a preview of the image.
  */
 class ImageTypeExtension extends AbstractTypeExtension
 {

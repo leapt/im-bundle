@@ -10,7 +10,7 @@ use org\bovigo\vfs\vfsStreamWrapper;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Wrapper tester class
+ * Wrapper tester class.
  */
 class WrapperTest extends TestCase
 {
@@ -18,12 +18,12 @@ class WrapperTest extends TestCase
     private $wrapper;
 
     /**
-     * @var  \org\bovigo\vfs\vfsStreamDirectory
+     * @var \org\bovigo\vfs\vfsStreamDirectory
      */
     private $root;
 
     /**
-     * Pre tasks
+     * Pre tasks.
      */
     public function setUp(): void
     {
@@ -50,25 +50,25 @@ class WrapperTest extends TestCase
      */
     public function providerPrepareAttributes()
     {
-        return array(
-            array(
-                array(),
+        return [
+            [
+                [],
                 '',
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'resize' => '150x150^',
-                ),
+                ],
                 ' -resize "150x150^"',
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'resize' => '120x',
-                    null     => '+opaque -transparent'
-                ),
+                    null     => '+opaque -transparent',
+                ],
                 ' -resize "120x" +opaque -transparent',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -90,10 +90,10 @@ class WrapperTest extends TestCase
      */
     public function providerPrepareAttributesException()
     {
-        return array(
-            array('some crappy string'),
-            array(new \stdClass()),
-        );
+        return [
+            ['some crappy string'],
+            [new \stdClass()],
+        ];
     }
 
     /**
@@ -118,11 +118,11 @@ class WrapperTest extends TestCase
      */
     public function providerBuildCommand()
     {
-        return array(
-            array('convert', 'somefile', array(), 'anotherfile', 'convert somefile anotherfile'),
-            array('mogrify', 'somefile', array('resize' => '450x'), '', 'mogrify -resize "450x" somefile'),
-            array('montage', 'somefile', array('resize' => '450x'), '', 'montage -resize "450x" somefile'),
-        );
+        return [
+            ['convert', 'somefile', [], 'anotherfile', 'convert somefile anotherfile'],
+            ['mogrify', 'somefile', ['resize' => '450x'], '', 'mogrify -resize "450x" somefile'],
+            ['montage', 'somefile', ['resize' => '450x'], '', 'montage -resize "450x" somefile'],
+        ];
     }
 
     /**
@@ -148,14 +148,14 @@ class WrapperTest extends TestCase
      */
     public function providerBuildCommandException()
     {
-        return array(
-            array('ls', 'somefile', array(), 'anotherfile'),
-            array('blaarhh', '', array(), ''),
-        );
+        return [
+            ['ls', 'somefile', [], 'anotherfile'],
+            ['blaarhh', '', [], ''],
+        ];
     }
 
     /**
-     * Testing the rawRun method
+     * Testing the rawRun method.
      */
     public function testRawRun()
     {
@@ -194,10 +194,10 @@ class WrapperTest extends TestCase
      */
     public function providerValidateCommand()
     {
-        return array(
-            array('convert somestrings'),
-            array('mogrify somestrings blouh +yop -paf -bim "zoup"'),
-        );
+        return [
+            ['convert somestrings'],
+            ['mogrify somestrings blouh +yop -paf -bim "zoup"'],
+        ];
     }
 
     /**
@@ -220,15 +220,15 @@ class WrapperTest extends TestCase
      */
     public function providerValidateCommandException()
     {
-        return array(
-            array('convert'),
-            array('bignou'),
-            array('bignou didjou'),
-        );
+        return [
+            ['convert'],
+            ['bignou'],
+            ['bignou didjou'],
+        ];
     }
 
     /**
-     * Checking folder creation & retrieval
+     * Checking folder creation & retrieval.
      */
     public function testCheckDirectory()
     {

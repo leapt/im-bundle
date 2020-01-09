@@ -12,7 +12,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
 /**
- * Command line task to clear (remove) generated files
+ * Command line task to clear (remove) generated files.
  */
 class ClearCommand extends Command
 {
@@ -44,7 +44,6 @@ class ClearCommand extends Command
 
         $age = $input->getArgument('age');
         if ($age) {
-
             $output->writeln(sprintf('Clearing the IM cache older than %s days', $age));
 
             $finder = new Finder();
@@ -53,17 +52,15 @@ class ClearCommand extends Command
             }
 
             // removing empty directories
-            $process = new Process("find " . $cacheDir . " -type d -empty");
+            $process = new Process('find ' . $cacheDir . ' -type d -empty');
             $process->run();
             $emptyDirectories = explode("\n", $process->getOutput());
             foreach ($emptyDirectories as $directory) {
-                if ($directory != "." && $directory != ".." && $directory != "") {
+                if ('.' !== $directory && '..' !== $directory && '' !== $directory) {
                     $filesystem->remove($directory);
                 }
             }
-
         } else {
-
             $output->writeln('Clearing all the IM cache');
 
             $filesystem->remove($cacheDir);

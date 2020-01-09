@@ -7,7 +7,7 @@ use Leapt\ImBundle\Exception\NotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
- * Im manager
+ * Im manager.
  */
 class Manager
 {
@@ -37,13 +37,13 @@ class Manager
     protected $cachePath;
 
     /**
-     * @param Wrapper $wrapper The ImBundle Wrapper instance
-     * @param string $projectDir Symfony project root directory
-     * @param string $publicPath Relative path to the public folder (relative to project directory)
-     * @param string $cachePath Relative path to the images cache folder (relative to public path)
-     * @param array $formats Formats definition
+     * @param Wrapper $wrapper    The ImBundle Wrapper instance
+     * @param string  $projectDir Symfony project root directory
+     * @param string  $publicPath Relative path to the public folder (relative to project directory)
+     * @param string  $cachePath  Relative path to the images cache folder (relative to public path)
+     * @param array   $formats    Formats definition
      */
-    public function __construct(Wrapper $wrapper, $projectDir, $publicPath, $cachePath, $formats = array())
+    public function __construct(Wrapper $wrapper, $projectDir, $publicPath, $cachePath, $formats = [])
     {
         $this->wrapper = $wrapper;
         $this->formats = $formats;
@@ -53,7 +53,7 @@ class Manager
     }
 
     /**
-     * Add a format to the config
+     * Add a format to the config.
      *
      * @param string $name
      * @param string $config
@@ -128,23 +128,23 @@ class Manager
     }
 
     /**
-     * To know if a cache exist for a image in a format
+     * To know if a cache exist for a image in a format.
      *
      * @param string $format ImBundle format string
-     * @param string $path Source file path
+     * @param string $path   Source file path
      *
      * @return bool
      */
     public function cacheExists($format, $path)
     {
-        return (file_exists($this->getCacheDirectory() . '/' . $format . '/' . $path) === true);
+        return true === file_exists($this->getCacheDirectory() . '/' . $format . '/' . $path);
     }
 
     /**
-     * To get a cached image content
+     * To get a cached image content.
      *
      * @param string $format ImBundle format string
-     * @param string $path Source file path
+     * @param string $path   Source file path
      *
      * @return string
      */
@@ -154,10 +154,10 @@ class Manager
     }
 
     /**
-     * To get the web path for a format
+     * To get the web path for a format.
      *
      * @param string $format ImBundle format string
-     * @param string $path Source file path
+     * @param string $path   Source file path
      *
      * @return string
      */
@@ -167,10 +167,10 @@ class Manager
     }
 
     /**
-     * Shortcut to run a "convert" command => creates a new image
+     * Shortcut to run a "convert" command => creates a new image.
      *
      * @param string $format ImBundle format string
-     * @param string $file Source file path
+     * @param string $file   Source file path
      *
      * @return string
      * @codeCoverageIgnore
@@ -180,14 +180,14 @@ class Manager
         $file = ltrim($file, '/');
         $this->checkImage($file);
 
-        return $this->wrapper->run("convert", $this->getWebDirectory() . '/' . $file, $this->convertFormat($format), $this->getCacheDirectory() . '/' . $this->pathify($format) . '/' . $file);
+        return $this->wrapper->run('convert', $this->getWebDirectory() . '/' . $file, $this->convertFormat($format), $this->getCacheDirectory() . '/' . $this->pathify($format) . '/' . $file);
     }
 
     /**
-     * Shortcut to run a "mogrify" command => modifies the image source
+     * Shortcut to run a "mogrify" command => modifies the image source.
      *
      * @param string $format ImBundle format string
-     * @param string $file Source file path
+     * @param string $file   Source file path
      *
      * @return string
      * @codeCoverageIgnore
@@ -196,12 +196,12 @@ class Manager
     {
         $this->checkImage($file);
 
-        return $this->wrapper->run("mogrify", $file, $this->convertFormat($format));
+        return $this->wrapper->run('mogrify', $file, $this->convertFormat($format));
     }
 
     /**
      * @param string $format ImBundle format string
-     * @param string $path cached path for an external image - ex: http/somepath/somefile.jpg or https/somepath/someotherfile.jpg
+     * @param string $path   cached path for an external image - ex: http/somepath/somefile.jpg or https/somepath/someotherfile.jpg
      *
      * The cached path is equivalent to the original path except that the '://' syntax after the protocol is replaced by a simple "/", to conserve a correct URL encoded string
      * The Twig tag 'imResize' will automatically make this conversion for you
@@ -230,32 +230,32 @@ class Manager
     }
 
     /**
-     * Returns the attributes for converting the image regarding a specific format
+     * Returns the attributes for converting the image regarding a specific format.
      *
      * @param string $format
      *
      * @return array
+     *
      * @throws InvalidArgumentException
      */
     private function convertFormat($format)
     {
-        if (is_array($format)) {
+        if (\is_array($format)) {
             // sounds like the format is already done, let's keep it as it is
             return $format;
         }
-        if (array_key_exists($format, $this->formats)) {
+        if (\array_key_exists($format, $this->formats)) {
             // it's a format defined in config, let's use all defined parameters
             return $this->formats[$format];
-        } elseif (preg_match("/^([0-9]*)x([0-9]*)/", $format)) {
+        } elseif (preg_match('/^([0-9]*)x([0-9]*)/', $format)) {
             // it's a custom [width]x[height] format, let's make a thumb
-            return array('thumbnail' => $format);
-        } else {
-            throw new InvalidArgumentException(sprintf("Unknown IM format: %s", $format));
+            return ['thumbnail' => $format];
         }
+        throw new InvalidArgumentException(sprintf('Unknown IM format: %s', $format));
     }
 
     /**
-     * Validates that an image exists
+     * Validates that an image exists.
      *
      * @param string $path
      *
@@ -265,7 +265,7 @@ class Manager
     private function checkImage($path)
     {
         if (!file_exists($this->getWebDirectory() . '/' . $path) && !file_exists($path)) {
-            throw new NotFoundException(sprintf("Unable to find the image \"%s\" to cache", $path));
+            throw new NotFoundException(sprintf('Unable to find the image "%s" to cache', $path));
         }
 
         if (!is_file($this->getWebDirectory() . '/' . $path) && !is_file($path)) {
@@ -274,7 +274,7 @@ class Manager
     }
 
     /**
-     * Takes a format (array or string) and return it as a valid path string
+     * Takes a format (array or string) and return it as a valid path string.
      *
      * @param mixed $format
      *
@@ -282,10 +282,10 @@ class Manager
      */
     private function pathify($format)
     {
-        if (is_array($format)) {
+        if (\is_array($format)) {
             return md5(serialize($format));
-        } else {
-            return $format;
         }
+
+        return $format;
     }
 }

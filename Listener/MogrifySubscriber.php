@@ -31,9 +31,6 @@ class MogrifySubscriber implements EventSubscriber
         return ['prePersist', 'preFlush'];
     }
 
-    /**
-     * @param PreFlushEventArgs $ea
-     */
     public function preFlush(PreFlushEventArgs $ea)
     {
         $entityManager = $ea->getEntityManager();
@@ -50,9 +47,6 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
-    /**
-     * @param LifecycleEventArgs $ea
-     */
     public function prePersist(LifecycleEventArgs $ea)
     {
         $entity = $ea->getEntity();
@@ -63,26 +57,26 @@ class MogrifySubscriber implements EventSubscriber
 
     /**
      * @param $entity
-     * @param EntityManager $entityManager
+     *
      * @return array
      */
     private function getFiles($entity, EntityManager $entityManager)
     {
-        $class = get_class($entity);
+        $class = \get_class($entity);
         $this->checkClassConfig($entity, $entityManager);
 
-        if (array_key_exists($class, $this->config)) {
+        if (\array_key_exists($class, $this->config)) {
             return $this->config[$class]['fields'];
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     private function checkClassConfig($entity, EntityManager $entityManager)
     {
-        $class = get_class($entity);
+        $class = \get_class($entity);
 
-        if (!array_key_exists($class, $this->config)) {
+        if (!\array_key_exists($class, $this->config)) {
             $reader = new AnnotationReader();
             $meta = $entityManager->getClassMetaData($class);
             $reflexionClass = $meta->getReflectionClass();
@@ -115,7 +109,7 @@ class MogrifySubscriber implements EventSubscriber
     {
         $propertyName = $file['property']->name;
 
-        $getter = 'get' . ucFirst($propertyName);
+        $getter = 'get' . ucfirst($propertyName);
         if (method_exists($entity, $getter)) {
             /** @var $uploadedFile \Symfony\Component\HttpFoundation\File\UploadedFile */
             $uploadedFile = $entity->$getter();
