@@ -1,3 +1,8 @@
+3.0.1
+-----
+
+* Fixed leapt/core-bundle version dependency
+
 3.0.0
 -----
 
