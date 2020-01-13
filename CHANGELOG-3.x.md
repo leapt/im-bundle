@@ -1,3 +1,8 @@
+3.0.2
+-----
+
+* Fixed tests exclusion
+
 3.0.1
 -----
 

@@ -6,7 +6,6 @@ services:
 
     Leapt\ImBundle\:
         resource: '../../*'
-        exclude: '../../Tests'
 
     Leapt\ImBundle\Wrapper:
         $processClass: '\Symfony\Component\Process\Process'
