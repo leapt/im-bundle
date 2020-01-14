@@ -12,9 +12,14 @@ class Process extends BaseProcess
     private $cmd;
     private $success;
 
-    public function __construct(string $cmd)
+    public function __construct(array $command)
     {
-        $this->cmd = $cmd;
+        $this->cmd = $command[0];
+    }
+
+    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
+    {
+        return new self([$command]);
     }
 
     /**

@@ -1,3 +1,8 @@
+3.0.3
+-----
+
+* Fixed Process component usage
+
 3.0.2
 -----
 
