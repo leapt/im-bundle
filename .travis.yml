@@ -13,7 +13,7 @@ install:
   - composer install
 
 script:
-  - vendor/bin/simple-phpunit --coverage-clover coverage.xml
+  - vendor/bin/phpunit --coverage-clover coverage.xml
   - composer cs:dry
   - composer phpstan
 
