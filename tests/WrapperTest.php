@@ -25,7 +25,7 @@ class WrapperTest extends TestCase
     /**
      * Pre tasks.
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->wrapper = new Wrapper('\Leapt\ImBundle\Tests\Mock\Process');
         $this->root = vfsStream::setup('exampleDir');

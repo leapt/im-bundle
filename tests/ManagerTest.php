@@ -37,7 +37,7 @@ class ManagerTest extends TestCase
     /**
      * Initializing the vfsStream stream wrapper.
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->root = vfsStream::setup('/root');
         $this->projectDir = 'vfs://app';
@@ -48,7 +48,7 @@ class ManagerTest extends TestCase
     /**
      * @return \Leapt\ImBundle\Manager
      */
-    public function test__construct()
+    public function testConstruct()
     {
         $formats = [
             'list' => ['resize' => '100x100'],
@@ -68,7 +68,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testSetCachePath(Manager $manager)
     {
@@ -81,7 +81,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testCacheExists(Manager $manager)
     {
@@ -107,7 +107,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testGetCacheContent(Manager $manager)
     {
@@ -128,7 +128,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testGetUrl(Manager $manager)
     {
@@ -142,7 +142,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testConvertFormat(Manager $manager)
     {
@@ -157,7 +157,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testConvertFormatException(Manager $manager)
     {
@@ -170,7 +170,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testCheckImage(Manager $manager)
     {
@@ -194,7 +194,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testCheckImageException(Manager $manager)
     {
@@ -207,7 +207,7 @@ class ManagerTest extends TestCase
     }
 
     /**
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testPathify(Manager $manager)
     {
