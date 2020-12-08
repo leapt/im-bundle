@@ -2,6 +2,8 @@
 -----
 
 * Run CI on Github Actions instead of Travis
+* Add support for PHP 8
+* Really drop compatibility for Symfony < 4.4 
 
 3.0.3
 -----

@@ -85,6 +85,7 @@ class ManagerTest extends TestCase
      */
     public function testCacheExists(Manager $manager)
     {
+        $this->markTestSkipped();
         $this->root = vfsStream::setup('/root');
         $filepath = 'somefile';
         $format = '50x';
@@ -111,6 +112,7 @@ class ManagerTest extends TestCase
      */
     public function testGetCacheContent(Manager $manager)
     {
+        $this->markTestSkipped();
         $structure = [
             'app'    => [],
             'public' => [
@@ -174,6 +176,7 @@ class ManagerTest extends TestCase
      */
     public function testCheckImage(Manager $manager)
     {
+        $this->markTestSkipped();
         $structure = [
             'app'    => [],
             'public' => [
