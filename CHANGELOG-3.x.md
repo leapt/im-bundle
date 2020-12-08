@@ -1,3 +1,8 @@
+3.0.4
+-----
+
+* Run CI on Github Actions instead of Travis
+
 3.0.3
 -----
 
