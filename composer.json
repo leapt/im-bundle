@@ -31,7 +31,7 @@
     },
     "require-dev": {
         "symfony/symfony": ">=2.7",
-        "mikey179/vfsStream": "v1.0.0",
+        "mikey179/vfsstream": "v1.0.0",
         "phpunit/phpunit": "~4.7@dev"
     },
     "suggest": {
