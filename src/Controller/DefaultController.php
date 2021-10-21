@@ -33,7 +33,7 @@ class DefaultController extends AbstractController
         if (!$im->cacheExists($format, $path)) {
             throw new RuntimeException(sprintf('Caching of image failed for %s in %s format', $path, $format));
         }
-        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        $extension = pathinfo($path, \PATHINFO_EXTENSION);
         $contentType = $request->getMimeType($extension);
         if (empty($contentType)) {
             $contentType = 'image/' . $extension;
