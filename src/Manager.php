@@ -218,9 +218,9 @@ class Manager
         $fp = fopen($newPath, 'w');
 
         $ch = curl_init(str_replace($protocol . '/', $protocol . '://', $path));
-        curl_setopt($ch, CURLOPT_FILE, $fp);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, \CURLOPT_FILE, $fp);
+        curl_setopt($ch, \CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, \CURLOPT_HEADER, 0);
 
         curl_exec($ch);
         curl_close($ch);
