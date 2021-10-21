@@ -114,7 +114,7 @@ class Wrapper
     private function buildCommand($command, $inputfile, $attributes = [], $outputfile = '')
     {
         $attributesString = trim($this->prepareAttributes($attributes));
-        if (0 < \strlen($attributesString)) {
+        if ('' !== $attributesString) {
             $attributesString = ' ' . $attributesString;
         }
 
