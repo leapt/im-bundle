@@ -17,7 +17,7 @@ class Process extends BaseProcess
         $this->cmd = $command[0];
     }
 
-    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
+    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60): static
     {
         return new self([$command]);
     }
