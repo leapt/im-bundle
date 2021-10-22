@@ -26,6 +26,9 @@ class Manager
         $this->setCachePath($cachePath);
     }
 
+    /**
+     * @param array<string, string> $config
+     */
     public function addFormat(string $name, array $config): void
     {
         $this->formats[$name] = $config;
@@ -143,6 +146,8 @@ class Manager
 
     /**
      * Returns the attributes for converting the image regarding a specific format.
+     *
+     * @return array<string>
      */
     private function convertFormat(mixed $format): array
     {

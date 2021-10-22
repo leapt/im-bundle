@@ -51,6 +51,7 @@ class ImExtension extends AbstractExtension
             $imgTag = $crawler->filter('img');
 
             $src = $imgTag->attr('src');
+            \assert(\is_string($src));
             $width = $imgTag->attr('width');
             $height = $imgTag->attr('height');
 

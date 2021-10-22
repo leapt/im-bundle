@@ -11,16 +11,25 @@ final class Process extends BaseProcess
     private string $cmd;
     private bool $success;
 
+    /**
+     * @param array<string> $command
+     */
     public function __construct(array $command)
     {
         $this->cmd = $command[0];
     }
 
+    /**
+     * @param array<string>|null $env
+     */
     public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60): static
     {
         return new self([$command]);
     }
 
+    /**
+     * @param array<string> $env
+     */
     public function run(callable $callback = null, array $env = []): int
     {
         if ('mogrify "somefailingstructure' === $this->cmd) {

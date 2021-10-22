@@ -40,11 +40,11 @@ final class ClearCommand extends Command
 
             $finder = new Finder();
             foreach ($finder->in($cacheDir)->files()->date('until ' . $age . ' days ago') as $file) {
-                $filesystem->remove($file);
+                $filesystem->remove([$file]);
             }
 
             // removing empty directories
-            $process = new Process('find ' . $cacheDir . ' -type d -empty');
+            $process = Process::fromShellCommandline('find ' . $cacheDir . ' -type d -empty');
             $process->run();
             $emptyDirectories = explode("\n", $process->getOutput());
             foreach ($emptyDirectories as $directory) {

@@ -12,5 +12,8 @@ use Doctrine\Common\Annotations\Annotation;
  */
 class Mogrify extends Annotation
 {
+    /**
+     * @var array<string>
+     */
     public array $params;
 }
