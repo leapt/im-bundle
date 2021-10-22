@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\ImBundle\Form\Extension;
 
 use Leapt\CoreBundle\Form\Type\ImageType;

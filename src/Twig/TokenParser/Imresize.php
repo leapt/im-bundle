@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\ImBundle\Twig\TokenParser;
 
 use Leapt\ImBundle\Twig\Node\Imresize as ImresizeNode;

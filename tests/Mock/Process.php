@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\ImBundle\Tests\Mock;
 
 use Symfony\Component\Process\Process as BaseProcess;
