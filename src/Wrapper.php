@@ -7,72 +7,41 @@ namespace Leapt\ImBundle;
 use Leapt\ImBundle\Exception\InvalidArgumentException;
 use Leapt\ImBundle\Exception\RuntimeException;
 
-/**
- * Im wrapper.
- *
- * Imagemagick command line wrapper
- *
- * Used by the manager
- */
 class Wrapper
 {
-    private $processClass;
-
-    private $binaryPath;
-
-    private $_acceptedBinaries = [
+    private const ACCEPTED_BINARIES = [
         'animate', 'compare', 'composite',
         'conjure', 'convert', 'display',
         'identify', 'import', 'mogrify',
         'montage', 'stream',
     ];
 
-    /**
-     * @var int Timeout for the process
-     */
-    private $timeout;
+    private string $binaryPath;
 
     /**
      * @param string $processClass The class name of the command line processor
      * @param string $binaryPath   The path where the Imagemagick binaries lies
      * @param int    $timeout      The timeout in seconds
      */
-    public function __construct($processClass, $binaryPath = '', $timeout = 60)
-    {
+    public function __construct(
+        private string $processClass,
+        string $binaryPath = '',
+        private int $timeout = 60,
+    ) {
         $this->binaryPath = empty($binaryPath) ? $binaryPath : rtrim($binaryPath, '/') . '/';
-        $this->processClass = $processClass;
-        $this->timeout = $timeout;
     }
 
-    /**
-     * Shortcut to construct & run an Imagemagick command.
-     *
-     * @param string $command    @see _self::buildCommand
-     * @param string $inputfile  @see _self::buildCommand
-     * @param array  $attributes @see _self::buildCommand
-     * @param string $outputfile @see _self::buildCommand
-     *
-     * @return string
-     *
-     * @codeCoverageIgnore
-     */
-    public function run($command, $inputfile, $attributes = [], $outputfile = '')
+    public function run(string $command, string $inputFile, array $attributes = [], string $outputFile = ''): string
     {
-        $commandString = $this->buildCommand($command, $inputfile, $attributes, $outputfile);
+        $commandString = $this->buildCommand($command, $inputFile, $attributes, $outputFile);
 
         return $this->rawRun($commandString);
     }
 
     /**
      * Run a command. Only use if the run() method doesn't fit your need.
-     *
-     * @param string $commandString
-     *
-     * @return string
-     *
-     * @throws RuntimeException
      */
-    public function rawRun($commandString)
+    public function rawRun(string $commandString): string
     {
         $this->validateCommand($commandString);
 
@@ -89,43 +58,29 @@ class Wrapper
     }
 
     /**
-     * Creates the given directory if unexistant.
-     *
-     * @param string $path
-     *
-     * @throws RuntimeException
+     * Creates the given directory if does not exist.
      */
-    public function checkDirectory($path)
+    public function checkDirectory(string $path): void
     {
         $dir = \dirname($path);
-        if (!is_dir($dir)) {
-            if (false === @mkdir($dir, 0777, true)) {
-                throw new RuntimeException(sprintf('Unable to create the "%s" directory', $dir));
-            }
+        if (!is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
+            throw new RuntimeException(sprintf('Unable to create the "%s" directory', $dir));
         }
     }
 
-    /**
-     * @param string $command    Imagemagick command (convert, mogrify, ...)
-     * @param string $inputfile  Source file to use
-     * @param array  $attributes Array of Imagemagick key/values attributes
-     * @param string $outputfile Destination file - used when converting
-     *
-     * @return string
-     */
-    private function buildCommand($command, $inputfile, $attributes = [], $outputfile = '')
+    private function buildCommand(string $command, string $inputFile, array $attributes = [], string $outputFile = ''): string
     {
         $attributesString = trim($this->prepareAttributes($attributes));
         if ('' !== $attributesString) {
             $attributesString = ' ' . $attributesString;
         }
 
-        if ('' !== $outputfile) {
-            $this->checkDirectory($outputfile);
+        if ('' !== $outputFile) {
+            $this->checkDirectory($outputFile);
 
-            $commandString = $this->binaryPath . $command . ' ' . $inputfile . $attributesString . ' ' . $outputfile;
+            $commandString = $this->binaryPath . $command . ' ' . $inputFile . $attributesString . ' ' . $outputFile;
         } else {
-            $commandString = $this->binaryPath . $command . $attributesString . ' ' . $inputfile;
+            $commandString = $this->binaryPath . $command . $attributesString . ' ' . $inputFile;
         }
 
         $this->validateCommand($commandString);
@@ -135,19 +90,11 @@ class Wrapper
 
     /**
      * Takes an array of attributes and formats it as CLI parameters.
-     *
-     * @param array $attributes
-     *
-     * @return string
-     *
-     * @throws InvalidArgumentException
      */
-    private function prepareAttributes($attributes = [])
+    private function prepareAttributes(array $attributes = []): string
     {
-        if (!\is_array($attributes)) {
-            throw new InvalidArgumentException('[ImBundle] format attributes must be an array, recieved: ' . var_export($attributes, true));
-        }
         $result = '';
+
         foreach ($attributes as $key => $value) {
             if (null === $key || '' === $key) {
                 $result .= ' ' . $value;
@@ -164,14 +111,8 @@ class Wrapper
 
     /**
      * Validates that the command launches a Imagemagick command line tool executable.
-     *
-     * @param string $commandString
-     *
-     * @throws InvalidArgumentException
-     *
-     * @return bool
      */
-    private function validateCommand($commandString)
+    private function validateCommand(string $commandString): bool
     {
         $cmdParts = explode(' ', $commandString);
 
@@ -183,7 +124,7 @@ class Wrapper
         $binaryPathParts = explode('/', $binaryPath);
         $binary = $binaryPathParts[\count($binaryPathParts) - 1];
 
-        if (!\in_array($binary, $this->_acceptedBinaries, true)) {
+        if (!\in_array($binary, self::ACCEPTED_BINARIES, true)) {
             throw new InvalidArgumentException("This command isn't part of the ImageMagick command line tools : '" . $binary . "'");
         }
 

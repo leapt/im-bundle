@@ -13,28 +13,18 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
-/**
- * Command line task to clear (remove) generated files.
- */
-class ClearCommand extends Command
+final class ClearCommand extends Command
 {
-    /**
-     * @var Manager
-     */
-    private $imManager;
-
-    public function __construct(Manager $imManager)
+    public function __construct(private Manager $imManager)
     {
-        $this->imManager = $imManager;
-
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('leapt:im:clear')
-            ->setDescription('Clear IM cache')
+            ->setDescription('Clear IM cache (generated files)')
             ->addArgument('age', InputArgument::OPTIONAL, 'Clear only files older than (days)')
         ;
     }
@@ -68,6 +58,6 @@ class ClearCommand extends Command
             $filesystem->remove($cacheDir);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
