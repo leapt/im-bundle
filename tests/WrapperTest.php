@@ -6,40 +6,28 @@ namespace Leapt\ImBundle\Tests;
 
 use Leapt\ImBundle\Exception\InvalidArgumentException;
 use Leapt\ImBundle\Exception\RuntimeException;
+use Leapt\ImBundle\Tests\Mock\Process;
 use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamWrapper;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Wrapper tester class.
- */
-class WrapperTest extends TestCase
+final class WrapperTest extends TestCase
 {
-    /** @var Wrapper */
-    private $wrapper;
+    private Wrapper $wrapper;
+    private vfsStreamDirectory $root;
 
-    /**
-     * @var \org\bovigo\vfs\vfsStreamDirectory
-     */
-    private $root;
-
-    /**
-     * Pre tasks.
-     */
     protected function setUp(): void
     {
-        $this->wrapper = new Wrapper('\Leapt\ImBundle\Tests\Mock\Process');
+        $this->wrapper = new Wrapper(Process::class);
         $this->root = vfsStream::setup('exampleDir');
     }
 
     /**
-     * @param array  $attributes Some attributes to send
-     * @param string $expected   The string we expect as return
-     *
      * @dataProvider providerPrepareAttributes
      */
-    public function testPrepareAttributes($attributes, $expected)
+    public function testPrepareAttributes(array $attributes, string $expected): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'prepareAttributes');
         $method->setAccessible(true);
@@ -47,10 +35,7 @@ class WrapperTest extends TestCase
         $this->assertEquals($expected, $method->invoke($this->wrapper, $attributes));
     }
 
-    /**
-     * @return array
-     */
-    public function providerPrepareAttributes()
+    public function providerPrepareAttributes(): iterable
     {
         return [
             [
@@ -74,11 +59,9 @@ class WrapperTest extends TestCase
     }
 
     /**
-     * @param array $attributes
-     *
      * @dataProvider providerPrepareAttributesException
      */
-    public function testPrepareAttributesException($attributes)
+    public function testPrepareAttributesException(mixed $attributes): void
     {
         $this->expectException(InvalidArgumentException::class);
         $method = new \ReflectionMethod($this->wrapper, 'prepareAttributes');
@@ -87,10 +70,7 @@ class WrapperTest extends TestCase
         $method->invoke($this->wrapper, $attributes);
     }
 
-    /**
-     * @return array
-     */
-    public function providerPrepareAttributesException()
+    public function providerPrepareAttributesException(): iterable
     {
         return [
             ['some crappy string'],
@@ -99,26 +79,17 @@ class WrapperTest extends TestCase
     }
 
     /**
-     * @param string $command    @see Wrapper::buildCommand
-     * @param string $inputfile  @see Wrapper::buildCommand
-     * @param array  $attributes @see Wrapper::buildCommand
-     * @param string $outputfile @see Wrapper::buildCommand
-     * @param string $expected   The string we expect as return
-     *
      * @dataProvider providerBuildCommand
      */
-    public function testBuildCommand($command, $inputfile, $attributes, $outputfile, $expected)
+    public function testBuildCommand(string $command, string $inputFile, array $attributes, string $outputFile, string $expected): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'buildCommand');
         $method->setAccessible(true);
 
-        $this->assertEquals($expected, $method->invoke($this->wrapper, $command, $inputfile, $attributes, $outputfile));
+        $this->assertEquals($expected, $method->invoke($this->wrapper, $command, $inputFile, $attributes, $outputFile));
     }
 
-    /**
-     * @return array
-     */
-    public function providerBuildCommand()
+    public function providerBuildCommand(): iterable
     {
         return [
             ['convert', 'somefile', [], 'anotherfile', 'convert somefile anotherfile'],
@@ -128,27 +99,19 @@ class WrapperTest extends TestCase
     }
 
     /**
-     * @param string $command    @see Wrapper::buildCommand
-     * @param string $inputfile  @see Wrapper::buildCommand
-     * @param array  $attributes @see Wrapper::buildCommand
-     * @param string $outputfile @see Wrapper::buildCommand
-     *
      * @dataProvider providerBuildCommandException
      */
-    public function testBuildCommandException($command, $inputfile, $attributes, $outputfile)
+    public function testBuildCommandException(string $command, string $inputFile, array $attributes, string $outputFile): void
     {
         $this->expectException(InvalidArgumentException::class);
 
         $method = new \ReflectionMethod($this->wrapper, 'buildCommand');
         $method->setAccessible(true);
 
-        $method->invoke($this->wrapper, $command, $inputfile, $attributes, $outputfile);
+        $method->invoke($this->wrapper, $command, $inputFile, $attributes, $outputFile);
     }
 
-    /**
-     * @return array
-     */
-    public function providerBuildCommandException()
+    public function providerBuildCommandException(): iterable
     {
         return [
             ['ls', 'somefile', [], 'anotherfile'],
@@ -156,22 +119,19 @@ class WrapperTest extends TestCase
         ];
     }
 
-    /**
-     * Testing the rawRun method.
-     */
-    public function testRawRun()
+    public function testRawRun(): void
     {
         $this->assertEquals('output', $this->wrapper->rawRun('mogrify -resize 120x somefile'));
     }
 
-    public function testRawRunInvalidException()
+    public function testRawRunInvalidException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
         $this->wrapper->rawRun('crap');
     }
 
-    public function testRawRunRuntimeException()
+    public function testRawRunRuntimeException(): void
     {
         $this->expectException(\RuntimeException::class);
 
@@ -179,11 +139,9 @@ class WrapperTest extends TestCase
     }
 
     /**
-     * @param string $commandString @see Wrapper::validateCommand
-     *
      * @dataProvider providerValidateCommand
      */
-    public function testValidateCommand($commandString)
+    public function testValidateCommand(string $commandString): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'validateCommand');
         $method->setAccessible(true);
@@ -191,10 +149,7 @@ class WrapperTest extends TestCase
         $this->assertTrue($method->invoke($this->wrapper, $commandString));
     }
 
-    /**
-     * @return array
-     */
-    public function providerValidateCommand()
+    public function providerValidateCommand(): iterable
     {
         return [
             ['convert somestrings'],
@@ -203,11 +158,9 @@ class WrapperTest extends TestCase
     }
 
     /**
-     * @param string $commandString
-     *
      * @dataProvider providerValidateCommandException
      */
-    public function testValidateCommandException($commandString)
+    public function testValidateCommandException(string $commandString): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -217,10 +170,7 @@ class WrapperTest extends TestCase
         $method->invoke($this->wrapper, $commandString);
     }
 
-    /**
-     * @return array
-     */
-    public function providerValidateCommandException()
+    public function providerValidateCommandException(): iterable
     {
         return [
             ['convert'],
@@ -232,14 +182,14 @@ class WrapperTest extends TestCase
     /**
      * Checking folder creation & retrieval.
      */
-    public function testCheckDirectory()
+    public function testCheckDirectory(): void
     {
         $this->assertFalse($this->root->hasChild('mypath'));
         $this->wrapper->checkDirectory(vfsStream::url('exampleDir/mypath/.'));
         $this->assertTrue($this->root->hasChild('mypath'));
     }
 
-    public function testCheckDirectoryException()
+    public function testCheckDirectoryException(): void
     {
         $this->expectException(RuntimeException::class);
 

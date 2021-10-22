@@ -8,35 +8,26 @@ use Leapt\ImBundle\Manager;
 use Leapt\ImBundle\Twig\Extension\ImExtension;
 use Leapt\ImBundle\Wrapper;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Process\Process;
 
-/**
- * Wrapper tester class.
- */
-class ImExtensionTest extends TestCase
+final class ImExtensionTest extends TestCase
 {
-    /** @var ImExtension */
-    private $imExtension;
+    private ImExtension $imExtension;
 
     protected function setUp(): void
     {
-        $this->imExtension = new ImExtension(new Manager(new Wrapper('\Symfony\Component\Process\Process'), 'app/', '../web/', 'cache/im'));
+        $this->imExtension = new ImExtension(new Manager(new Wrapper(Process::class), 'app/', '../web/', 'cache/im'));
     }
 
     /**
-     * @param string $input    the string to parse
-     * @param string $expected what we except as parsing in return
-     *
      * @dataProvider providerConvert
      */
-    public function testConvert($input, $expected)
+    public function testConvert(string $input, string $expected): void
     {
         $this->assertEquals($expected, $this->imExtension->convert($input));
     }
 
-    /**
-     * @return array
-     */
-    public function providerConvert()
+    public function providerConvert(): iterable
     {
         return [
             ['hop hop', 'hop hop'],
@@ -55,21 +46,14 @@ class ImExtensionTest extends TestCase
     }
 
     /**
-     * @param string $path     File path
-     * @param string $format   ImBundle format string
-     * @param string $expected what we excpect as new url
-     *
      * @dataProvider providerImResize
      */
-    public function testImResize($path, $format, $expected)
+    public function testImResize(string $filePath, string $format, string $expectedUrl): void
     {
-        $this->assertEquals($expected, $this->imExtension->imResize($path, $format));
+        $this->assertEquals($expectedUrl, $this->imExtension->imResize($filePath, $format));
     }
 
-    /**
-     * @return array
-     */
-    public function providerImResize()
+    public function providerImResize(): iterable
     {
         return [
             ['img.jpg', '100x', 'cache/im/100x/img.jpg'],

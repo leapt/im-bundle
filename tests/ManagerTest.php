@@ -7,38 +7,19 @@ namespace Leapt\ImBundle\Tests;
 use Leapt\ImBundle\Exception\InvalidArgumentException;
 use Leapt\ImBundle\Exception\NotFoundException;
 use Leapt\ImBundle\Manager;
+use Leapt\ImBundle\Tests\Mock\Process;
 use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Manager tester class.
- */
-class ManagerTest extends TestCase
+final class ManagerTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $projectDir;
+    private string $projectDir;
+    private string $publicPath;
+    private string $cachePath;
+    private vfsStreamDirectory $root;
 
-    /**
-     * @var string
-     */
-    private $publicPath;
-
-    /**
-     * @var string
-     */
-    private $cachePath;
-
-    /**
-     * @var \org\bovigo\vfs\vfsStreamDirectory
-     */
-    private $root;
-
-    /**
-     * Initializing the vfsStream stream wrapper.
-     */
     protected function setUp(): void
     {
         $this->root = vfsStream::setup('/root');
@@ -47,16 +28,13 @@ class ManagerTest extends TestCase
         $this->cachePath = 'cache/im';
     }
 
-    /**
-     * @return \Leapt\ImBundle\Manager
-     */
-    public function testConstruct()
+    public function testConstruct(): Manager
     {
         $formats = [
             'list' => ['resize' => '100x100'],
         ];
 
-        $wrapper = new Wrapper('\Leapt\ImBundle\Tests\Mock\Process');
+        $wrapper = new Wrapper(Process::class);
         $manager = new Manager($wrapper, $this->projectDir, $this->publicPath, $this->cachePath, $formats);
 
         $this->assertEquals($wrapper, $this->getManagerPrivateValue('wrapper', $manager));
@@ -72,7 +50,7 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testSetCachePath(Manager $manager)
+    public function testSetCachePath(Manager $manager): void
     {
         $manager->setCachePath('somepath');
 
@@ -85,7 +63,7 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testCacheExists(Manager $manager)
+    public function testCacheExists(Manager $manager): void
     {
         $this->markTestSkipped();
         $this->root = vfsStream::setup('/root');
@@ -112,7 +90,7 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testGetCacheContent(Manager $manager)
+    public function testGetCacheContent(Manager $manager): void
     {
         $this->markTestSkipped();
         $structure = [
@@ -134,7 +112,7 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testGetUrl(Manager $manager)
+    public function testGetUrl(Manager $manager): void
     {
         $format = 'someformat';
         $path = 'somepath';
@@ -148,7 +126,7 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testConvertFormat(Manager $manager)
+    public function testConvertFormat(Manager $manager): void
     {
         $method = new \ReflectionMethod($manager, 'convertFormat');
         $method->setAccessible(true);
@@ -163,7 +141,7 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testConvertFormatException(Manager $manager)
+    public function testConvertFormatException(Manager $manager): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -176,7 +154,7 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testCheckImage(Manager $manager)
+    public function testCheckImage(Manager $manager): void
     {
         $this->markTestSkipped();
         $structure = [
@@ -201,7 +179,7 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testCheckImageException(Manager $manager)
+    public function testCheckImageException(Manager $manager): void
     {
         $this->expectException(NotFoundException::class);
 
@@ -214,41 +192,27 @@ class ManagerTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testPathify(Manager $manager)
+    public function testPathify(Manager $manager): void
     {
         $method = new \ReflectionMethod($manager, 'pathify');
         $method->setAccessible(true);
 
         $simplePath = $method->invoke($manager, '200x150');
-        $this->assertTrue(\is_string($simplePath));
+        $this->assertIsString($simplePath);
 
         $path = $method->invoke($manager, ['crop' => '100x100']);
-        $this->assertTrue(\is_string($path));
+        $this->assertIsString($path);
 
         $otherPath = $method->invoke($manager, ['crop' => '100x100+10']);
-        $this->assertTrue(\is_string($otherPath));
+        $this->assertIsString($otherPath);
 
         $this->assertNotEquals($simplePath, $path);
         $this->assertNotEquals($path, $otherPath);
     }
 
-    /**
-     * @return \ReflectionClass
-     */
-    private function getManagerReflection(Manager $manager)
+    private function getManagerPrivateValue(string $propertyName, Manager $manager): mixed
     {
-        return new \ReflectionClass($manager);
-    }
-
-    /**
-     * @param string  $propertyName The name of the private property
-     * @param Manager $manager      The manager instance
-     *
-     * @return mixed
-     */
-    private function getManagerPrivateValue($propertyName, Manager $manager)
-    {
-        $reflection = $this->getManagerReflection($manager);
+        $reflection = new \ReflectionClass($manager);
 
         $property = $reflection->getProperty($propertyName);
         $property->setAccessible(true);
