@@ -37,26 +37,17 @@ class Process extends BaseProcess
         return 0;
     }
 
-    /**
-     * @return mixed
-     */
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return $this->success;
     }
 
-    /**
-     * @return string
-     */
-    public function getOutput()
+    public function getOutput(): string
     {
         return 'output';
     }
 
-    /**
-     * @return string
-     */
-    public function getErrorOutput()
+    public function getErrorOutput(): string
     {
         return 'errormsg';
     }
