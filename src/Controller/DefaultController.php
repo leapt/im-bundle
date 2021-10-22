@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\ImBundle\Controller;
 
 use Leapt\ImBundle\Exception\RuntimeException;

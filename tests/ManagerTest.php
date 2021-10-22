@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\ImBundle\Tests;
 
 use Leapt\ImBundle\Exception\InvalidArgumentException;
