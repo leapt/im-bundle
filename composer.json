@@ -25,7 +25,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^8.0",
         "doctrine/annotations": "^1.5",
         "doctrine/orm": "^2.5",
         "leapt/core-bundle": "^3.0",

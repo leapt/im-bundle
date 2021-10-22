@@ -2,9 +2,9 @@ name: Static Analysis
 
 on:
   pull_request:
-    branches: ['3.x']
+    branches: ['4.x', '3.x']
   push:
-    branches: ['3.x']
+    branches: ['4.x', '3.x']
 
 jobs:
   phpstan:
