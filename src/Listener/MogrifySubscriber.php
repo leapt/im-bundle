@@ -9,31 +9,26 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use Leapt\ImBundle\Doctrine\Mapping\Mogrify;
 use Leapt\ImBundle\Manager as ImManager;
 
 /**
- * Event listener for Doctrine entities to evualuate and execute ImBundle annotations.
+ * Event listener for Doctrine entities to evaluate and execute ImBundle annotations.
  */
 class MogrifySubscriber implements EventSubscriber
 {
-    private $config = [];
+    private array $config = [];
 
-    /**
-     * @var \Leapt\ImBundle\Manager
-     */
-    private $imManager;
-
-    public function __construct(ImManager $imManager)
+    public function __construct(private ImManager $imManager)
     {
-        $this->imManager = $imManager;
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return ['prePersist', 'preFlush'];
     }
 
-    public function preFlush(PreFlushEventArgs $ea)
+    public function preFlush(PreFlushEventArgs $ea): void
     {
         $entityManager = $ea->getEntityManager();
 
@@ -49,7 +44,7 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
-    public function prePersist(LifecycleEventArgs $ea)
+    public function prePersist(LifecycleEventArgs $ea): void
     {
         $entity = $ea->getEntity();
         foreach ($this->getFiles($entity, $ea->getEntityManager()) as $file) {
@@ -69,7 +64,7 @@ class MogrifySubscriber implements EventSubscriber
         return [];
     }
 
-    private function checkClassConfig($entity, EntityManager $entityManager)
+    private function checkClassConfig($entity, EntityManager $entityManager): void
     {
         $class = \get_class($entity);
 
@@ -86,7 +81,7 @@ class MogrifySubscriber implements EventSubscriber
                         continue;
                     }
                     /** @var $annotation \Leapt\ImBundle\Doctrine\Mapping\Mogrify */
-                    if ($annotation = $reader->getPropertyAnnotation($property, 'Leapt\\ImBundle\\Doctrine\\Mapping\\Mogrify')) {
+                    if ($annotation = $reader->getPropertyAnnotation($property, Mogrify::class)) {
                         $field = $property->getName();
                         $this->config[$class]['fields'][$field] = [
                             'property' => $property,
@@ -98,7 +93,7 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
-    private function mogrify($entity, $file)
+    private function mogrify($entity, $file): void
     {
         $propertyName = $file['property']->name;
 

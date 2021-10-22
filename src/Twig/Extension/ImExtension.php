@@ -13,46 +13,25 @@ use Twig\TwigFunction;
 
 class ImExtension extends AbstractExtension
 {
-    /**
-     * @var Manager
-     */
-    private $manager;
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function __construct(Manager $manager)
+    public function __construct(private Manager $manager)
     {
-        $this->manager = $manager;
     }
 
-    /**
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new ImResizeTokenParser(),
         ];
     }
 
-    /**
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('imresize', [$this, 'imResize'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
         ];
     }
 
-    /**
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('imresize', [$this, 'imResize'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
@@ -61,12 +40,8 @@ class ImExtension extends AbstractExtension
 
     /**
      * Called by the compile method to replace the image sources with image cache sources.
-     *
-     * @param string $html
-     *
-     * @return string
      */
-    public function convert($html)
+    public function convert(string $html): string
     {
         preg_match_all('|<img ([^>]+)>|', $html, $matches);
 
@@ -91,22 +66,17 @@ class ImExtension extends AbstractExtension
 
     /**
      * Returns the cached path, after executing the asset twig function.
-     *
-     * @param string $path   Path of the source file
-     * @param string $format Imbundle format string
-     *
-     * @return mixed
      */
-    public function imResize($path, $format)
+    public function imResize(string $path, string $format): string
     {
         // Remove extra whitespaces
         $path = trim($path);
 
         $separator = '';
         // Transform absolute url to custom url like : http/ or https/ or simply /
-        if (0 === strpos($path, 'http://') || 0 === strpos($path, 'https://') || 0 === strpos($path, '//')) {
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://') || str_starts_with($path, '//')) {
             $path = str_replace(['://', '//'], '/', $path);
-        } elseif (0 === strpos($path, '/')) {
+        } elseif (str_starts_with($path, '/')) {
             // If the path started with a slash, we will add it at the start of the path result
             $separator = '/';
         }
@@ -117,11 +87,7 @@ class ImExtension extends AbstractExtension
         return $separator . $this->manager->getCachePath() . '/' . $format . '/' . $path;
     }
 
-    /**
-     * @return string
-     * @codeCoverageIgnore
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'leapt_im';
     }

@@ -8,21 +8,19 @@ use Twig\Compiler;
 use Twig\Node\Node;
 
 /**
- * Represents a img tag node.
+ * Represents an img tag node.
  *
  * It looks the HTML width and height attributes, and modifies the src attribute to load a cached image
  * with the proper size
- *
- * @codeCoverageIgnore
  */
 class Imresize extends Node
 {
-    public function __construct(Node $body, $lineno, $tag = 'imresize')
+    public function __construct(Node $body, int $lineno = 0, string $tag = 'imresize')
     {
         parent::__construct(['body' => $body], [], $lineno, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler
             ->addDebugInfo($this)

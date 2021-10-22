@@ -63,7 +63,7 @@ final class WrapperTest extends TestCase
      */
     public function testPrepareAttributesException(mixed $attributes): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\TypeError::class);
         $method = new \ReflectionMethod($this->wrapper, 'prepareAttributes');
         $method->setAccessible(true);
 
