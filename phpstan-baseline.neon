@@ -1,0 +1,102 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot call method end\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Form\\\\Extension\\\\ImageTypeExtension\\:\\:buildView\\(\\) has parameter \\$form with no value type specified in iterable type Symfony\\\\Component\\\\Form\\\\FormInterface\\.$#"
+			count: 1
+			path: src/Form/Extension/ImageTypeExtension.php
+
+		-
+			message: "#^Cannot access property \\$name on ReflectionProperty\\|string\\.$#"
+			count: 1
+			path: src/Listener/MogrifySubscriber.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:getFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Listener/MogrifySubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:getFiles\\(\\) expects object, object\\|null given\\.$#"
+			count: 1
+			path: src/Listener/MogrifySubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:mogrify\\(\\) expects object, object\\|null given\\.$#"
+			count: 1
+			path: src/Listener/MogrifySubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$format of method Leapt\\\\ImBundle\\\\Manager\\:\\:mogrify\\(\\) expects string, ReflectionProperty\\|string given\\.$#"
+			count: 1
+			path: src/Listener/MogrifySubscriber.php
+
+		-
+			message: "#^Property Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:\\$config type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Listener/MogrifySubscriber.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Manager\\:\\:__construct\\(\\) has parameter \\$formats with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Manager\\:\\:getCacheContent\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_close expects CurlHandle, CurlHandle\\|false given\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_exec expects CurlHandle, CurlHandle\\|false given\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_setopt expects CurlHandle, CurlHandle\\|false given\\.$#"
+			count: 3
+			path: src/Manager.php
+
+		-
+			message: "#^Parameter \\#1 \\$stream of function fclose expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^Parameter \\#3 \\$length of function substr expects int\\|null, int\\<0, max\\>\\|false given\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^Property Leapt\\\\ImBundle\\\\Manager\\:\\:\\$formats type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Twig\\\\Node\\\\Imresize\\:\\:__construct\\(\\) has parameter \\$body with no value type specified in iterable type Twig\\\\Node\\\\Node\\.$#"
+			count: 1
+			path: src/Twig/Node/Imresize.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Twig\\\\TokenParser\\\\Imresize\\:\\:parse\\(\\) return type has no value type specified in iterable type Leapt\\\\ImBundle\\\\Twig\\\\Node\\\\Imresize\\.$#"
+			count: 1
+			path: src/Twig/TokenParser/Imresize.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 3
+			path: tests/ManagerTest.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Tests\\\\Mock\\\\Process\\:\\:fromShellCommandline\\(\\) return type has no value type specified in iterable type Leapt\\\\ImBundle\\\\Tests\\\\Mock\\\\Process\\.$#"
+			count: 1
+			path: tests/Mock/Process.php
+

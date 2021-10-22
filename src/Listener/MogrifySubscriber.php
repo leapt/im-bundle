@@ -52,7 +52,7 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
-    private function getFiles($entity, EntityManager $entityManager): array
+    private function getFiles(object $entity, EntityManager $entityManager): array
     {
         $class = \get_class($entity);
         $this->checkClassConfig($entity, $entityManager);
@@ -64,7 +64,7 @@ class MogrifySubscriber implements EventSubscriber
         return [];
     }
 
-    private function checkClassConfig($entity, EntityManager $entityManager): void
+    private function checkClassConfig(object $entity, EntityManager $entityManager): void
     {
         $class = \get_class($entity);
 
@@ -93,7 +93,10 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
-    private function mogrify($entity, $file): void
+    /**
+     * @param array<string|\ReflectionProperty> $file
+     */
+    private function mogrify(object $entity, array $file): void
     {
         $propertyName = $file['property']->name;
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Leapt\ImBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -16,6 +17,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('leapt_im');
         $rootNode = $treeBuilder->getRootNode();
+        \assert($rootNode instanceof ArrayNodeDefinition);
 
         $rootNode
             ->children()

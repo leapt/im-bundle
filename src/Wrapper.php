@@ -31,6 +31,9 @@ class Wrapper
         $this->binaryPath = empty($binaryPath) ? $binaryPath : rtrim($binaryPath, '/') . '/';
     }
 
+    /**
+     * @param array<string> $attributes
+     */
     public function run(string $command, string $inputFile, array $attributes = [], string $outputFile = ''): string
     {
         $commandString = $this->buildCommand($command, $inputFile, $attributes, $outputFile);
@@ -45,7 +48,6 @@ class Wrapper
     {
         $this->validateCommand($commandString);
 
-        /** @var \Symfony\Component\Process\Process $process */
         $process = $this->processClass::fromShellCommandline($commandString);
         $process->setTimeout($this->timeout);
         $process->run();
@@ -68,6 +70,9 @@ class Wrapper
         }
     }
 
+    /**
+     * @param array<string> $attributes
+     */
     private function buildCommand(string $command, string $inputFile, array $attributes = [], string $outputFile = ''): string
     {
         $attributesString = trim($this->prepareAttributes($attributes));
@@ -90,13 +95,15 @@ class Wrapper
 
     /**
      * Takes an array of attributes and formats it as CLI parameters.
+     *
+     * @param array<string> $attributes
      */
     private function prepareAttributes(array $attributes = []): string
     {
         $result = '';
 
         foreach ($attributes as $key => $value) {
-            if (null === $key || '' === $key) {
+            if (\in_array($key, [null, ''], true)) {
                 $result .= ' ' . $value;
             } else {
                 $result .= ' -' . $key;

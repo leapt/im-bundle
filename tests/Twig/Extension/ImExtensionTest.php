@@ -27,6 +27,9 @@ final class ImExtensionTest extends TestCase
         $this->assertEquals($expected, $this->imExtension->convert($input));
     }
 
+    /**
+     * @return iterable<array<string>>
+     */
     public function providerConvert(): iterable
     {
         return [
@@ -53,6 +56,9 @@ final class ImExtensionTest extends TestCase
         $this->assertEquals($expectedUrl, $this->imExtension->imResize($filePath, $format));
     }
 
+    /**
+     * @return iterable<array<string>>
+     */
     public function providerImResize(): iterable
     {
         return [
