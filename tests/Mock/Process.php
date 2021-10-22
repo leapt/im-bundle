@@ -6,13 +6,10 @@ namespace Leapt\ImBundle\Tests\Mock;
 
 use Symfony\Component\Process\Process as BaseProcess;
 
-/**
- * Mock object for the process class.
- */
-class Process extends BaseProcess
+final class Process extends BaseProcess
 {
-    private $cmd;
-    private $success;
+    private string $cmd;
+    private bool $success;
 
     public function __construct(array $command)
     {
@@ -24,9 +21,6 @@ class Process extends BaseProcess
         return new self([$command]);
     }
 
-    /**
-     * Run the process.
-     */
     public function run(callable $callback = null, array $env = []): int
     {
         if ('mogrify "somefailingstructure' === $this->cmd) {
@@ -34,6 +28,7 @@ class Process extends BaseProcess
 
             return 255;
         }
+
         $this->success = true;
 
         return 0;
