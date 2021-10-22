@@ -1,4 +1,5 @@
 4.0.0 (unreleased)
 ------------------
 
-* Dropped support for PHP < 8.0
+* Drop support for PHP < 8.0
+* Add support for Symfony 6

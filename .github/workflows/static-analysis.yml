@@ -27,6 +27,9 @@ jobs:
           php-version: ${{ matrix.php-version }}
           tools: cs2pr
 
+      - name: Set composer minimum stability
+        run: composer config minimum-stability dev
+
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
 
