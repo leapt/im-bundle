@@ -91,6 +91,11 @@ parameters:
 			path: src/Twig/TokenParser/Imresize.php
 
 		-
+			message: "#^Property Leapt\\\\ImBundle\\\\Tests\\\\ManagerTest\\:\\:\\$root is never read, only written\\.$#"
+			count: 1
+			path: tests/ManagerTest.php
+
+		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 3
 			path: tests/ManagerTest.php

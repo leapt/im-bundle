@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class LeaptImExtension extends Extension
 {
     /**
-     * @param array<string|array> $configs
+     * @param array<string|array<mixed|array<mixed>>> $configs
      */
     public function load(array $configs, ContainerBuilder $container): void
     {

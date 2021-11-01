@@ -26,7 +26,7 @@ final class WrapperTest extends TestCase
     }
 
     /**
-     * @param array<string|array> $attributes
+     * @param array<string|array<string|null, string>> $attributes
      * @dataProvider providerPrepareAttributes
      */
     public function testPrepareAttributes(array $attributes, string $expected): void
@@ -38,7 +38,7 @@ final class WrapperTest extends TestCase
     }
 
     /**
-     * @return iterable<array<string|array>>
+     * @return iterable<array<string|array<string|null, string>>>
      */
     public function providerPrepareAttributes(): iterable
     {
@@ -83,7 +83,7 @@ final class WrapperTest extends TestCase
     }
 
     /**
-     * @param array<string|array> $attributes
+     * @param array<string|array<string, string>> $attributes
      * @dataProvider providerBuildCommand
      */
     public function testBuildCommand(string $command, string $inputFile, array $attributes, string $outputFile, string $expected): void
@@ -95,7 +95,7 @@ final class WrapperTest extends TestCase
     }
 
     /**
-     * @return iterable<array<string|array>>
+     * @return iterable<array<string|array<string, string>>>
      */
     public function providerBuildCommand(): iterable
     {
@@ -105,7 +105,7 @@ final class WrapperTest extends TestCase
     }
 
     /**
-     * @param array<string|array> $attributes
+     * @param array<string|array<string>> $attributes
      * @dataProvider providerBuildCommandException
      */
     public function testBuildCommandException(string $command, string $inputFile, array $attributes, string $outputFile): void
@@ -119,7 +119,7 @@ final class WrapperTest extends TestCase
     }
 
     /**
-     * @return iterable<array<string|array>>
+     * @return iterable<array<string|array<string>>>
      */
     public function providerBuildCommandException(): iterable
     {
