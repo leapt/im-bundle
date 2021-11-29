@@ -1,0 +1,46 @@
+site_name: leapt/im-bundle
+site_description: Documentation for leapt/im-bundle
+
+repo_name: leapt/im-bundle
+repo_url: https://github.com/leapt/im-bundle
+edit_uri: https://github.com/leapt/im-bundle/edit/4.x/docs/
+
+theme:
+    name: material
+    language: en
+    features:
+        - navigation.instant
+        - navigation.top
+        - toc.integrate
+    palette:
+        scheme: slate
+        primary: green
+
+extra:
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/leapt/im-bundle
+          name: leapt/im-bundle repository
+    generator: false
+
+plugins:
+    - search: { }
+
+nav:
+    - index.md
+    - installation.md
+    - usage.md
+    - configuration.md
+    - extra.md
+
+markdown_extensions:
+    - toc:
+        permalink: '#'
+    - pymdownx.details: { }
+    - pymdownx.inlinehilite: { }
+    - pymdownx.highlight:
+        extend_pygments_lang:
+            - { name: php, lang: php, options: { startinline: true } }
+    - pymdownx.superfences: { }
+    - pymdownx.tabbed: { }
+    - admonition: { }
