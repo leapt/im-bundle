@@ -6,12 +6,22 @@ parameters:
 			path: src/DependencyInjection/Configuration.php
 
 		-
-			message: "#^Method Leapt\\\\ImBundle\\\\Form\\\\Extension\\\\ImageTypeExtension\\:\\:buildView\\(\\) has parameter \\$form with no value type specified in iterable type Symfony\\\\Component\\\\Form\\\\FormInterface\\.$#"
+			message: "#^Method Leapt\\\\ImBundle\\\\Doctrine\\\\Mapping\\\\Mogrify\\:\\:__construct\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Form/Extension/ImageTypeExtension.php
+			path: src/Doctrine/Mapping/Mogrify.php
+
+		-
+			message: "#^Property Leapt\\\\ImBundle\\\\Doctrine\\\\Mapping\\\\Mogrify\\:\\:\\$params type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Doctrine/Mapping/Mogrify.php
 
 		-
 			message: "#^Cannot access property \\$name on ReflectionProperty\\|string\\.$#"
+			count: 1
+			path: src/Listener/MogrifySubscriber.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:getAttributes\\(\\) return type has no value type specified in iterable type iterable\\.$#"
 			count: 1
 			path: src/Listener/MogrifySubscriber.php
 
@@ -99,9 +109,4 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 3
 			path: tests/ManagerTest.php
-
-		-
-			message: "#^Method Leapt\\\\ImBundle\\\\Tests\\\\Mock\\\\Process\\:\\:fromShellCommandline\\(\\) return type has no value type specified in iterable type Leapt\\\\ImBundle\\\\Tests\\\\Mock\\\\Process\\.$#"
-			count: 1
-			path: tests/Mock/Process.php
 
