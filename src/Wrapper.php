@@ -16,16 +16,16 @@ class Wrapper
         'montage', 'stream',
     ];
 
-    private string $binaryPath;
+    private ?string $binaryPath;
 
     /**
-     * @param string $processClass The class name of the command line processor
-     * @param string $binaryPath   The path where the Imagemagick binaries lies
-     * @param int    $timeout      The timeout in seconds
+     * @param string  $processClass The class name of the command line processor
+     * @param ?string $binaryPath   The path where the Imagemagick binaries lies
+     * @param int     $timeout      The timeout in seconds
      */
     public function __construct(
         private string $processClass,
-        string $binaryPath = '',
+        ?string $binaryPath = '',
         private int $timeout = 60,
     ) {
         $this->binaryPath = empty($binaryPath) ? $binaryPath : rtrim($binaryPath, '/') . '/';

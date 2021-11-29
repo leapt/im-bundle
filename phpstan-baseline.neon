@@ -41,7 +41,7 @@ parameters:
 			path: src/Listener/MogrifySubscriber.php
 
 		-
-			message: "#^Parameter \\#1 \\$format of method Leapt\\\\ImBundle\\\\Manager\\:\\:mogrify\\(\\) expects string, ReflectionProperty\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$format of method Leapt\\\\ImBundle\\\\Manager\\:\\:mogrify\\(\\) expects array\\|string, ReflectionProperty\\|string given\\.$#"
 			count: 1
 			path: src/Listener/MogrifySubscriber.php
 
@@ -56,7 +56,17 @@ parameters:
 			path: src/Manager.php
 
 		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Manager\\:\\:convert\\(\\) has parameter \\$format with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
 			message: "#^Method Leapt\\\\ImBundle\\\\Manager\\:\\:getCacheContent\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Manager\\:\\:mogrify\\(\\) has parameter \\$format with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Manager.php
 
