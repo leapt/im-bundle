@@ -101,7 +101,7 @@ class Manager
     /**
      * Shortcut to run a "convert" command => creates a new image.
      */
-    public function convert(string $format, string $file): string
+    public function convert(string|array $format, string $file): string
     {
         $file = ltrim($file, '/');
         $this->checkImage($file);
@@ -112,7 +112,7 @@ class Manager
     /**
      * Shortcut to run a "mogrify" command => modifies the image source.
      */
-    public function mogrify(string $format, string $file): string
+    public function mogrify(string|array $format, string $file): string
     {
         $this->checkImage($file);
 
