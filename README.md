@@ -2,34 +2,41 @@ Leapt IM Bundle
 ===============
 
 [![Package version](https://img.shields.io/packagist/v/leapt/im-bundle.svg?style=flat-square)](https://packagist.org/packages/leapt/im-bundle)
-[![Build Status](https://img.shields.io/github/workflow/status/leapt/im-bundle/Continuous%20Integration/3.x?style=flat-square)](https://github.com/leapt/im-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
-[![PHP Version](https://img.shields.io/packagist/php-v/leapt/im-bundle.svg?branch=3.x&style=flat-square)](https://travis-ci.org/leapt/im-bundle?branch=3.x)
+[![Build Status](https://img.shields.io/github/workflow/status/leapt/im-bundle/Continuous%20Integration/4.x?style=flat-square)](https://github.com/leapt/im-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
+![PHP Version](https://img.shields.io/packagist/php-v/leapt/im-bundle.svg?branch=4.x&style=flat-square)
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
-[![Code coverage](https://img.shields.io/codecov/c/github/leapt/im-bundle?style=flat-square)](https://codecov.io/gh/leapt/im-bundle/branch/3.x)
+[![Code coverage](https://img.shields.io/codecov/c/github/leapt/im-bundle?style=flat-square)](https://codecov.io/gh/leapt/im-bundle/branch/4.x)
 
 This bundle is a fork of the SnowcapImBundle.
-
-The current version (3.x) of the bundle works with Symfony 4.4 & Symfony 5.
-
-For older versions of Symfony:
-
-* Use version 2.1+ for Symfony between 3.3 and 4.4
-* Use version < 2.1 for Symfony < 3.3
-
-You can check the [changelog](CHANGELOG-3.x.md) for version 3 and the [upgrade document](UPGRADE-3.x.md) when upgrading
-from 2.x bundle version.
 
 Introduction
 ------------
 
 Imagemagick wrapper for Symfony.
 
-It's a general wrapper to access imagemagick command line functions, instead of using bindings like iMagick, 
+It's a general wrapper to access imagemagick command line functions, instead of using bindings like iMagick,
 which doesn't cover all the imagemagick functionalities.
 
 It allows you to use all the convert/mogrify power, from your controller or your views
 
-See the [Documentation and examples](https://github.com/leapt/im-bundle/tree/3.x/docs)
+See the [Documentation and examples](https://im-bundle.leapt.io/)
+
+Versions & dependencies
+-----------------------
+
+The current version (4.x) of the bundle works with Symfony 5.4 & Symfony 6.0+.
+The project follows SemVer.
+
+You can check the [changelog](CHANGELOG-4.x.md) for version 4 and the [upgrade document](UPGRADE-4.x.md) when upgrading
+from 3.x bundle version.
+
+| ImBundle version  | Symfony version           | PHP version
+| ----------------- | ------------------------- | -----------
+| 4.x               | ^5.4 \|\| ^6.0            | ^8.0
+| 3.x               | ^4.4 \|\| ^5.0            | ^7.2 \|\| ^8.0
+| 2.1+              | ^3.3 \|\| ^4.0            | >=5.5
+| 2.0, < 2.1        | ^2.7 \|\| ^3.0 \|\| ^4.0  | >=5.4
+| 1.x               | ^2.7                      | >=5.3.3
 
 Contributing
 ------------
@@ -43,7 +50,6 @@ Note there are a few helpers to maintain code quality, that you can run using th
 composer cs:dry # Code style check
 composer phpstan # Static analysis
 vendor/bin/phpunit # Run tests
-```
 ```
 
 Docs are built using mkdocs. To launch the docs server locally, run `make docs-start` & open http://127.0.0.1:8000/.
