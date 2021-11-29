@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\ImBundle\Listener;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -13,7 +12,7 @@ use Leapt\ImBundle\Doctrine\Mapping\Mogrify;
 use Leapt\ImBundle\Manager as ImManager;
 
 /**
- * Event listener for Doctrine entities to evaluate and execute ImBundle annotations.
+ * Event listener for Doctrine entities to evaluate and execute ImBundle attributes.
  */
 class MogrifySubscriber implements EventSubscriber
 {
@@ -69,27 +68,31 @@ class MogrifySubscriber implements EventSubscriber
         $class = \get_class($entity);
 
         if (!\array_key_exists($class, $this->config)) {
-            $reader = new AnnotationReader();
             $meta = $entityManager->getClassMetaData($class);
-            $reflexionClass = $meta->getReflectionClass();
-            if (null !== $reflexionClass) {
-                foreach ($reflexionClass->getProperties() as $property) {
-                    if ($meta->isMappedSuperclass && !$property->isPrivate() ||
-                        $meta->isInheritedField($property->name) ||
-                        isset($meta->associationMappings[$property->name]['inherited'])
-                    ) {
-                        continue;
-                    }
-                    /** @var $annotation \Leapt\ImBundle\Doctrine\Mapping\Mogrify */
-                    if ($annotation = $reader->getPropertyAnnotation($property, Mogrify::class)) {
-                        $field = $property->getName();
-                        $this->config[$class]['fields'][$field] = [
-                            'property' => $property,
-                            'params'   => $annotation->params,
-                        ];
-                    }
+
+            foreach ($meta->getReflectionClass()->getProperties() as $property) {
+                if ($meta->isMappedSuperclass && !$property->isPrivate() ||
+                    $meta->isInheritedField($property->name) ||
+                    isset($meta->associationMappings[$property->name]['inherited'])
+                ) {
+                    continue;
+                }
+                $attributes = $this->getAttributes($property);
+                foreach ($attributes as $attribute) {
+                    $field = $property->getName();
+                    $this->config[$class]['fields'][$field] = [
+                        'property' => $property,
+                        'params'   => $attribute->params,
+                    ];
                 }
             }
+        }
+    }
+
+    private function getAttributes(\ReflectionProperty $reflection): iterable
+    {
+        foreach ($reflection->getAttributes(Mogrify::class) as $attribute) {
+            yield $attribute->newInstance();
         }
     }
 

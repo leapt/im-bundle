@@ -50,7 +50,7 @@ From a controller
 In entities
 -----------
 
-If you need to alter an uploaded image, you can add annotations on the file public property from your entity
+If you need to alter an uploaded image, you can add attributes on the file public property from your entity
 
 .. code-block:: php
 
@@ -58,16 +58,13 @@ If you need to alter an uploaded image, you can add annotations on the file publ
   use Leapt\ImBundle\Doctrine\Mapping as LeaptIm;
   // ...
 
-    /**
-     *
-     * @Assert\File(maxSize="6000000")
-     * @LeaptIm\Mogrify(params={"thumbnail"="100x100>"})
-     */
-    public $file;
+  #[Assert\File(maxSize: '6M')]
+  #[LeaptIm\Mogrify(params: ['thumbnail' => '100x100>')]
+  public $file;
 
 When the form is submitted, the file will then be "thumbnailed" to 100x100 if bigger. You can then use the $file->move() method like usual.
 
-The *params* attribute can contain
+The *params* parameter can contain:
 
 * an array of ImageMagick key/values (like the example above)
 * a format predefined in config

@@ -20,14 +20,13 @@
         },
         {
             "name": "Snowcap",
-            "homepage": "http://www.snowcap.be"
+            "homepage": "https://www.snowcap.be"
         }
     ],
     "minimum-stability": "stable",
     "require": {
         "php": "^8.0",
         "ext-curl": "*",
-        "doctrine/annotations": "^1.5",
         "doctrine/orm": "^2.5",
         "leapt/core-bundle": "^4.0",
         "symfony/css-selector": "^5.0 || ^6.0",

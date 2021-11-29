@@ -4,16 +4,10 @@ declare(strict_types=1);
 
 namespace Leapt\ImBundle\Doctrine\Mapping;
 
-use Doctrine\Common\Annotations\Annotation;
-
-/**
- * @Annotation
- * @codeCoverageIgnore
- */
-class Mogrify extends Annotation
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
+class Mogrify
 {
-    /**
-     * @var array<string>
-     */
-    public array $params;
+    public function __construct(public array|string $params)
+    {
+    }
 }
