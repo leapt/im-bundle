@@ -19,7 +19,7 @@ which doesn't cover all the imagemagick functionalities.
 
 It allows you to use all the convert/mogrify power, from your controller or your views
 
-See the [Documentation and examples](https://im-bundle.leapt.io/)
+See the [Documentation and examples](https://im-bundle.leapt.dev/)
 
 Versions & dependencies
 -----------------------
