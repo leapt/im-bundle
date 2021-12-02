@@ -3,7 +3,7 @@ Leapt IM Bundle
 
 [![Package version](https://img.shields.io/packagist/v/leapt/im-bundle.svg?style=flat-square)](https://packagist.org/packages/leapt/im-bundle)
 [![Build Status](https://img.shields.io/github/workflow/status/leapt/im-bundle/Continuous%20Integration/4.x?style=flat-square)](https://github.com/leapt/im-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
-![PHP Version](https://img.shields.io/packagist/php-v/leapt/im-bundle.svg?branch=4.x&style=flat-square)
+![PHP Version](https://img.shields.io/packagist/php-v/leapt/im-bundle/v4.0.0?branch=4.x&style=flat-square)
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
 [![Code coverage](https://img.shields.io/codecov/c/github/leapt/im-bundle?style=flat-square)](https://codecov.io/gh/leapt/im-bundle/branch/4.x)
 
