@@ -101,6 +101,11 @@ parameters:
 			path: src/Manager.php
 
 		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Tests\\\\LeaptImTestingKernel\\:\\:configureContainer\\(\\) is unused\\.$#"
+			count: 1
+			path: tests/LeaptImTestingKernel.php
+
+		-
 			message: "#^Property Leapt\\\\ImBundle\\\\Tests\\\\ManagerTest\\:\\:\\$root is never read, only written\\.$#"
 			count: 1
 			path: tests/ManagerTest.php
