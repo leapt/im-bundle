@@ -101,14 +101,9 @@ parameters:
 			path: src/Manager.php
 
 		-
-			message: "#^Method Leapt\\\\ImBundle\\\\Twig\\\\Node\\\\Imresize\\:\\:__construct\\(\\) has parameter \\$body with no value type specified in iterable type Twig\\\\Node\\\\Node\\.$#"
+			message: "#^Method Leapt\\\\ImBundle\\\\Tests\\\\LeaptImTestingKernel\\:\\:configureContainer\\(\\) is unused\\.$#"
 			count: 1
-			path: src/Twig/Node/Imresize.php
-
-		-
-			message: "#^Method Leapt\\\\ImBundle\\\\Twig\\\\TokenParser\\\\Imresize\\:\\:parse\\(\\) return type has no value type specified in iterable type Leapt\\\\ImBundle\\\\Twig\\\\Node\\\\Imresize\\.$#"
-			count: 1
-			path: src/Twig/TokenParser/Imresize.php
+			path: tests/LeaptImTestingKernel.php
 
 		-
 			message: "#^Property Leapt\\\\ImBundle\\\\Tests\\\\ManagerTest\\:\\:\\$root is never read, only written\\.$#"
