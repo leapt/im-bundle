@@ -37,5 +37,5 @@ Create a `config/routes/leapt_im.yaml` and add the following configuration:
 
 ```yaml
 leapt_im:
-    resource: "@LeaptImBundle/Resources/config/routing.yml"
+    resource: "@LeaptImBundle/Resources/config/routing.php"
 ```
