@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Leapt\ImBundle\Listener;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Leapt\ImBundle\Doctrine\Mapping\Mogrify;
@@ -51,7 +51,7 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
-    private function getFiles(object $entity, EntityManager $entityManager): array
+    private function getFiles(object $entity, EntityManagerInterface $entityManager): array
     {
         $class = \get_class($entity);
         $this->checkClassConfig($entity, $entityManager);
@@ -63,7 +63,7 @@ class MogrifySubscriber implements EventSubscriber
         return [];
     }
 
-    private function checkClassConfig(object $entity, EntityManager $entityManager): void
+    private function checkClassConfig(object $entity, EntityManagerInterface $entityManager): void
     {
         $class = \get_class($entity);
 
