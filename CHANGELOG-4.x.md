@@ -2,6 +2,7 @@
 -----
 
 * Fix bugs related to controller & type extension args & add tests
+* Improve & fix exported files in .gitattributes
 
 4.1.0
 -----
