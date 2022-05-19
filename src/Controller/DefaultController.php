@@ -6,11 +6,10 @@ namespace Leapt\ImBundle\Controller;
 
 use Leapt\ImBundle\Exception\RuntimeException;
 use Leapt\ImBundle\Manager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends AbstractController
+class DefaultController
 {
     /**
      * Main action: renders the image cache and returns it to the browser.
