@@ -1,3 +1,8 @@
+4.1.1
+-----
+
+* Fix bugs related to controller & type extension args & add tests
+
 4.1.0
 -----
 

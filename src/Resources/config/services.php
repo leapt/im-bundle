@@ -37,9 +37,11 @@ return static function (ContainerConfigurator $container): void {
             ->tag('doctrine.event_subscriber')
 
         ->set(DefaultController::class)
+            ->tag('controller.service_arguments')
             ->public()
 
         ->set(ImageTypeExtension::class)
+            ->arg('$imManager', service(Manager::class))
             ->tag('form.type_extension')
 
         ->set(ImExtension::class)
