@@ -10,8 +10,10 @@ use Leapt\ImBundle\Manager;
 use Leapt\ImBundle\Twig\Extension\ImExtension;
 use Leapt\ImBundle\Wrapper;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
+
 use Symfony\Component\Process\Process;
 
 return static function (ContainerConfigurator $container): void {

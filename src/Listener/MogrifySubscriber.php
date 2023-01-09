@@ -6,8 +6,8 @@ namespace Leapt\ImBundle\Listener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use Doctrine\ORM\Event\PrePersistEventArgs;
 use Leapt\ImBundle\Doctrine\Mapping\Mogrify;
 use Leapt\ImBundle\Manager as ImManager;
 
@@ -29,24 +29,24 @@ class MogrifySubscriber implements EventSubscriber
 
     public function preFlush(PreFlushEventArgs $ea): void
     {
-        $entityManager = $ea->getEntityManager();
+        $entityManager = $ea->getObjectManager();
 
         $unitOfWork = $entityManager->getUnitOfWork();
 
         $entityMaps = $unitOfWork->getIdentityMap();
         foreach ($entityMaps as $entities) {
             foreach ($entities as $entity) {
-                foreach ($this->getFiles($entity, $ea->getEntityManager()) as $file) {
+                foreach ($this->getFiles($entity, $ea->getObjectManager()) as $file) {
                     $this->mogrify($entity, $file);
                 }
             }
         }
     }
 
-    public function prePersist(LifecycleEventArgs $ea): void
+    public function prePersist(PrePersistEventArgs $ea): void
     {
-        $entity = $ea->getEntity();
-        foreach ($this->getFiles($entity, $ea->getEntityManager()) as $file) {
+        $entity = $ea->getObjectManager();
+        foreach ($this->getFiles($entity, $ea->getObjectManager()) as $file) {
             $this->mogrify($entity, $file);
         }
     }
