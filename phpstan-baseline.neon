@@ -11,11 +11,6 @@ parameters:
 			path: src/Doctrine/Mapping/Mogrify.php
 
 		-
-			message: "#^Property Leapt\\\\ImBundle\\\\Doctrine\\\\Mapping\\\\Mogrify\\:\\:\\$params type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Doctrine/Mapping/Mogrify.php
-
-		-
 			message: "#^Cannot access property \\$name on ReflectionProperty\\|string\\.$#"
 			count: 1
 			path: src/Listener/MogrifySubscriber.php
@@ -86,17 +81,7 @@ parameters:
 			path: src/Manager.php
 
 		-
-			message: "#^Parameter \\#1 \\$stream of function fclose expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/Manager.php
-
-		-
 			message: "#^Parameter \\#3 \\$length of function substr expects int\\|null, int\\<0, max\\>\\|false given\\.$#"
-			count: 1
-			path: src/Manager.php
-
-		-
-			message: "#^Property Leapt\\\\ImBundle\\\\Manager\\:\\:\\$formats type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Manager.php
 
