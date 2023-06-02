@@ -39,7 +39,7 @@ class MogrifySubscriber
 
     public function prePersist(PrePersistEventArgs $ea): void
     {
-        $entity = $ea->getObjectManager();
+        $entity = $ea->getObject();
         foreach ($this->getFiles($entity, $ea->getObjectManager()) as $file) {
             $this->mogrify($entity, $file);
         }

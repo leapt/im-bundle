@@ -1,7 +1,13 @@
+4.1.3
+-----
+
+* Fix prePersist() in MogrifySubscriber
+
 4.1.2
 -----
 
 * Test bundle against Symfony 6.3
+* Fix Symfony 6.3 deprecations
 
 4.1.1
 -----

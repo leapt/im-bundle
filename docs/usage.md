@@ -60,7 +60,7 @@ use Leapt\ImBundle\Doctrine\Mapping as LeaptIm;
 // ...
 
 #[Assert\File(maxSize: '6M')]
-#[LeaptIm\Mogrify(params: ['thumbnail' => '100x100>')]
+#[LeaptIm\Mogrify(params: ['thumbnail' => '100x100>'])]
 public $file;
 ```
 
