@@ -89,6 +89,9 @@ class MogrifySubscriber implements EventSubscriber
         }
     }
 
+    /**
+     * @return iterable<Mogrify>
+     */
     private function getAttributes(\ReflectionProperty $reflection): iterable
     {
         foreach ($reflection->getAttributes(Mogrify::class) as $attribute) {
