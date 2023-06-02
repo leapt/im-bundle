@@ -134,6 +134,7 @@ class Manager
         \assert(\is_resource($fp));
 
         $ch = curl_init(str_replace($protocol . '/', $protocol . '://', $path));
+        \assert($ch instanceof \CurlHandle);
         curl_setopt($ch, \CURLOPT_FILE, $fp);
         curl_setopt($ch, \CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, \CURLOPT_HEADER, false);

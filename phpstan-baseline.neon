@@ -16,11 +16,6 @@ parameters:
 			path: src/Listener/MogrifySubscriber.php
 
 		-
-			message: "#^Method Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:getAttributes\\(\\) return type has no value type specified in iterable type iterable\\.$#"
-			count: 1
-			path: src/Listener/MogrifySubscriber.php
-
-		-
 			message: "#^Method Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:getFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Listener/MogrifySubscriber.php
@@ -53,21 +48,6 @@ parameters:
 		-
 			message: "#^Method Leapt\\\\ImBundle\\\\Manager\\:\\:mogrify\\(\\) has parameter \\$format with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Manager.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_close expects CurlHandle, CurlHandle\\|false given\\.$#"
-			count: 1
-			path: src/Manager.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_exec expects CurlHandle, CurlHandle\\|false given\\.$#"
-			count: 1
-			path: src/Manager.php
-
-		-
-			message: "#^Parameter \\#1 \\$handle of function curl_setopt expects CurlHandle, CurlHandle\\|false given\\.$#"
-			count: 3
 			path: src/Manager.php
 
 		-
