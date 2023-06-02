@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\ImBundle\Listener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
@@ -14,17 +13,12 @@ use Leapt\ImBundle\Manager as ImManager;
 /**
  * Event listener for Doctrine entities to evaluate and execute ImBundle attributes.
  */
-class MogrifySubscriber implements EventSubscriber
+class MogrifySubscriber
 {
     private array $config = [];
 
     public function __construct(private ImManager $imManager)
     {
-    }
-
-    public function getSubscribedEvents(): array
-    {
-        return ['prePersist', 'preFlush'];
     }
 
     public function preFlush(PreFlushEventArgs $ea): void

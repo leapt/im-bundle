@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Doctrine\ORM\Events;
 use Leapt\ImBundle\Command\ClearCommand;
 use Leapt\ImBundle\Controller\DefaultController;
 use Leapt\ImBundle\Form\Extension\ImageTypeExtension;
@@ -36,7 +37,8 @@ return static function (ContainerConfigurator $container): void {
 
         ->set(MogrifySubscriber::class)
             ->arg('$imManager', service(Manager::class))
-            ->tag('doctrine.event_subscriber')
+            ->tag('doctrine.event_listener', ['event' => Events::prePersist])
+            ->tag('doctrine.event_listener', ['event' => Events::preFlush])
 
         ->set(DefaultController::class)
             ->tag('controller.service_arguments')
