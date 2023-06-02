@@ -1,3 +1,8 @@
+4.1.2
+-----
+
+* Test bundle against Symfony 6.3
+
 4.1.1
 -----
 
