@@ -53,7 +53,7 @@ class MogrifySubscriber implements EventSubscriber
 
     private function getFiles(object $entity, EntityManagerInterface $entityManager): array
     {
-        $class = \get_class($entity);
+        $class = $entity::class;
         $this->checkClassConfig($entity, $entityManager);
 
         if (\array_key_exists($class, $this->config)) {
@@ -65,15 +65,15 @@ class MogrifySubscriber implements EventSubscriber
 
     private function checkClassConfig(object $entity, EntityManagerInterface $entityManager): void
     {
-        $class = \get_class($entity);
+        $class = $entity::class;
 
         if (!\array_key_exists($class, $this->config)) {
             $meta = $entityManager->getClassMetaData($class);
 
             foreach ($meta->getReflectionClass()->getProperties() as $property) {
-                if ($meta->isMappedSuperclass && !$property->isPrivate() ||
-                    $meta->isInheritedField($property->name) ||
-                    isset($meta->associationMappings[$property->name]['inherited'])
+                if ($meta->isMappedSuperclass && !$property->isPrivate()
+                    || $meta->isInheritedField($property->name)
+                    || isset($meta->associationMappings[$property->name]['inherited'])
                 ) {
                     continue;
                 }
@@ -105,9 +105,9 @@ class MogrifySubscriber implements EventSubscriber
 
         $getter = 'get' . ucfirst($propertyName);
         if (method_exists($entity, $getter)) {
-            /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile */
             $uploadedFile = $entity->$getter();
             if (null !== $uploadedFile) {
+                /* @var \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile */
                 $this->imManager->mogrify($file['params'], $uploadedFile->getPathName());
             }
         }

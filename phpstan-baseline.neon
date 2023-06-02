@@ -26,16 +26,6 @@ parameters:
 			path: src/Listener/MogrifySubscriber.php
 
 		-
-			message: "#^Parameter \\#1 \\$entity of method Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:getFiles\\(\\) expects object, object\\|null given\\.$#"
-			count: 1
-			path: src/Listener/MogrifySubscriber.php
-
-		-
-			message: "#^Parameter \\#1 \\$entity of method Leapt\\\\ImBundle\\\\Listener\\\\MogrifySubscriber\\:\\:mogrify\\(\\) expects object, object\\|null given\\.$#"
-			count: 1
-			path: src/Listener/MogrifySubscriber.php
-
-		-
 			message: "#^Parameter \\#1 \\$format of method Leapt\\\\ImBundle\\\\Manager\\:\\:mogrify\\(\\) expects array\\|string, ReflectionProperty\\|string given\\.$#"
 			count: 1
 			path: src/Listener/MogrifySubscriber.php
