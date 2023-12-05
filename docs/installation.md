@@ -4,10 +4,8 @@
 
 * You need to have the ImageMagick binaries available (convert & mogrify)
 * You need to have a cache folder in your web dir, writeable by the webserver
-* Symfony 5.4/6.0+
-* PHP 8.0+
-
-This bundle requires PHP 8.0+ and Symfony 5.4/6.0+.
+* Symfony 6.4/7.0+
+* PHP 8.2+
 
 ## Install steps
 
