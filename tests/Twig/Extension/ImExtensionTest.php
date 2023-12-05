@@ -7,6 +7,7 @@ namespace Leapt\ImBundle\Tests\Twig\Extension;
 use Leapt\ImBundle\Manager;
 use Leapt\ImBundle\Twig\Extension\ImExtension;
 use Leapt\ImBundle\Wrapper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
@@ -19,9 +20,7 @@ final class ImExtensionTest extends TestCase
         $this->imExtension = new ImExtension(new Manager(new Wrapper(Process::class), 'app/', '../web/', 'cache/im'));
     }
 
-    /**
-     * @dataProvider providerConvert
-     */
+    #[DataProvider('providerConvert')]
     public function testConvert(string $input, string $expected): void
     {
         $this->assertEquals($expected, $this->imExtension->convert($input));
@@ -30,7 +29,7 @@ final class ImExtensionTest extends TestCase
     /**
      * @return iterable<array<string>>
      */
-    public function providerConvert(): iterable
+    public static function providerConvert(): iterable
     {
         return [
             ['hop hop', 'hop hop'],
@@ -48,9 +47,7 @@ final class ImExtensionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImResize
-     */
+    #[DataProvider('providerImResize')]
     public function testImResize(string $filePath, string $format, string $expectedUrl): void
     {
         $this->assertEquals($expectedUrl, $this->imExtension->imResize($filePath, $format));
@@ -59,7 +56,7 @@ final class ImExtensionTest extends TestCase
     /**
      * @return iterable<array<string>>
      */
-    public function providerImResize(): iterable
+    public static function providerImResize(): iterable
     {
         return [
             ['img.jpg', '100x', 'cache/im/100x/img.jpg'],

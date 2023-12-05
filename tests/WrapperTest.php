@@ -12,6 +12,7 @@ use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamContent;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamWrapper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class WrapperTest extends TestCase
@@ -27,9 +28,8 @@ final class WrapperTest extends TestCase
 
     /**
      * @param array<string|array<string|null, string>> $attributes
-     *
-     * @dataProvider providerPrepareAttributes
      */
+    #[DataProvider('providerPrepareAttributes')]
     public function testPrepareAttributes(array $attributes, string $expected): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'prepareAttributes');
@@ -41,7 +41,7 @@ final class WrapperTest extends TestCase
     /**
      * @return iterable<array<string|array<string|null, string>>>
      */
-    public function providerPrepareAttributes(): iterable
+    public static function providerPrepareAttributes(): iterable
     {
         yield 'empty_config' => [
             [],
@@ -62,9 +62,7 @@ final class WrapperTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerPrepareAttributesException
-     */
+    #[DataProvider('providerPrepareAttributesException')]
     public function testPrepareAttributesException(mixed $attributes): void
     {
         $this->expectException(\TypeError::class);
@@ -77,7 +75,7 @@ final class WrapperTest extends TestCase
     /**
      * @return iterable<array<string|object>>
      */
-    public function providerPrepareAttributesException(): iterable
+    public static function providerPrepareAttributesException(): iterable
     {
         yield ['some crappy string'];
         yield [new \stdClass()];
@@ -85,9 +83,8 @@ final class WrapperTest extends TestCase
 
     /**
      * @param array<string|array<string, string>> $attributes
-     *
-     * @dataProvider providerBuildCommand
      */
+    #[DataProvider('providerBuildCommand')]
     public function testBuildCommand(string $command, string $inputFile, array $attributes, string $outputFile, string $expected): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'buildCommand');
@@ -99,7 +96,7 @@ final class WrapperTest extends TestCase
     /**
      * @return iterable<array<string|array<string, string>>>
      */
-    public function providerBuildCommand(): iterable
+    public static function providerBuildCommand(): iterable
     {
         yield ['convert', 'somefile', [], 'anotherfile', 'convert somefile anotherfile'];
         yield ['mogrify', 'somefile', ['resize' => '450x'], '', 'mogrify -resize "450x" somefile'];
@@ -108,9 +105,8 @@ final class WrapperTest extends TestCase
 
     /**
      * @param array<string|array<string>> $attributes
-     *
-     * @dataProvider providerBuildCommandException
      */
+    #[DataProvider('providerBuildCommandException')]
     public function testBuildCommandException(string $command, string $inputFile, array $attributes, string $outputFile): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -124,7 +120,7 @@ final class WrapperTest extends TestCase
     /**
      * @return iterable<array<string|array<string>>>
      */
-    public function providerBuildCommandException(): iterable
+    public static function providerBuildCommandException(): iterable
     {
         yield ['ls', 'somefile', [], 'anotherfile'];
         yield ['blaarhh', '', [], ''];
@@ -149,9 +145,7 @@ final class WrapperTest extends TestCase
         $this->wrapper->rawRun('mogrify "somefailingstructure');
     }
 
-    /**
-     * @dataProvider providerValidateCommand
-     */
+    #[DataProvider('providerValidateCommand')]
     public function testValidateCommand(string $commandString): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'validateCommand');
@@ -163,15 +157,13 @@ final class WrapperTest extends TestCase
     /**
      * @return iterable<array<string>>
      */
-    public function providerValidateCommand(): iterable
+    public static function providerValidateCommand(): iterable
     {
         yield ['convert somestrings'];
         yield ['mogrify somestrings blouh +yop -paf -bim "zoup"'];
     }
 
-    /**
-     * @dataProvider providerValidateCommandException
-     */
+    #[DataProvider('providerValidateCommandException')]
     public function testValidateCommandException(string $commandString): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -185,7 +177,7 @@ final class WrapperTest extends TestCase
     /**
      * @return iterable<array<string>>
      */
-    public function providerValidateCommandException(): iterable
+    public static function providerValidateCommandException(): iterable
     {
         yield ['convert'];
         yield ['bignou'];
