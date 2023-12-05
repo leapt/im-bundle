@@ -2,10 +2,10 @@ Leapt IM Bundle
 ===============
 
 [![Package version](https://img.shields.io/packagist/v/leapt/im-bundle.svg?style=flat-square)](https://packagist.org/packages/leapt/im-bundle)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/leapt/im-bundle/continuous-integration.yml?branch=4.x&style=flat-square)](https://github.com/leapt/im-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
-![PHP Version](https://img.shields.io/packagist/php-v/leapt/im-bundle/v4.0.0?branch=4.x&style=flat-square)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/leapt/im-bundle/continuous-integration.yml?branch=5.x&style=flat-square)](https://github.com/leapt/im-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
+![PHP Version](https://img.shields.io/packagist/php-v/leapt/im-bundle/v5.0.0?branch=5.x&style=flat-square)
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
-[![Code coverage](https://img.shields.io/codecov/c/github/leapt/im-bundle?style=flat-square)](https://codecov.io/gh/leapt/im-bundle/branch/4.x)
+[![Code coverage](https://img.shields.io/codecov/c/github/leapt/im-bundle?style=flat-square)](https://codecov.io/gh/leapt/im-bundle/branch/5.x)
 
 This bundle is a fork of the SnowcapImBundle.
 
@@ -27,8 +27,8 @@ Versions & dependencies
 The current version (5.x) of the bundle works with Symfony 6.4 & Symfony 7.0+.
 The project follows SemVer.
 
-You can check the [changelog](CHANGELOG-4.x.md) for version 4 and the [upgrade document](UPGRADE-4.x.md) when upgrading
-from 3.x bundle version.
+You can check the [changelog](CHANGELOG-5.x.md) for version 5 and the [upgrade document](UPGRADE-5.x.md) when upgrading
+from 4.x bundle version.
 
 | ImBundle version | Symfony version          | PHP version
 |------------------|--------------------------| -----------
