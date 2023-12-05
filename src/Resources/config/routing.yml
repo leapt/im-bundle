@@ -1,5 +1,0 @@
-leapt_im_default_index:
-    path: "%leapt_im.cache_path%/{format}/{path}"
-    requirements:
-        path: (.+)
-    defaults: { _controller: Leapt\ImBundle\Controller\DefaultController::index }
