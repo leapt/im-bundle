@@ -40,6 +40,6 @@ final class LeaptImTestingKernel extends Kernel
 
     private function configureRoutes(RoutingConfigurator $routes): void
     {
-        $routes->import(__DIR__ . '/../src/Resources/config/routing.php');
+        $routes->import(__DIR__ . '/../config/routing.php');
     }
 }

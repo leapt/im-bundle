@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:end\\(\\)\\.$#"
-			count: 1
-			path: src/DependencyInjection/Configuration.php
-
-		-
 			message: "#^Method Leapt\\\\ImBundle\\\\Doctrine\\\\Mapping\\\\Mogrify\\:\\:__construct\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Doctrine/Mapping/Mogrify.php
