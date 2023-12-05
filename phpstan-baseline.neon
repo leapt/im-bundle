@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot call method end\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:end\\(\\)\\.$#"
 			count: 1
 			path: src/DependencyInjection/Configuration.php
 
@@ -74,4 +74,9 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 3
 			path: tests/ManagerTest.php
+
+		-
+			message: "#^Method Leapt\\\\ImBundle\\\\Tests\\\\Mock\\\\Process\\:\\:run\\(\\) overrides @final method Symfony\\\\Component\\\\Process\\\\Process\\:\\:run\\(\\)\\.$#"
+			count: 1
+			path: tests/Mock/Process.php
 
