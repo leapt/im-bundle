@@ -22,7 +22,7 @@ final class Process extends BaseProcess
     /**
      * @param array<string>|null $env
      */
-    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60): static
+    public static function fromShellCommandline(string $command, ?string $cwd = null, ?array $env = null, $input = null, ?float $timeout = 60): static
     {
         return new self([$command]);
     }
@@ -30,7 +30,7 @@ final class Process extends BaseProcess
     /**
      * @param array<string> $env
      */
-    public function run(callable $callback = null, array $env = []): int
+    public function run(?callable $callback = null, array $env = []): int
     {
         if ('mogrify "somefailingstructure' === $this->cmd) {
             $this->success = false;
