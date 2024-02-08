@@ -40,11 +40,11 @@
         "twig/twig": "^3.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.40.2",
+        "friendsofphp/php-cs-fixer": "^3.49.0",
         "mikey179/vfsstream": "^1.6.11",
-        "phpstan/phpstan": "^1.10.47",
+        "phpstan/phpstan": "^1.10.57",
         "phpstan/phpstan-deprecation-rules": "^1.1.4",
-        "phpunit/phpunit": "^10.5.1",
+        "phpunit/phpunit": "^10.5.10",
         "symfony/browser-kit": "^6.4 || ^7.0"
     },
     "scripts": {
