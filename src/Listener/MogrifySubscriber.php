@@ -64,20 +64,22 @@ class MogrifySubscriber
         if (!\array_key_exists($class, $this->config)) {
             $meta = $entityManager->getClassMetaData($class);
 
-            foreach ($meta->getReflectionClass()->getProperties() as $property) {
-                if ($meta->isMappedSuperclass && !$property->isPrivate()
-                    || $meta->isInheritedField($property->name)
-                    || isset($meta->associationMappings[$property->name]['inherited'])
-                ) {
-                    continue;
-                }
-                $attributes = $this->getAttributes($property);
-                foreach ($attributes as $attribute) {
-                    $field = $property->getName();
-                    $this->config[$class]['fields'][$field] = [
-                        'property' => $property,
-                        'params'   => $attribute->params,
-                    ];
+            foreach ($meta->getReflectionProperties() as $property) {
+                if (null !== $property) {
+                    if ($meta->isMappedSuperclass && !$property->isPrivate()
+                        || $meta->isInheritedField($property->name)
+                        || isset($meta->associationMappings[$property->name]['inherited'])
+                    ) {
+                        continue;
+                    }
+                    $attributes = $this->getAttributes($property);
+                    foreach ($attributes as $attribute) {
+                        $field = $property->getName();
+                        $this->config[$class]['fields'][$field] = [
+                            'property' => $property,
+                            'params'   => $attribute->params,
+                        ];
+                    }
                 }
             }
         }
