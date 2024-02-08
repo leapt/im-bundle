@@ -1,3 +1,8 @@
+5.1.0
+-----
+
+* Add support for doctrine/orm v3
+
 5.0.0
 -----
 
