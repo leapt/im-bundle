@@ -33,6 +33,7 @@ jobs:
         with:
           coverage: pcov
           php-version: ${{ matrix.php-version }}
+          extensions: imagick
 
       - name: Install Symfony Flex
         run: |
