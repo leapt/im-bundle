@@ -2,6 +2,8 @@
 -----
 
 * Fix reflection issue
+* Fix code style & static analysis
+* Fix CI
 
 5.1.0
 -----
