@@ -27,7 +27,7 @@ class DefaultController
         }
 
         if (!$im->cacheExists($format, $path)) {
-            throw new RuntimeException(sprintf('Caching of image failed for %s in %s format', $path, $format));
+            throw new RuntimeException(\sprintf('Caching of image failed for %s in %s format', $path, $format));
         }
 
         $extension = pathinfo($path, \PATHINFO_EXTENSION);

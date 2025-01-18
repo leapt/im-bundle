@@ -66,7 +66,7 @@ class Wrapper
     {
         $dir = \dirname($path);
         if (!is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
-            throw new RuntimeException(sprintf('Unable to create the "%s" directory', $dir));
+            throw new RuntimeException(\sprintf('Unable to create the "%s" directory', $dir));
         }
     }
 
