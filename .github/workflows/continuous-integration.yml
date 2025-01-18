@@ -23,6 +23,8 @@ jobs:
           - '7.0.*'
 
     steps:
+      - uses: mfinelli/setup-imagemagick@v6
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -33,7 +35,6 @@ jobs:
         with:
           coverage: pcov
           php-version: ${{ matrix.php-version }}
-          extensions: imagick
 
       - name: Install Symfony Flex
         run: |
