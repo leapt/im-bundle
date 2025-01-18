@@ -34,6 +34,9 @@ jobs:
           coverage: pcov
           php-version: ${{ matrix.php-version }}
 
+      - name: Install Imagemagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
       - name: Install Symfony Flex
         run: |
           composer config --global --no-plugins allow-plugins.symfony/flex true

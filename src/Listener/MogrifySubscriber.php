@@ -67,8 +67,8 @@ class MogrifySubscriber
             foreach ($meta->getReflectionProperties() as $property) {
                 if (null !== $property) {
                     if ($meta->isMappedSuperclass && !$property->isPrivate()
-                        || $meta->isInheritedField($property->name)
-                        || isset($meta->associationMappings[$property->name]['inherited'])
+                        || $meta->isInheritedField($property->getName())
+                        || isset($meta->associationMappings[$property->getName()]['inherited'])
                     ) {
                         continue;
                     }

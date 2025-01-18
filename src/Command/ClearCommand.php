@@ -36,7 +36,7 @@ final class ClearCommand extends Command
 
         $age = $input->getArgument('age');
         if ($age) {
-            $output->writeln(sprintf('Clearing the IM cache older than %s days', $age));
+            $output->writeln(\sprintf('Clearing the IM cache older than %s days', $age));
 
             $finder = new Finder();
             foreach ($finder->in($cacheDir)->files()->date('until ' . $age . ' days ago') as $file) {

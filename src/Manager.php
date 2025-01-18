@@ -167,7 +167,7 @@ class Manager
             return ['thumbnail' => $format];
         }
 
-        throw new InvalidArgumentException(sprintf('Unknown IM format: %s', $format));
+        throw new InvalidArgumentException(\sprintf('Unknown IM format: %s', $format));
     }
 
     /**
@@ -176,11 +176,11 @@ class Manager
     private function checkImage(string $path): void
     {
         if (!file_exists($this->getPublicDirectory() . '/' . $path) && !file_exists($path)) {
-            throw new NotFoundException(sprintf('Unable to find the image "%s" to cache', $path));
+            throw new NotFoundException(\sprintf('Unable to find the image "%s" to cache', $path));
         }
 
         if (!is_file($this->getPublicDirectory() . '/' . $path) && !is_file($path)) {
-            throw new HttpException(400, sprintf('[ImBundle] "%s" is no file', $path));
+            throw new HttpException(400, \sprintf('[ImBundle] "%s" is no file', $path));
         }
     }
 

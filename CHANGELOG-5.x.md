@@ -1,3 +1,10 @@
+5.1.1
+-----
+
+* Fix reflection issue
+* Fix code style & static analysis
+* Fix CI
+
 5.1.0
 -----
 
