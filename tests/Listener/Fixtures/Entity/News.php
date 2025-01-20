@@ -7,6 +7,7 @@ namespace Leapt\ImBundle\Tests\Listener\Fixtures\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Leapt\ImBundle\Doctrine\Mapping as LeaptIm;
+use Leapt\ImBundle\Tests\Listener\Fixtures\Enums\Status;
 use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity]
@@ -17,6 +18,9 @@ class News
 
     #[LeaptIm\Mogrify(params: ['thumbnail' => '100x100>'])]
     private ?File $image;
+
+    #[ORM\Column]
+    private ?Status $status;
 
     public function getId(): int
     {
@@ -36,5 +40,15 @@ class News
     public function setImage(?File $image): void
     {
         $this->image = $image;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): void
+    {
+        $this->status = $status;
     }
 }
