@@ -13,9 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ImageTypeExtension extends AbstractTypeExtension
 {
-    public function __construct(protected Manager $imManager)
-    {
-    }
+    public function __construct(protected Manager $imManager) {}
 
     public static function getExtendedTypes(): iterable
     {
