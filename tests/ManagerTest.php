@@ -11,6 +11,7 @@ use Leapt\ImBundle\Tests\Mock\Process;
 use Leapt\ImBundle\Wrapper;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 final class ManagerTest extends TestCase
@@ -47,9 +48,7 @@ final class ManagerTest extends TestCase
         return $manager;
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testSetCachePath(Manager $manager): void
     {
         $manager->setCachePath('somepath');
@@ -60,9 +59,7 @@ final class ManagerTest extends TestCase
         $manager->setCachePath($this->cachePath);
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testCacheExists(Manager $manager): void
     {
         $this->markTestSkipped();
@@ -87,9 +84,7 @@ final class ManagerTest extends TestCase
         $this->assertTrue($manager->cacheExists($format, $filepath));
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testGetCacheContent(Manager $manager): void
     {
         $this->markTestSkipped();
@@ -109,9 +104,7 @@ final class ManagerTest extends TestCase
         $this->assertEquals('somecontent', $manager->getCacheContent('format', 'somefile'));
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testGetUrl(Manager $manager): void
     {
         $format = 'someformat';
@@ -123,9 +116,7 @@ final class ManagerTest extends TestCase
         $manager->setCachePath($this->cachePath);
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testConvertFormat(Manager $manager): void
     {
         $method = new \ReflectionMethod($manager, 'convertFormat');
@@ -138,9 +129,7 @@ final class ManagerTest extends TestCase
         $this->assertEquals(['thumbnail' => 'x100'], $method->invoke($manager, 'x100'));
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testConvertFormatException(Manager $manager): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -151,9 +140,7 @@ final class ManagerTest extends TestCase
         $method->invoke($manager, 'someunknownformat');
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testCheckImage(Manager $manager): void
     {
         $this->markTestSkipped();
@@ -176,9 +163,7 @@ final class ManagerTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testCheckImageException(Manager $manager): void
     {
         $this->expectException(NotFoundException::class);
@@ -189,9 +174,7 @@ final class ManagerTest extends TestCase
         $method->invoke($manager, 'someinexistantfile');
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[Depends('testConstruct')]
     public function testPathify(Manager $manager): void
     {
         $method = new \ReflectionMethod($manager, 'pathify');

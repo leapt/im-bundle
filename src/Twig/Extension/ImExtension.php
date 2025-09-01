@@ -13,9 +13,7 @@ use Twig\TwigFunction;
 
 class ImExtension extends AbstractExtension
 {
-    public function __construct(private Manager $manager)
-    {
-    }
+    public function __construct(private Manager $manager) {}
 
     public function getTokenParsers(): array
     {

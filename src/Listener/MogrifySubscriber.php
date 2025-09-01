@@ -17,9 +17,7 @@ class MogrifySubscriber
 {
     private array $config = [];
 
-    public function __construct(private ImManager $imManager)
-    {
-    }
+    public function __construct(private ImManager $imManager) {}
 
     public function preFlush(PreFlushEventArgs $ea): void
     {
@@ -64,21 +62,41 @@ class MogrifySubscriber
         if (!\array_key_exists($class, $this->config)) {
             $meta = $entityManager->getClassMetaData($class);
 
-            foreach ($meta->getReflectionProperties() as $property) {
-                if (null !== $property) {
-                    if ($meta->isMappedSuperclass && !$property->isPrivate()
-                        || $meta->isInheritedField($property->getName())
-                        || isset($meta->associationMappings[$property->getName()]['inherited'])
+            if (method_exists($meta, 'getPropertyAccessors')) {
+                // Doctrine ORM >= 3.4.0
+                foreach ($meta->getPropertyAccessors() as $property) {
+                    if ($meta->isMappedSuperclass && !$property->getUnderlyingReflector()->isPrivate()
+                        || $meta->isInheritedField($property->getUnderlyingReflector()->getName())
+                        || isset($meta->associationMappings[$property->getUnderlyingReflector()->getName()]['inherited'])
                     ) {
                         continue;
                     }
-                    $attributes = $this->getAttributes($property);
+                    $attributes = $this->getAttributes($property->getUnderlyingReflector());
                     foreach ($attributes as $attribute) {
-                        $field = $property->getName();
+                        $field = $property->getUnderlyingReflector()->getName();
                         $this->config[$class]['fields'][$field] = [
                             'property' => $property,
                             'params'   => $attribute->params,
                         ];
+                    }
+                }
+            } else {
+                foreach ($meta->getReflectionProperties() as $property) {
+                    if (null !== $property) {
+                        if ($meta->isMappedSuperclass && !$property->isPrivate()
+                            || $meta->isInheritedField($property->getName())
+                            || isset($meta->associationMappings[$property->getName()]['inherited'])
+                        ) {
+                            continue;
+                        }
+                        $attributes = $this->getAttributes($property);
+                        foreach ($attributes as $attribute) {
+                            $field = $property->getName();
+                            $this->config[$class]['fields'][$field] = [
+                                'property' => $property,
+                                'params'   => $attribute->params,
+                            ];
+                        }
                     }
                 }
             }

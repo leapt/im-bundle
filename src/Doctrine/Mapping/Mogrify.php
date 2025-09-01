@@ -7,7 +7,5 @@ namespace Leapt\ImBundle\Doctrine\Mapping;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class Mogrify
 {
-    public function __construct(public array|string $params)
-    {
-    }
+    public function __construct(public array|string $params) {}
 }
