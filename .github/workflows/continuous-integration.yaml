@@ -46,8 +46,8 @@ jobs:
           php-version: ${{ matrix.php-version }}
           tools: flex
 
-      - name: Install Imagemagick
-        run: sudo apt-get update && sudo apt-get install -y imagemagick
+      - name: Install ImageMagick (prebuilt)
+        uses: mfinelli/setup-imagemagick@v7
 
       - name: Configure Composer minimum-stability for dev versions
         if: contains(matrix.symfony-version, 'dev')
