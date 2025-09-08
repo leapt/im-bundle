@@ -4,7 +4,7 @@
 
 * You need to have the ImageMagick binaries available (convert & mogrify)
 * You need to have a cache folder in your web dir, writeable by the webserver
-* Symfony 6.4/7.0+
+* Symfony 6.4/7.0+/8.0+
 * PHP 8.2+
 
 ## Install steps

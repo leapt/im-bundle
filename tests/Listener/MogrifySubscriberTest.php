@@ -56,6 +56,10 @@ final class MogrifySubscriberTest extends TestCase
         $config->setMetadataDriverImpl(new AttributeDriver([__DIR__ . '/Fixtures']));
         $config->setAutoGenerateProxyClasses(true);
 
+        if (\PHP_VERSION_ID >= 80400) {
+            $config->enableNativeLazyObjects(true);
+        }
+
         $params = [
             'driver' => 'pdo_sqlite',
             'memory' => true,
