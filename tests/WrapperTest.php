@@ -33,7 +33,6 @@ final class WrapperTest extends TestCase
     public function testPrepareAttributes(array $attributes, string $expected): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'prepareAttributes');
-        $method->setAccessible(true);
 
         $this->assertEquals($expected, $method->invoke($this->wrapper, $attributes));
     }
@@ -56,7 +55,7 @@ final class WrapperTest extends TestCase
         yield 'array_config' => [
             [
                 'resize' => '120x',
-                null     => '+opaque -transparent',
+                ''       => '+opaque -transparent',
             ],
             ' -resize "120x" +opaque -transparent',
         ];
@@ -67,7 +66,6 @@ final class WrapperTest extends TestCase
     {
         $this->expectException(\TypeError::class);
         $method = new \ReflectionMethod($this->wrapper, 'prepareAttributes');
-        $method->setAccessible(true);
 
         $method->invoke($this->wrapper, $attributes);
     }
@@ -88,7 +86,6 @@ final class WrapperTest extends TestCase
     public function testBuildCommand(string $command, string $inputFile, array $attributes, string $outputFile, string $expected): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'buildCommand');
-        $method->setAccessible(true);
 
         $this->assertEquals($expected, $method->invoke($this->wrapper, $command, $inputFile, $attributes, $outputFile));
     }
@@ -112,7 +109,6 @@ final class WrapperTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $method = new \ReflectionMethod($this->wrapper, 'buildCommand');
-        $method->setAccessible(true);
 
         $method->invoke($this->wrapper, $command, $inputFile, $attributes, $outputFile);
     }
@@ -149,7 +145,6 @@ final class WrapperTest extends TestCase
     public function testValidateCommand(string $commandString): void
     {
         $method = new \ReflectionMethod($this->wrapper, 'validateCommand');
-        $method->setAccessible(true);
 
         $this->assertTrue($method->invoke($this->wrapper, $commandString));
     }
@@ -169,7 +164,6 @@ final class WrapperTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $method = new \ReflectionMethod($this->wrapper, 'validateCommand');
-        $method->setAccessible(true);
 
         $method->invoke($this->wrapper, $commandString);
     }
@@ -199,7 +193,6 @@ final class WrapperTest extends TestCase
         $this->expectException(RuntimeException::class);
 
         $method = new \ReflectionMethod($this->wrapper, 'checkDirectory');
-        $method->setAccessible(true);
 
         \assert(vfsStreamWrapper::getRoot() instanceof vfsStreamContent);
         vfsStreamWrapper::getRoot()->chmod(0400);

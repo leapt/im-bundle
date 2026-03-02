@@ -11,7 +11,7 @@ It allows you to use all the convert/mogrify power, from your controllers, servi
 - [Extra information](extra.md)
 
 If you find a bug or want to add a functionality,
-[please create an issue or a pull request on Github](https://github.com/leapt/im-bundle)!
+[please create an issue or a pull request on GitHub](https://github.com/leapt/im-bundle)!
 
 ## License
 

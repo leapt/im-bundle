@@ -2,9 +2,9 @@ name: Continuous Integration
 
 on:
   pull_request:
-    branches: ['5.x', '4.x', '3.x']
+    branches: ["*.x"]
   push:
-    branches: ['5.x', '4.x', '3.x']
+    branches: ["*.x"]
 
 jobs:
   phpunit:
@@ -17,20 +17,14 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '8.2'
-          - '8.3'
           - '8.4'
           - '8.5'
         symfony-version:
-          - '6.4.*'
-          - '7.3.*'
-          - '7.4.*@dev'
+          - '7.4.*'
+          - '8.0.*'
         include:
-          - php-version: '8.4'
-            symfony-version: '8.0.*@dev'
-            continue-on-error: true
           - php-version: '8.5'
-            symfony-version: '8.0.*@dev'
+            symfony-version: '8.1.*@dev'
             continue-on-error: true
 
     steps:
@@ -61,4 +55,4 @@ jobs:
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v5
-        if: matrix.php-version == '8.2' && matrix.symfony-version == '6.4.*'
+        if: matrix.php-version == '8.4' && matrix.symfony-version == '7.4.*'
