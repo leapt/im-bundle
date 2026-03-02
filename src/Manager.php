@@ -140,7 +140,6 @@ class Manager
         curl_setopt($ch, \CURLOPT_HEADER, false);
 
         curl_exec($ch);
-        curl_close($ch);
         fclose($fp);
 
         return $newPath;

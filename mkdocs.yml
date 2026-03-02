@@ -3,7 +3,7 @@ site_description: Documentation for leapt/im-bundle
 
 repo_name: leapt/im-bundle
 repo_url: https://github.com/leapt/im-bundle
-edit_uri: https://github.com/leapt/im-bundle/edit/4.x/docs/
+edit_uri: https://github.com/leapt/im-bundle/edit/6.x/docs/
 
 theme:
     name: material

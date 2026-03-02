@@ -2,10 +2,10 @@ Leapt IM Bundle
 ===============
 
 [![Package version](https://img.shields.io/packagist/v/leapt/im-bundle.svg?style=flat-square)](https://packagist.org/packages/leapt/im-bundle)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/leapt/im-bundle/continuous-integration.yaml?branch=5.x&style=flat-square)](https://github.com/leapt/im-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
-![PHP Version](https://img.shields.io/packagist/php-v/leapt/im-bundle/v5.0.0?branch=5.x&style=flat-square)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/leapt/im-bundle/continuous-integration.yaml?branch=6.x&style=flat-square)](https://github.com/leapt/im-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
+![PHP Version](https://img.shields.io/packagist/php-v/leapt/im-bundle/v6.0.0?branch=6.x&style=flat-square)
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
-[![Code coverage](https://img.shields.io/codecov/c/github/leapt/im-bundle?style=flat-square)](https://codecov.io/gh/leapt/im-bundle/branch/5.x)
+[![Code coverage](https://img.shields.io/codecov/c/github/leapt/im-bundle?style=flat-square)](https://codecov.io/gh/leapt/im-bundle/branch/6.x)
 
 This bundle is a fork of the SnowcapImBundle.
 
@@ -24,21 +24,22 @@ See the [Documentation and examples](https://im-bundle.leapt.dev/)
 Versions & dependencies
 -----------------------
 
-The current version (5.x) of the bundle works with Symfony 6.4, 7.0+ & 8.0+.
+The current version (6.x) of the bundle works with Symfony 7.4 & 8.0+.
 The project follows SemVer.
 Only the last major version is maintained.
 
-You can check the [changelog](CHANGELOG-5.x.md) for version 5 and the [upgrade document](UPGRADE-5.x.md) when upgrading
-from 4.x bundle version.
+You can check the [changelog](CHANGELOG-6.x.md) for version 5 and the [upgrade document](UPGRADE-6.x.md) when upgrading
+from 5.x bundle version.
 
-| ImBundle version | Symfony version          | PHP version
-|------------------|--------------------------| -----------
-| 5.x              | ^6.4 \|\| ^7.0           | ^8.2
-| 4.x              | ^5.4 \|\| ^6.0           | ^8.0
-| 3.x              | ^4.4 \|\| ^5.0           | ^7.2 \|\| ^8.0
-| 2.1+             | ^3.3 \|\| ^4.0           | >=5.5
-| 2.0, < 2.1       | ^2.7 \|\| ^3.0 \|\| ^4.0 | >=5.4
-| 1.x              | ^2.7                     | >=5.3.3
+| ImBundle version | Symfony version          | PHP version    |
+|------------------|--------------------------|----------------|
+| 6.x              | ^7.4 \|\| ^8.0           | ^8.4           |
+| 5.x              | ^6.4 \|\| ^7.0 \|\| ^8.0 | ^8.2           |
+| 4.x              | ^5.4 \|\| ^6.0           | ^8.0           |
+| 3.x              | ^4.4 \|\| ^5.0           | ^7.2 \|\| ^8.0 |
+| 2.1+             | ^3.3 \|\| ^4.0           | >=5.5          |
+| 2.0, < 2.1       | ^2.7 \|\| ^3.0 \|\| ^4.0 | >=5.4          |
+| 1.x              | ^2.7                     | >=5.3.3        |
 
 Contributing
 ------------

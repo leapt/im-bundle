@@ -120,7 +120,6 @@ final class ManagerTest extends TestCase
     public function testConvertFormat(Manager $manager): void
     {
         $method = new \ReflectionMethod($manager, 'convertFormat');
-        $method->setAccessible(true);
 
         $this->assertEquals(['resize' => '100x100'], $method->invoke($manager, 'list'));
         $this->assertEquals(['resize' => '100x100', 'crop' => '50x50+1+1'], $method->invoke($manager, ['resize' => '100x100', 'crop' => '50x50+1+1']));
@@ -135,7 +134,6 @@ final class ManagerTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $method = new \ReflectionMethod($manager, 'convertFormat');
-        $method->setAccessible(true);
 
         $method->invoke($manager, 'someunknownformat');
     }
@@ -156,7 +154,6 @@ final class ManagerTest extends TestCase
         $this->root->addChild($structureStream);
 
         $method = new \ReflectionMethod($manager, 'checkImage');
-        $method->setAccessible(true);
 
         $method->invoke($manager, 'uploads/somefile');
         $method->invoke($manager, 'vfs://public/uploads/somefile');
@@ -169,7 +166,6 @@ final class ManagerTest extends TestCase
         $this->expectException(NotFoundException::class);
 
         $method = new \ReflectionMethod($manager, 'checkImage');
-        $method->setAccessible(true);
 
         $method->invoke($manager, 'someinexistantfile');
     }
@@ -178,7 +174,6 @@ final class ManagerTest extends TestCase
     public function testPathify(Manager $manager): void
     {
         $method = new \ReflectionMethod($manager, 'pathify');
-        $method->setAccessible(true);
 
         $simplePath = $method->invoke($manager, '200x150');
         $this->assertIsString($simplePath);
@@ -198,7 +193,6 @@ final class ManagerTest extends TestCase
         $reflection = new \ReflectionClass($manager);
 
         $property = $reflection->getProperty($propertyName);
-        $property->setAccessible(true);
 
         return $property->getValue($manager);
     }
