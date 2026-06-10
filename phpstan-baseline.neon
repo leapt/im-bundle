@@ -106,6 +106,15 @@ parameters:
 			path: tests/LeaptImTestingKernel.php
 
 		-
+			rawMessage: '''
+				Return type of method Leapt\ImBundle\Tests\LeaptImTestingKernel::registerBundles() has typehint with deprecated interface Symfony\Component\HttpKernel\Bundle\BundleInterface:
+				since Symfony 8.1, use Symfony\Component\DependencyInjection\Kernel\BundleInterface instead
+			'''
+			identifier: return.deprecatedInterface
+			count: 1
+			path: tests/LeaptImTestingKernel.php
+
+		-
 			rawMessage: 'Property Leapt\ImBundle\Tests\ManagerTest::$root is never read, only written.'
 			identifier: property.onlyWritten
 			count: 1
