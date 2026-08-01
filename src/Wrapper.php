@@ -103,7 +103,7 @@ class Wrapper
         $result = '';
 
         foreach ($attributes as $key => $value) {
-            if (\in_array($key, [null, ''], true)) {
+            if ('' === $key) {
                 $result .= ' ' . $value;
             } else {
                 $result .= ' -' . $key;
