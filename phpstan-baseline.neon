@@ -115,18 +115,6 @@ parameters:
 			path: tests/LeaptImTestingKernel.php
 
 		-
-			rawMessage: 'Property Leapt\ImBundle\Tests\ManagerTest::$root is never read, only written.'
-			identifier: property.onlyWritten
-			count: 1
-			path: tests/ManagerTest.php
-
-		-
-			rawMessage: Unreachable statement - code above always terminates.
-			identifier: deadCode.unreachable
-			count: 3
-			path: tests/ManagerTest.php
-
-		-
 			rawMessage: 'Method Leapt\ImBundle\Tests\Mock\Process::run() overrides @final method Symfony\Component\Process\Process::run().'
 			identifier: method.parentMethodFinalByPhpDoc
 			count: 1
