@@ -24,7 +24,7 @@ final class ManagerTest extends TestCase
     protected function setUp(): void
     {
         $this->root = vfsStream::setup('/root');
-        $this->projectDir = 'vfs://app';
+        $this->projectDir = 'vfs://root/app';
         $this->publicPath = '../public';
         $this->cachePath = 'cache/im';
     }
@@ -62,7 +62,6 @@ final class ManagerTest extends TestCase
     #[Depends('testConstruct')]
     public function testCacheExists(Manager $manager): void
     {
-        $this->markTestSkipped();
         $this->root = vfsStream::setup('/root');
         $filepath = 'somefile';
         $format = '50x';
@@ -87,7 +86,6 @@ final class ManagerTest extends TestCase
     #[Depends('testConstruct')]
     public function testGetCacheContent(Manager $manager): void
     {
-        $this->markTestSkipped();
         $structure = [
             'app'    => [],
             'public' => [
@@ -141,7 +139,8 @@ final class ManagerTest extends TestCase
     #[Depends('testConstruct')]
     public function testCheckImage(Manager $manager): void
     {
-        $this->markTestSkipped();
+        $this->expectNotToPerformAssertions();
+
         $structure = [
             'app'    => [],
             'public' => [
@@ -156,8 +155,7 @@ final class ManagerTest extends TestCase
         $method = new \ReflectionMethod($manager, 'checkImage');
 
         $method->invoke($manager, 'uploads/somefile');
-        $method->invoke($manager, 'vfs://public/uploads/somefile');
-        $this->assertTrue(true);
+        $method->invoke($manager, 'vfs://root/public/uploads/somefile');
     }
 
     #[Depends('testConstruct')]
