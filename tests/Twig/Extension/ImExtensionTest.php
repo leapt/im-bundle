@@ -44,6 +44,9 @@ final class ImExtensionTest extends TestCase
             ['hop <img src="/img.jpg" width="100" />hop <img src="/img2.jpg" width="100" /> hip', 'hop <img src="/cache/im/100x/img.jpg" width="100" />hop <img src="/cache/im/100x/img2.jpg" width="100" /> hip'],
             ['hop <img src="/img.jpg" width="100" />hop <img src="/img.jpg" width="120" /> hip', 'hop <img src="/cache/im/100x/img.jpg" width="100" />hop <img src="/cache/im/120x/img.jpg" width="120" /> hip'],
             ['hop <img src="/img.jpg" width="100" />hop <img src="/img.jpg" width="100" /> hip', 'hop <img src="/cache/im/100x/img.jpg" width="100" />hop <img src="/cache/im/100x/img.jpg" width="100" /> hip'],
+            // src containing regex-special characters must not break the internal preg_replace
+            ['hop <img src="/img(1.jpg" width="100" />hop', 'hop <img src="/cache/im/100x/img(1.jpg" width="100" />hop'],
+            ['hop <img src="/path/img[a].jpg" width="100" />hop', 'hop <img src="/cache/im/100x/path/img[a].jpg" width="100" />hop'],
         ];
     }
 

@@ -50,14 +50,20 @@ final class WrapperTest extends TestCase
             [
                 'resize' => '150x150^',
             ],
-            ' -resize "150x150^"',
+            " -resize '150x150^'",
         ];
         yield 'array_config' => [
             [
                 'resize' => '120x',
                 ''       => '+opaque -transparent',
             ],
-            ' -resize "120x" +opaque -transparent',
+            " -resize '120x' +opaque -transparent",
+        ];
+        yield 'shell_metacharacters_are_escaped' => [
+            [
+                'thumbnail' => '100x100" ; touch /tmp/pwned ; echo "',
+            ],
+            " -thumbnail '100x100\" ; touch /tmp/pwned ; echo \"'",
         ];
     }
 
@@ -95,9 +101,10 @@ final class WrapperTest extends TestCase
      */
     public static function providerBuildCommand(): iterable
     {
-        yield ['convert', 'somefile', [], 'anotherfile', 'convert somefile anotherfile'];
-        yield ['mogrify', 'somefile', ['resize' => '450x'], '', 'mogrify -resize "450x" somefile'];
-        yield ['montage', 'somefile', ['resize' => '450x'], '', 'montage -resize "450x" somefile'];
+        yield ['convert', 'somefile', [], 'anotherfile', "convert 'somefile' 'anotherfile'"];
+        yield ['mogrify', 'somefile', ['resize' => '450x'], '', "mogrify -resize '450x' 'somefile'"];
+        yield ['montage', 'somefile', ['resize' => '450x'], '', "montage -resize '450x' 'somefile'"];
+        yield ['convert', 'some"file; rm -rf /', [], '', 'convert ' . escapeshellarg('some"file; rm -rf /')];
     }
 
     /**

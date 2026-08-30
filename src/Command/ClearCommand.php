@@ -44,7 +44,7 @@ final class ClearCommand extends Command
             }
 
             // removing empty directories
-            $process = Process::fromShellCommandline('find ' . $cacheDir . ' -type d -empty');
+            $process = Process::fromShellCommandline('find ' . escapeshellarg($cacheDir) . ' -type d -empty');
             $process->run();
             $emptyDirectories = explode("\n", $process->getOutput());
             foreach ($emptyDirectories as $directory) {
