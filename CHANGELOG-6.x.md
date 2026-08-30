@@ -1,3 +1,8 @@
+6.1.0
+-----
+
+* Fix usage with AssetMapper
+
 6.0.0
 -----
 

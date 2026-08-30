@@ -6,6 +6,7 @@ namespace Leapt\ImBundle;
 
 use Leapt\ImBundle\Exception\InvalidArgumentException;
 use Leapt\ImBundle\Exception\NotFoundException;
+use Symfony\Component\AssetMapper\AssetMapperInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Manager
@@ -14,12 +15,18 @@ class Manager
     protected string $publicPath;
     protected string $cachePath;
 
+    /**
+     * @var array<string, string>|null Map of asset mapper public paths (without leading slash) to their filesystem source path
+     */
+    private ?array $assetMapperIndex = null;
+
     public function __construct(
         protected Wrapper $wrapper,
         string $projectDir,
         string $publicPath,
         string $cachePath,
         protected array $formats = [],
+        private ?AssetMapperInterface $assetMapper = null,
     ) {
         $this->setProjectDir($projectDir);
         $this->setPublicPath($publicPath);
@@ -104,9 +111,10 @@ class Manager
     public function convert(string|array $format, string $file): string
     {
         $file = ltrim($file, '/');
-        $this->checkImage($file);
+        $sourceFile = $this->resolveSourceFile($file);
+        $this->checkImage($sourceFile);
 
-        return $this->wrapper->run('convert', $this->getPublicDirectory() . '/' . $file, $this->convertFormat($format), $this->getCacheDirectory() . '/' . $this->pathify($format) . '/' . $file);
+        return $this->wrapper->run('convert', $sourceFile, $this->convertFormat($format), $this->getCacheDirectory() . '/' . $this->pathify($format) . '/' . $file);
     }
 
     /**
@@ -167,6 +175,36 @@ class Manager
         }
 
         throw new InvalidArgumentException(\sprintf('Unknown IM format: %s', $format));
+    }
+
+    /**
+     * Resolves a public path relative to the public directory to its filesystem source path.
+     *
+     * Files served through Symfony's AssetMapper (e.g. `asset('images/photo.jpg')` resolving to
+     * `/assets/images/photo-abc123.jpg`) are not necessarily written to the public directory,
+     * so their source file has to be looked up through the asset mapper instead.
+     */
+    private function resolveSourceFile(string $file): string
+    {
+        $publicFile = $this->getPublicDirectory() . '/' . $file;
+        if (is_file($publicFile)) {
+            return $publicFile;
+        }
+
+        if (null !== $this->assetMapper) {
+            if (null === $this->assetMapperIndex) {
+                $this->assetMapperIndex = [];
+                foreach ($this->assetMapper->allAssets() as $asset) {
+                    $this->assetMapperIndex[ltrim($asset->publicPath, '/')] = $asset->sourcePath;
+                }
+            }
+
+            if (isset($this->assetMapperIndex[$file])) {
+                return $this->assetMapperIndex[$file];
+            }
+        }
+
+        return $publicFile;
     }
 
     /**
