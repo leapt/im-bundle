@@ -34,6 +34,7 @@ return static function (ContainerConfigurator $container): void {
             ->arg('$publicPath', param('leapt_im.public_path'))
             ->arg('$cachePath', param('leapt_im.cache_path'))
             ->arg('$formats', param('leapt_im.formats'))
+            ->arg('$assetMapper', service('asset_mapper')->nullOnInvalid())
 
         ->set(MogrifySubscriber::class)
             ->arg('$imManager', service(Manager::class))

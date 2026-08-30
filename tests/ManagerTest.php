@@ -13,6 +13,8 @@ use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\AssetMapper\AssetMapperInterface;
+use Symfony\Component\AssetMapper\MappedAsset;
 
 final class ManagerTest extends TestCase
 {
@@ -166,6 +168,62 @@ final class ManagerTest extends TestCase
         $method = new \ReflectionMethod($manager, 'checkImage');
 
         $method->invoke($manager, 'someinexistantfile');
+    }
+
+    public function testResolveSourceFileFallsBackToPublicDirectoryWhenFileExists(): void
+    {
+        vfsStream::create([
+            'app'    => [],
+            'public' => [
+                'images' => ['photo.jpg' => 'content'],
+            ],
+        ], $this->root);
+
+        $wrapper = new Wrapper(Process::class);
+        $manager = new Manager($wrapper, $this->projectDir, $this->publicPath, $this->cachePath);
+
+        $method = new \ReflectionMethod($manager, 'resolveSourceFile');
+
+        $this->assertEquals(
+            $this->projectDir . '/../public/images/photo.jpg',
+            $method->invoke($manager, 'images/photo.jpg'),
+        );
+    }
+
+    public function testResolveSourceFileUsesAssetMapperWhenFileIsNotInPublicDirectory(): void
+    {
+        $sourcePath = 'vfs://root/assets/images/photo.jpg';
+        vfsStream::create([
+            'assets' => ['images' => ['photo.jpg' => 'content']],
+        ], $this->root);
+
+        $asset = new MappedAsset('images/photo.jpg', sourcePath: $sourcePath, publicPath: '/assets/images/photo-abc123.jpg');
+
+        $assetMapper = $this->createStub(AssetMapperInterface::class);
+        $assetMapper->method('allAssets')->willReturn([$asset]);
+
+        $wrapper = new Wrapper(Process::class);
+        $manager = new Manager($wrapper, $this->projectDir, $this->publicPath, $this->cachePath, assetMapper: $assetMapper);
+
+        $method = new \ReflectionMethod($manager, 'resolveSourceFile');
+
+        $this->assertEquals($sourcePath, $method->invoke($manager, 'assets/images/photo-abc123.jpg'));
+    }
+
+    public function testResolveSourceFileFallsBackToPublicDirectoryWhenAssetMapperHasNoMatch(): void
+    {
+        $assetMapper = $this->createStub(AssetMapperInterface::class);
+        $assetMapper->method('allAssets')->willReturn([]);
+
+        $wrapper = new Wrapper(Process::class);
+        $manager = new Manager($wrapper, $this->projectDir, $this->publicPath, $this->cachePath, assetMapper: $assetMapper);
+
+        $method = new \ReflectionMethod($manager, 'resolveSourceFile');
+
+        $this->assertEquals(
+            $this->projectDir . '/../public/unknown.jpg',
+            $method->invoke($manager, 'unknown.jpg'),
+        );
     }
 
     #[Depends('testConstruct')]
