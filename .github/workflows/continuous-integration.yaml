@@ -28,11 +28,13 @@ jobs:
           - '8.5'
         symfony-version:
           - '7.4.*'
-          - '8.0.*'
           - '8.1.*'
         include:
           - php-version: '8.5'
             symfony-version: '8.2.*@dev'
+            continue-on-error: true
+          - php-version: '8.6'
+            symfony-version: '8.1.*'
             continue-on-error: true
 
     steps:
