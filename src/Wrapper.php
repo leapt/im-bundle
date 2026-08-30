@@ -83,9 +83,9 @@ class Wrapper
         if ('' !== $outputFile) {
             $this->checkDirectory($outputFile);
 
-            $commandString = $this->binaryPath . $command . ' ' . $inputFile . $attributesString . ' ' . $outputFile;
+            $commandString = $this->binaryPath . $command . ' ' . escapeshellarg($inputFile) . $attributesString . ' ' . escapeshellarg($outputFile);
         } else {
-            $commandString = $this->binaryPath . $command . $attributesString . ' ' . $inputFile;
+            $commandString = $this->binaryPath . $command . $attributesString . ' ' . escapeshellarg($inputFile);
         }
 
         $this->validateCommand($commandString);
@@ -108,7 +108,7 @@ class Wrapper
             } else {
                 $result .= ' -' . $key;
                 if ('' !== $value) {
-                    $result .= ' "' . $value . '"';
+                    $result .= ' ' . escapeshellarg($value);
                 }
             }
         }

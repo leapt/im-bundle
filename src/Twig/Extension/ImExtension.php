@@ -55,7 +55,7 @@ class ImExtension extends AbstractExtension
 
             if (!empty($width) || !empty($height)) {
                 $format = $width . 'x' . $height;
-                $updatedTagString = preg_replace("| src=[\"']" . $src . "[\"']|", ' src="' . $this->imResize($src, $format) . '"', $img);
+                $updatedTagString = preg_replace('| src=["\']' . preg_quote($src, '|') . '["\']|', ' src="' . $this->imResize($src, $format) . '"', $img);
                 \assert(null !== $updatedTagString);
                 $html = str_replace($img, $updatedTagString, $html);
             }
