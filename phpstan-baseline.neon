@@ -88,20 +88,14 @@ parameters:
 			path: src/Manager.php
 
 		-
-			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::configureContainer() is unused.'
-			identifier: method.unused
+			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::configureContainer() has an unused parameter $builder.'
+			identifier: method.unusedParameter
 			count: 1
 			path: tests/LeaptImTestingKernel.php
 
 		-
-			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::configureRoutes() is unused.'
-			identifier: method.unused
-			count: 1
-			path: tests/LeaptImTestingKernel.php
-
-		-
-			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::getConfigDir() is unused.'
-			identifier: method.unused
+			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::configureContainer() has an unused parameter $loader.'
+			identifier: method.unusedParameter
 			count: 1
 			path: tests/LeaptImTestingKernel.php
 
@@ -113,6 +107,12 @@ parameters:
 			identifier: return.deprecatedInterface
 			count: 1
 			path: tests/LeaptImTestingKernel.php
+
+		-
+			rawMessage: 'Call to function method_exists() with Doctrine\ORM\Configuration and ''enableNativeLazyObj…'' will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: tests/Listener/MogrifySubscriberTest.php
 
 		-
 			rawMessage: 'Method Leapt\ImBundle\Tests\Mock\Process::run() overrides @final method Symfony\Component\Process\Process::run().'

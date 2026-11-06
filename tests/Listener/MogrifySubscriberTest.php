@@ -55,7 +55,9 @@ final class MogrifySubscriberTest extends TestCase
         $config = ORMSetup::createConfiguration(true, sys_get_temp_dir());
         $config->setMetadataDriverImpl(new AttributeDriver([__DIR__ . '/Fixtures']));
         $config->setAutoGenerateProxyClasses(true);
-        $config->enableNativeLazyObjects(true);
+        if (method_exists($config, 'enableNativeLazyObjects')) {
+            $config->enableNativeLazyObjects(true);
+        }
 
         $params = [
             'driver' => 'pdo_sqlite',
