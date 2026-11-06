@@ -20,6 +20,53 @@ final class DefaultControllerTest extends WebTestCase
         unlink(__DIR__ . '/../fixtures/cache/im/thumbnail/base-picture.jpg');
     }
 
+    public function testCachedImageIsServedWithoutBeingRegenerated(): void
+    {
+        $generatedImagePath = __DIR__ . '/../fixtures/cache/im/thumbnail/base-picture.jpg';
+        $client = self::createClient();
+
+        if (!is_dir(\dirname($generatedImagePath))) {
+            mkdir(\dirname($generatedImagePath), 0777, true);
+        }
+        file_put_contents($generatedImagePath, 'cached content');
+
+        try {
+            $client->request('GET', 'cache/im/thumbnail/base-picture.jpg');
+            self::assertResponseIsSuccessful();
+            self::assertSame('cached content', $client->getInternalResponse()->getContent());
+        } finally {
+            unlink($generatedImagePath);
+        }
+    }
+
+    public function testResponseIsCacheable(): void
+    {
+        $generatedImagePath = __DIR__ . '/../fixtures/cache/im/thumbnail/base-picture.jpg';
+        $client = self::createClient();
+
+        try {
+            $client->request('GET', 'cache/im/thumbnail/base-picture.jpg');
+            self::assertResponseIsSuccessful();
+            $response = $client->getResponse();
+            self::assertTrue($response->headers->hasCacheControlDirective('public'));
+            self::assertSame('31536000', $response->headers->getCacheControlDirective('max-age'));
+            self::assertNotNull($response->getEtag());
+            self::assertNotNull($response->getLastModified());
+
+            $client->request('GET', '/cache/im/thumbnail/base-picture.jpg', server: ['HTTP_IF_NONE_MATCH' => $response->getEtag()]);
+            self::assertResponseStatusCodeSame(304);
+        } finally {
+            unlink($generatedImagePath);
+        }
+    }
+
+    public function testWithPathTraversal(): void
+    {
+        $client = self::createClient();
+        $client->request('GET', '/cache/im/thumbnail/../../../base-picture.jpg');
+        self::assertResponseStatusCodeSame(404);
+    }
+
     public function testWithValidImageAndInvalidConfig(): void
     {
         $client = self::createClient();

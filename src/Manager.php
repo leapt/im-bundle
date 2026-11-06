@@ -6,6 +6,7 @@ namespace Leapt\ImBundle;
 
 use Leapt\ImBundle\Exception\InvalidArgumentException;
 use Leapt\ImBundle\Exception\NotFoundException;
+use Leapt\ImBundle\Exception\RuntimeException;
 use Symfony\Component\AssetMapper\AssetMapperInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -83,10 +84,20 @@ class Manager
 
     /**
      * To know if a cache exist for an image in a format.
+     *
+     * @phpstan-impure
      */
     public function cacheExists(string $format, string $path): bool
     {
-        return true === file_exists($this->getCacheDirectory() . '/' . $format . '/' . $path);
+        return true === file_exists($this->getCacheFilePath($format, $path));
+    }
+
+    /**
+     * To get the filesystem path of a cached image.
+     */
+    public function getCacheFilePath(string $format, string $path): string
+    {
+        return $this->getCacheDirectory() . '/' . $format . '/' . $path;
     }
 
     /**
@@ -94,7 +105,7 @@ class Manager
      */
     public function getCacheContent(string $format, string $path): string
     {
-        return file_get_contents($this->getCacheDirectory() . '/' . $format . '/' . $path);
+        return file_get_contents($this->getCacheFilePath($format, $path));
     }
 
     /**
@@ -147,8 +158,14 @@ class Manager
         curl_setopt($ch, \CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, \CURLOPT_HEADER, false);
 
-        curl_exec($ch);
+        $success = curl_exec($ch);
         fclose($fp);
+
+        if (false === $success) {
+            @unlink($newPath);
+
+            throw new RuntimeException(\sprintf('Unable to download the external image "%s"', $path));
+        }
 
         return $newPath;
     }

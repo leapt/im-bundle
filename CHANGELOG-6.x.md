@@ -1,3 +1,12 @@
+6.2.0
+-----
+
+* Serve already cached images without regenerating them (and without re-downloading remote images) on each request
+* Serve cached images using a `BinaryFileResponse`, with `ETag`, `Last-Modified` & long-lived `Cache-Control` headers (and `304 Not Modified` support)
+* Return a 404 response for image paths or formats containing `..` segments
+* Add `Manager::getCacheFilePath()`
+* Do not keep invalid or partially downloaded remote images in the cache
+
 6.1.0
 -----
 
