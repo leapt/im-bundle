@@ -88,20 +88,14 @@ parameters:
 			path: src/Manager.php
 
 		-
-			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::configureContainer() is unused.'
-			identifier: method.unused
+			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::configureContainer() has an unused parameter $builder.'
+			identifier: method.unusedParameter
 			count: 1
 			path: tests/LeaptImTestingKernel.php
 
 		-
-			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::configureRoutes() is unused.'
-			identifier: method.unused
-			count: 1
-			path: tests/LeaptImTestingKernel.php
-
-		-
-			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::getConfigDir() is unused.'
-			identifier: method.unused
+			rawMessage: 'Method Leapt\ImBundle\Tests\LeaptImTestingKernel::configureContainer() has an unused parameter $loader.'
+			identifier: method.unusedParameter
 			count: 1
 			path: tests/LeaptImTestingKernel.php
 
