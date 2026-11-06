@@ -109,6 +109,12 @@ parameters:
 			path: tests/LeaptImTestingKernel.php
 
 		-
+			rawMessage: 'Call to function method_exists() with Doctrine\ORM\Configuration and ''enableNativeLazyObj…'' will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: tests/Listener/MogrifySubscriberTest.php
+
+		-
 			rawMessage: 'Method Leapt\ImBundle\Tests\Mock\Process::run() overrides @final method Symfony\Component\Process\Process::run().'
 			identifier: method.parentMethodFinalByPhpDoc
 			count: 1
